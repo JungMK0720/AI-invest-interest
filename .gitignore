@@ -1,0 +1,20 @@
+# Java / Maven
+backend/target/
+*.class
+*.log
+
+# Node / Vite
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Env / secrets (실제 키가 들어갈 수 있는 파일은 커밋하지 않는다)
+.env
+.env.local
+*.env.local
+
+# OS / IDE
+.DS_Store
+.idea/
+*.iml
+.vscode/

@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+    :root{
+      --bg:#F4F6FB; --surface:#FFFFFF; --border:#E2E7F1;
+      --text:#151B2E; --text-muted:#5C6685; --text-faint:#8B95B3;
+      --primary:#2F55E8; --primary-dark:#1E3FC4; --primary-tint:#EAEFFF;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0; font-family:'Noto Sans KR', -apple-system, sans-serif;}
+    .opt{display:flex; align-items:center; gap:14px; padding:16px 18px; border-radius:12px; border:1.5px solid var(--border); background:#fff;}
+    .opt-selected{border-color:var(--primary); background:var(--primary-tint);}
+    .radio{width:19px;height:19px;border-radius:50%;border:2px solid var(--border); flex-shrink:0;}
+    .radio-on{border:2px solid var(--primary); position:relative;}
+    .radio-on::after{content:''; position:absolute; width:9px;height:9px;border-radius:50%;background:var(--primary); top:50%;left:50%;transform:translate(-50%,-50%);}
+  </style>
+</helmet>
+<div style="width:1160px; height:800px; background:var(--bg); display:flex; flex-direction:column;">
+
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:0 40px; height:64px; border-bottom:1px solid var(--border); background:var(--surface); flex-shrink:0;">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="width:28px;height:28px;border-radius:8px;background:var(--primary);display:flex;align-items:center;justify-content:center;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 4h13M6 4v16M6 11h9" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span style="font-weight:700; font-size:16.5px; color:var(--text); letter-spacing:-0.2px;">FinMATE</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span style="font-size:13px; color:var(--text-muted);">사용자A 님</span>
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center; font-weight:700;font-size:13px;color:var(--primary);">A</div>
+    </div>
+  </div>
+
+  <div style="display:flex; justify-content:center; gap:36px; padding:22px 0 4px 0;">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--primary-tint);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">✓</div>
+      <span style="font-size:13px; font-weight:500; color:var(--text-muted);">시작</span>
+    </div>
+    <div style="width:50px; height:1.5px; background:var(--primary); margin-top:12px;"></div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">2</div>
+      <span style="font-size:13px; font-weight:700; color:var(--primary);">진단</span>
+    </div>
+    <div style="width:50px; height:1.5px; background:var(--border); margin-top:12px;"></div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--border);color:var(--text-faint);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">3</div>
+      <span style="font-size:13px; font-weight:500; color:var(--text-faint);">결과</span>
+    </div>
+  </div>
+
+  <div style="flex:1; display:flex; justify-content:center; padding:26px 40px 40px;">
+    <div style="width:620px; display:flex; flex-direction:column; gap:20px;">
+
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:13px; font-weight:700; color:var(--primary);">질문 4 / 5</span>
+          <span style="font-size:12px; color:var(--text-faint);">배점 비중 20%</span>
+        </div>
+        <div style="width:100%; height:7px; border-radius:6px; background:var(--border); overflow:hidden;">
+          <div style="width:80%; height:100%; background:var(--primary); border-radius:6px;"></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface); border:1.5px solid var(--border); border-radius:16px; padding:32px; display:flex; flex-direction:column; gap:22px;">
+        <div style="font-weight:700; font-size:18px; color:var(--text); line-height:1.5;">투자 자금이 전체 금융자산에서 차지하는 비중은 어느 정도입니까?</div>
+
+        <div style="display:flex; flex-direction:column; gap:11px;">
+          <div class="opt"><div class="radio"></div><span style="font-size:14px; color:var(--text);">40% 초과</span></div>
+          <div class="opt"><div class="radio"></div><span style="font-size:14px; color:var(--text);">30% 초과 40% 이하</span></div>
+          <div class="opt opt-selected"><div class="radio radio-on"></div><span style="font-size:14px; color:var(--text); font-weight:700;">20% 초과 30% 이하</span></div>
+          <div class="opt"><div class="radio"></div><span style="font-size:14px; color:var(--text);">10% 초과 20% 이하</span></div>
+          <div class="opt"><div class="radio"></div><span style="font-size:14px; color:var(--text);">10% 이하</span></div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <button style="padding:13px 26px; border-radius:10px; background:#fff; color:var(--text-muted); font-weight:700; font-size:14px; border:1.5px solid var(--border); font-family:'Noto Sans KR',sans-serif;">이전</button>
+        <div style="display:flex; gap:6px;">
+          <div style="width:7px;height:7px;border-radius:50%;background:var(--primary);"></div>
+          <div style="width:7px;height:7px;border-radius:50%;background:var(--primary);"></div>
+          <div style="width:7px;height:7px;border-radius:50%;background:var(--primary);"></div>
+          <div style="width:7px;height:7px;border-radius:50%;background:var(--primary);"></div>
+          <div style="width:7px;height:7px;border-radius:50%;background:var(--border);"></div>
+        </div>
+        <button style="padding:13px 30px; border-radius:10px; background:var(--primary); color:#fff; font-weight:700; font-size:14px; border:none; font-family:'Noto Sans KR',sans-serif;">다음</button>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

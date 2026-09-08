@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+    :root{
+      --bg:#F4F6FB; --surface:#FFFFFF; --border:#E2E7F1;
+      --text:#151B2E; --text-muted:#5C6685; --text-faint:#8B95B3;
+      --primary:#2F55E8; --primary-dark:#1E3FC4; --primary-tint:#EAEFFF;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0; font-family:'Noto Sans KR', -apple-system, sans-serif;}
+  </style>
+</helmet>
+<div style="width:1160px; height:800px; background:var(--bg); display:flex; flex-direction:column;">
+
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:0 40px; height:64px; border-bottom:1px solid var(--border); background:var(--surface); flex-shrink:0;">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="width:28px;height:28px;border-radius:8px;background:var(--primary);display:flex;align-items:center;justify-content:center;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 4h13M6 4v16M6 11h9" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span style="font-weight:700; font-size:16.5px; color:var(--text); letter-spacing:-0.2px;">FinMATE</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span style="font-size:13px; color:var(--text-muted);">사용자A 님</span>
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center; font-weight:700;font-size:13px;color:var(--primary);">A</div>
+    </div>
+  </div>
+
+  <div style="display:flex; justify-content:center; gap:36px; padding:22px 0 4px 0;">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--primary-tint);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">✓</div>
+      <span style="font-size:13px; font-weight:500; color:var(--text-muted);">시작</span>
+    </div>
+    <div style="width:50px; height:1.5px; background:var(--primary); margin-top:12px;"></div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--primary-tint);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">✓</div>
+      <span style="font-size:13px; font-weight:500; color:var(--text-muted);">진단</span>
+    </div>
+    <div style="width:50px; height:1.5px; background:var(--primary); margin-top:12px;"></div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">3</div>
+      <span style="font-size:13px; font-weight:700; color:var(--primary);">결과</span>
+    </div>
+  </div>
+
+  <div style="flex:1; display:flex; justify-content:center; padding:22px 40px 34px; overflow:hidden;">
+    <div style="width:640px; display:flex; flex-direction:column; gap:16px;">
+
+      <div style="font-weight:700; font-size:19px; color:var(--text);">회원님의 투자 성향 분석 결과입니다</div>
+
+      <div style="background:var(--surface); border:1.5px solid var(--border); border-radius:16px; padding:26px 28px; display:flex; flex-direction:column; gap:18px;">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="padding:7px 14px; border-radius:999px; background:var(--primary-tint); color:var(--primary); font-weight:700; font-size:14px;">위험중립형</div>
+            <span style="font-size:12.5px; color:var(--text-faint);">5단계 중 3등급</span>
+          </div>
+          <div style="font-size:13px; color:var(--text-muted);">성향 점수 <span style="font-weight:700; color:var(--text);">52</span>/100</div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; width:100%; height:9px; border-radius:6px; overflow:hidden; gap:2px;">
+            <div style="flex:1; background:#E5484D;"></div>
+            <div style="flex:1; background:#ED7D4C;"></div>
+            <div style="flex:1; background:#2F55E8;"></div>
+            <div style="flex:1; background:#C7D2E8;"></div>
+            <div style="flex:1; background:#C7D2E8;"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-faint);">
+            <span>공격투자형</span><span>적극투자형</span><span style="color:var(--primary); font-weight:700;">위험중립형</span><span>안정추구형</span><span>안정형</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface); border:1.5px solid var(--border); border-radius:16px; padding:24px 28px; display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div style="padding:4px 10px; border-radius:999px; background:var(--primary-tint); color:var(--primary); font-weight:700; font-size:11.5px;">AI 생성</div>
+          <span style="font-size:13px; font-weight:700; color:var(--text);">분석 근거</span>
+        </div>
+        <div style="font-size:13.5px; color:var(--text-muted); line-height:1.7;">예금보다 높은 수익을 기대하면서도 일정 부분 위험을 감수할 수 있다고 답변하셨고, 투자 예정 기간도 1년 이상 3년 미만으로 응답하셨습니다. 이러한 답변을 종합하면 위험과 수익의 균형을 추구하는 위험중립형에 해당합니다.</div>
+      </div>
+
+      <button style="width:100%; padding:15px; border-radius:10px; background:var(--primary); color:#fff; font-weight:700; font-size:15px; border:none; font-family:'Noto Sans KR',sans-serif; display:flex; align-items:center; justify-content:center; gap:8px;">
+        탐색 카테고리 보기
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div style="font-size:11.5px; color:var(--text-faint); text-align:center;">본 결과는 참고용 진단이며 투자 자문이 아닙니다.</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

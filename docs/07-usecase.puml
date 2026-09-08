@@ -1,0 +1,61 @@
+@startuml
+title FinMATE - AI 투자 성향 진단 및 금융상품 탐색
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #EAF3FF
+  BorderColor #5B7FA3
+}
+
+actor "일반 사용자" as User
+actor "AI 분석 엔진" as AI
+actor "관리자" as Admin
+
+rectangle "FinMATE" {
+  package "1차 Agile (P0)" {
+    usecase "UC-01. 회원가입·로그인한다" as UC01
+    usecase "UC-02. 진단 질문 목록을 조회한다" as UC02
+    usecase "UC-03. 진단을 시작한다" as UC03
+    usecase "UC-04. 진단 답변을 제출한다" as UC04
+    usecase "UC-05. 분석 근거 문장을 생성한다" as UC05
+    usecase "UC-06. 분석 결과를 조회한다" as UC06
+    usecase "UC-07. 탐색 카테고리를 조회한다" as UC07
+    usecase "UC-08. 카테고리별 상품 목록을 조회한다" as UC08
+    usecase "UC-09. 상품 상세를 조회한다" as UC09
+  }
+
+  package "2차 Agile (P1)" {
+    usecase "UC-10. 상품을 비교한다" as UC10
+    usecase "UC-11. 가상 포트폴리오를 저장·조회한다" as UC11
+    usecase "UC-12. 진단 질문을 관리한다" as UC12
+    usecase "UC-13. 상품·카테고리를 관리한다" as UC13
+  }
+}
+
+User -- UC01
+User -- UC02
+User -- UC03
+User -- UC04
+User -- UC06
+User -- UC07
+User -- UC08
+User -- UC09
+User -- UC10
+User -- UC11
+
+AI -- UC05
+Admin -- UC12
+Admin -- UC13
+
+UC04 .> UC05 : <<include>>
+
+note right of UC05
+  입력: 규칙 엔진 결과·실제 답변
+  출력: 설명 문장
+  실패 시 템플릿으로 대체
+end note
+
+note bottom of UC10
+  UC-10~UC-13은 2차 범위
+end note
+@enduml

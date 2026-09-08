@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+    :root{
+      --bg:#F4F6FB; --surface:#FFFFFF; --border:#E2E7F1;
+      --text:#151B2E; --text-muted:#5C6685; --text-faint:#8B95B3;
+      --primary:#2F55E8; --primary-dark:#1E3FC4; --primary-tint:#EAEFFF;
+      --amber:#F0A93B; --amber-tint:#FEF3E1;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0; font-family:'Noto Sans KR', -apple-system, sans-serif;}
+    a{color:var(--primary); text-decoration:none;}
+    .chip{padding:10px 18px; border-radius:999px; border:1.5px solid var(--border); background:#fff; font-size:13.5px; color:var(--text-muted); display:flex; align-items:center; gap:8px; white-space:nowrap;}
+    .chip-active{border-color:var(--primary); background:var(--primary-tint); color:var(--primary); font-weight:700;}
+    .grade-dot{width:8px;height:8px;border-radius:50%;}
+  </style>
+</helmet>
+<div style="width:1160px; height:800px; background:var(--bg); display:flex; flex-direction:column;">
+
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:0 40px; height:64px; border-bottom:1px solid var(--border); background:var(--surface); flex-shrink:0;">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="width:28px;height:28px;border-radius:8px;background:var(--primary);display:flex;align-items:center;justify-content:center;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 4h13M6 4v16M6 11h9" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span style="font-weight:700; font-size:16.5px; color:var(--text); letter-spacing:-0.2px;">FinMATE</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span style="font-size:13px; color:var(--text-muted);">사용자A 님</span>
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center; font-weight:700;font-size:13px;color:var(--primary);">A</div>
+    </div>
+  </div>
+
+  <div style="padding:22px 40px 0; display:flex; flex-direction:column; gap:16px;">
+    <div style="font-size:12.5px; color:var(--text-faint);">분석 결과 &nbsp;›&nbsp; <span style="color:var(--text); font-weight:600;">탐색 카테고리</span></div>
+    <div style="font-weight:700; font-size:19px; color:var(--text);">위험중립형 고객님께 안내되는 탐색 카테고리</div>
+
+    <div style="display:flex; gap:10px;">
+      <div class="chip chip-active"><span class="grade-dot" style="background:#F0A93B;"></span>혼합형 펀드 · 3등급</div>
+      <div class="chip"><span class="grade-dot" style="background:#A7C43D;"></span>채권형 펀드 · 4등급</div>
+      <div class="chip"><span class="grade-dot" style="background:#4FB36B;"></span>국공채·우량회사채 · 5등급</div>
+    </div>
+
+    <div style="font-size:12.5px; color:var(--text-muted); background:#fff; border:1px solid var(--border); border-radius:10px; padding:12px 16px; line-height:1.6;">위험중립형의 내부 탐색 기준은 위험등급 3등급 이상입니다. 이 카테고리는 3등급으로 안내 범위에 해당합니다.</div>
+  </div>
+
+  <div style="flex:1; padding:20px 40px; display:flex; flex-direction:column; gap:14px; overflow:hidden;">
+    <div style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px;">
+
+      <div style="background:var(--surface); border:1.5px solid var(--border); border-radius:14px; padding:22px; display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <div style="font-weight:700; font-size:15px; color:var(--text); line-height:1.4;">국내 채권혼합형 펀드 (예시)</div>
+          <div style="padding:3px 9px; border-radius:999px; background:var(--amber-tint); color:#8A5A00; font-size:11px; font-weight:700; flex-shrink:0;">3등급</div>
+        </div>
+        <div style="font-size:12.5px; color:var(--text-faint);">예상 투자 기간 1~3년</div>
+        <div style="font-size:13px; color:var(--text-muted); line-height:1.6;">채권 비중을 높게 유지하면서 주식 일부를 편입합니다.</div>
+        <a href="#" style="font-size:13px; font-weight:700; margin-top:4px;">상세보기 →</a>
+      </div>
+
+      <div style="background:var(--surface); border:1.5px solid var(--border); border-radius:14px; padding:22px; display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <div style="font-weight:700; font-size:15px; color:var(--text); line-height:1.4;">글로벌 자산배분 펀드 (예시)</div>
+          <div style="padding:3px 9px; border-radius:999px; background:var(--amber-tint); color:#8A5A00; font-size:11px; font-weight:700; flex-shrink:0;">3등급</div>
+        </div>
+        <div style="font-size:12.5px; color:var(--text-faint);">예상 투자 기간 3년 이상</div>
+        <div style="font-size:13px; color:var(--text-muted); line-height:1.6;">주식과 채권 비중을 시장 상황에 따라 조정합니다.</div>
+        <a href="#" style="font-size:13px; font-weight:700; margin-top:4px;">상세보기 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:14px 40px; background:#fff; border-top:1px solid var(--border); font-size:11.5px; color:var(--text-faint); text-align:center;">본 정보는 투자 참고용이며 투자 자문이나 투자 권유가 아닙니다.</div>
+</div>
+</x-dc>
+</body>
+</html>

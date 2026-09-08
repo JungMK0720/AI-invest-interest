@@ -1,0 +1,56 @@
+# Changelog (요구사항/설계 변경 이력)
+
+날짜는 KST 기준, 최신 항목이 위로 오도록 추가한다.
+
+## 2026-09-08 (2차: React 프론트엔드 구현 및 실브라우저 E2E 검증)
+
+- 배포 조합 확정: 프론트엔드 Netlify, 백엔드(Spring Boot 컨테이너) Render, DB Supabase Postgres. Netlify/Supabase 단독으로는 상시구동 JVM을 못 올리는 제약을 확인하고 이 조합으로 결정.
+- 프론트엔드를 `frontend/`에 React + Vite + TypeScript로 신규 구현 — S1~S6 전 화면을 목업이 아닌 실제 API 연동으로 구현(회원가입/로그인, 진단 시작, 진단 진행 위저드, 분석 결과, 탐색 카테고리·상품 목록, 상품 상세).
+- 백엔드에 CORS 설정 추가(`WebConfig`, `finmate.cors.allowed-origins`), dev는 `localhost:5173`, prod는 `FRONTEND_ORIGIN` 환경변수로 분리.
+- 배포 설정 파일 추가: `backend/render.yaml`(Render 블루프린트), `frontend/netlify.toml`(SPA 라우팅 리다이렉트 포함).
+- 실제 브라우저(Claude in Chrome)로 회원가입 → 로그인 → 진단 5문항 응답 → 제출 → 결과(TEMPLATE 폴백 배너까지 실제 렌더링 확인) → 탐색 카테고리 → 상품 상세까지 클릭으로 전체 시나리오를 재현했고 콘솔 에러 없음을 확인. 목업이 아니라 실동작임을 이 과정으로 검증.
+- 남은 결정: 실제 Netlify/Render/Supabase 계정 생성과 배포 실행(계정 접근 권한이 필요해 사용자 조치 필요), 인증 저장소 고도화(ADR-009 후속).
+
+## 2026-09-08 (2차: 배포 준비 시작)
+
+- 1차 Agile 제출용 산출물(PDF용 와이어프레임, API YML, DBML, 발표자료 PPTX)을 마무리하고, 이후 작업은 "고도화 + 배포"로 전환.
+- 백엔드 컨테이너화: `backend/Dockerfile`(멀티스테이지), `backend/docker-compose.yml`(app + Postgres) 추가.
+- `application-prod.yml` 프로파일 추가 — Postgres 연결(env var 기반), `ddl-auto: update`, `sql.init.mode: never`(영구 DB 재시작 시 시드 재실행으로 인한 PK 충돌 방지).
+- `docker compose up --build`로 실제 컨테이너 기동 → Postgres 연결 확인 → `data.sql`을 psql로 1회 시드(수정 없이 그대로 호환됨) → 회원가입/로그인/진단 제출 E2E 재현 → 컨테이너 재시작 후에도 데이터 유지됨을 확인(H2 인메모리와 달리 영구 저장 검증).
+- 남은 결정 사항: 프론트엔드 프레임워크, 배포 호스팅 대상, 인증 저장소 고도화(ADR-009 후속). 결정되는 대로 이 changelog와 05-decisions.md에 ADR로 남긴다.
+
+## 2026-09-08 (구현 실행 검증 및 유스케이스 재검증)
+
+- `mvn test`(11개, 전부 통과)와 `mvn spring-boot:run`으로 백엔드를 실제 기동하고, 회원가입 → 로그인 → 질문 조회 → 진단 제출(`POST /assessments`) → 결과 조회 → 추천 조회 → 카테고리·상품 목록/상세까지 P0 핵심 시나리오를 curl로 end-to-end 재현했다. `ANTHROPIC_API_KEY` 미설정 상태에서 `reasoningSource=TEMPLATE`로 201 완료됨을 확인.
+- 다른 사용자의 `assessmentId` 접근 시 403, 미인증 접근 시 401, 이메일 중복 가입 시 409, 잘못된 비밀번호 로그인 시 계정 존재 여부를 노출하지 않는 401을 각각 실제 응답으로 확인.
+- 실행 로그에 이메일·비밀번호·토큰이 남지 않음을 확인했고, `docs`/`deliverables`/`backend/src` 전체에서 `투자 권유`·`수익 보장` 계열 표현을 전수 검색해 모두 부정문·면책 문구 용법임을 확인했다.
+- `docs/07-usecase.puml`을 실제 렌더링해 기존 `usecase.png`와 비교, 07-usecase-review.md가 지적한 7개 문제(범위 혼재, 유스케이스 중복, 오명명, AI 관계 오배치, 화살표 오용, 추적성 부재, 시스템명)가 실물에 있었고 보완본에서 해소됨을 확인. 각 유스케이스에 `UC-01.`~`UC-13.` 번호를 다이어그램에 직접 표기해 추적성을 강화하고, 루트 `usecase.png`를 이 보완본으로 교체했다.
+- 남은 P0-A 작업은 S1~S6 와이어프레임 캡처(디자인 도구 필요)뿐이며, 상세는 [08-supervisor-review-and-plan.md](08-supervisor-review-and-plan.md) 참고.
+
+## 2026-09-08 (감시자 검토 및 기획 고도화)
+
+- 문서·API·DBML·구현의 기준을 5단계 성향, 1~6 내부 위험등급, 규칙 엔진 판정, LLM 설명 폴백으로 통일.
+- LLM 설명 생성 실패는 503이 아니라 `reasoningSource=TEMPLATE`로 완료하고, 문항·카테고리 데이터 준비 실패만 503으로 제한.
+- 실제 투자 권유·적합성 판단으로 오인될 수 있는 표현을 내부 탐색 필터·안내 범위로 변경.
+- 질문 배점 합, 답변 완전성, 카테고리·상품 위험등급 일치 등 P0 데이터 불변식과 제출 전 감시 체크포인트 추가.
+- 감시자 검토·인수 기준·P0/P1 고도화 계획을 `docs/08-supervisor-review-and-plan.md`에 추가.
+
+## 2026-09-08 (기획 검토)
+
+- 1차 범위를 S1~S6(P0) 진단·분석·카테고리/상품 탐색으로 고정하고, 비교·포트폴리오·관리자 기능은 2차 Agile로 분리.
+- ERD를 P0 엔터티 중심으로 정리하고, AI 결과를 개별 상품이 아닌 카테고리 추천으로 구조화.
+- `POST /assessments`의 사용자 식별자 처리, 분석 실패 상태·응답, P0 인수 조건을 명시.
+
+## 2026-09-08
+
+- 프로젝트 주제를 "AI 감정 분석 음악 생성"과 "AI 투자 성향 분석 금융 서비스" 중 비교 후, 금융 도메인 포트폴리오 가치를 위해 후자로 확정.
+- 서비스명을 FinMATE로 결정. 범위를 "실제 매매"가 아닌 "AI 분석 + 상품 탐색"으로 축소 (ADR-001, ADR-002).
+- 00~05 기획 문서 초안 작성 완료. MVP(P0) 기능을 FR-01~FR-07로 확정.
+
+## Backlog (2차 Agile 후보, 우선순위 미정)
+
+- 자연어 자유 입력 기반 답변 분석 (ADR-004 참고)
+- 관리자 로그인/회원가입 플로우 추가 (ADR-003 참고)
+- 여러 진단 이력 간 성향 변화 추이 비교
+- 실시간 금융 데이터 연동
+- 상품 비교 화면(S7) 고도화 (다건 비교 UI)

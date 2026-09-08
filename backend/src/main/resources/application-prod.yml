@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/finmate}
+    username: ${SPRING_DATASOURCE_USERNAME:finmate}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      # 영구 DB이므로 create-drop을 쓰지 않는다. 스키마 변경은 이후 Flyway/Liquibase 도입으로 대체 예정 (P1).
+      ddl-auto: update
+    open-in-view: false
+  sql:
+    init:
+      # 재시작마다 data.sql을 재실행하면 영구 DB에서는 PK 충돌이 난다.
+      # 최초 배포 시 한 번만 수동으로 시드하고, 이후 재시작에서는 실행하지 않는다.
+      mode: never
+  h2:
+    console:
+      enabled: false
+
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /api
+
+anthropic:
+  api-key: ${ANTHROPIC_API_KEY:}
+
+finmate:
+  cors:
+    # 배포된 프론트엔드(Netlify) 도메인. 쉼표로 여러 개 지정 가능.
+    allowed-origins: ${FRONTEND_ORIGIN:http://localhost:5173}
+
+logging:
+  level:
+    com.finmate: INFO

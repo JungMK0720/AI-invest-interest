@@ -1,0 +1,21 @@
+{
+  "pages": [
+    { "id": "page-1", "name": "정상 흐름 (S1~S6)" },
+    { "id": "page-2", "name": "예외 상태" }
+  ],
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1600, "h": 460, "title": "흐름 개요", "page": "page-1" },
+    { "file": "S1_Auth.dc.html", "x": 0, "y": 560, "w": 1160, "h": 800, "title": "S1. 회원가입 · 로그인", "page": "page-1" },
+    { "file": "S2_Start.dc.html", "x": 1240, "y": 560, "w": 1160, "h": 800, "title": "S2. 진단 시작", "page": "page-1" },
+    { "file": "S3_Question.dc.html", "x": 2480, "y": 560, "w": 1160, "h": 800, "title": "S3. 진단 진행 (질문 응답)", "page": "page-1" },
+    { "file": "S4_Result.dc.html", "x": 3720, "y": 560, "w": 1160, "h": 800, "title": "S4. 분석 결과", "page": "page-1" },
+    { "file": "S5_Explore.dc.html", "x": 4960, "y": 560, "w": 1160, "h": 800, "title": "S5. 탐색 카테고리 · 상품 목록", "page": "page-1" },
+    { "file": "S6_Detail.dc.html", "x": 6200, "y": 560, "w": 1160, "h": 800, "title": "S6. 상품 상세", "page": "page-1" },
+
+    { "file": "S3_Unanswered.dc.html", "x": 0, "y": 0, "w": 1160, "h": 820, "title": "S3 예외 · 미응답", "page": "page-2" },
+    { "file": "S3_Unavailable.dc.html", "x": 1240, "y": 0, "w": 1160, "h": 820, "title": "S3 예외 · 데이터 준비 실패", "page": "page-2" },
+    { "file": "S4_Fallback.dc.html", "x": 2480, "y": 0, "w": 1160, "h": 820, "title": "S4 예외 · LLM 설명 폴백", "page": "page-2" },
+    { "file": "S5_Empty.dc.html", "x": 3720, "y": 0, "w": 1160, "h": 820, "title": "S5 예외 · 빈 상품 목록", "page": "page-2" }
+  ],
+  "launch": { "view": "canvas", "page": "page-1" }
+}

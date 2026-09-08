@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  # SPA 라우팅 — react-router의 클라이언트 사이드 경로를 새로고침해도 404가 나지 않도록 한다.
+  from = "/*"
+  to = "/index.html"
+  status = 200

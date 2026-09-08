@@ -1,0 +1,122 @@
+# 04. API 명세 설계 (OAS 3.0 기준)
+
+> 기준 문서: [02-user-flow.md](02-user-flow.md), [03-data-model.md](03-data-model.md)
+> 제출용 명세: [FinMATE-API.yml](../deliverables/FinMATE-API.yml)
+> 상태: 1차 Agile(P0) 계약 확정
+
+## 1. API 원칙
+
+- 사용자 식별자는 인증 컨텍스트에서 얻고, 진단 제출 본문으로 `userId`를 받지 않는다.
+- 성향 점수·등급·카테고리 필터는 규칙 엔진이 결정한다. LLM은 설명 문장만 생성한다.
+- 위험등급은 과제용 예시 데이터의 내부 탐색 기준이다. API가 실제 투자 권유·적합성·적정성 판단을 제공하는 것으로 표현하지 않는다.
+- 선택지의 `score`와 질문의 `weight`는 클라이언트에 내려주지 않는다.
+- 상품 응답에는 화면에서 항상 노출할 `disclaimer`를 포함한다.
+- MVP는 동기 처리다. 정상적인 `POST /assessments`는 `201 + COMPLETED`를 반환한다.
+
+## 2. 태그(Tag) 구성
+
+| 태그 | 설명 |
+|---|---|
+| auth | 회원가입/로그인 |
+| questions | 활성 진단 질문 조회 |
+| assessments | 진단 생성·결과·탐색 카테고리 조회 |
+| products | 카테고리·예시 상품 조회 |
+
+## 3. 1차 API 목록
+
+| 태그 | Method | Path | 인증 | 설명 |
+|---|---|---|---|---|
+| auth | POST | `/auth/signup` | 불필요 | 회원가입 |
+| auth | POST | `/auth/login` | 불필요 | 로그인 및 데모용 access token 발급 |
+| questions | GET | `/questions` | 불필요 | 활성 질문·선택지 목록 조회 |
+| assessments | POST | `/assessments` | 필요 | 답변 제출 → 규칙 판정·설명 생성·진단 저장 |
+| assessments | GET | `/assessments/{assessmentId}` | 필요 | 본인 진단 상태·결과 조회 |
+| assessments | GET | `/assessments/{assessmentId}/recommendations` | 필요 | 본인 진단의 탐색 카테고리·이유 조회 |
+| products | GET | `/product-categories` | 불필요 | 전체 예시 카테고리 목록 조회 |
+| products | GET | `/products` | 불필요 | 예시 상품 목록 조회 (`categoryId` 선택) |
+| products | GET | `/products/{productId}` | 불필요 | 예시 상품 상세 조회 |
+
+## 4. 핵심 계약
+
+### POST `/assessments`
+
+요청에는 활성 질문별 `questionId`와 선택한 `choiceId`를 정확히 한 번씩 포함한다. 서버는 문항-선택지 소속을 검증하고, 가중 평균 점수와 5단계 성향을 결정한 뒤 카테고리 필터를 적용한다.
+
+LLM 설명 생성이 실패하거나 API 키가 없으면 `reasoningSource=TEMPLATE`로 템플릿 설명을 저장하고도 `201`을 반환한다. 문항 또는 카테고리 데이터가 없어 분석을 진행할 수 없는 경우에만 `503 ANALYSIS_UNAVAILABLE`을 반환한다.
+
+```yaml
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/SubmitAssessmentRequest'
+responses:
+  '201':
+    description: 진단 생성 및 분석 완료
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/AssessmentResult'
+  '400':
+    description: 미응답 문항, 중복 응답, 존재하지 않는 선택지, 문항-선택지 불일치
+  '401':
+    description: 로그인 필요 또는 토큰 무효
+  '503':
+    description: 진단 문항 또는 상품 카테고리가 준비되지 않음
+```
+
+### GET `/assessments/{assessmentId}`
+
+본인 소유 여부를 확인한다. 다른 사용자의 진단이면 `403`, 존재하지 않으면 `404`를 반환한다. MVP 정상 흐름에서는 `status=COMPLETED`이고 `profile`이 채워진다.
+
+### GET `/assessments/{assessmentId}/recommendations`
+
+인증된 사용자의 진단에 귀속된 카테고리를 `rank` 오름차순으로 반환한다. `rank`는 화면 노출 순위이며 투자 수익률 순위가 아니다.
+
+### GET `/products?categoryId={categoryId}`
+
+카테고리를 지정하면 해당 카테고리의 사전 등록 예시 상품을 반환한다. 결과가 없으면 빈 배열을 반환하며 화면은 빈 상태를 표시한다.
+
+## 5. 주요 스키마
+
+| 스키마 | 핵심 필드 |
+|---|---|
+| `AssessmentResult` | `id`, `status`, `profile`, `createdAt`, `completedAt` |
+| `InvestmentProfile` | `profileType`, `profileLabel`, `profileGrade`, `totalScore`, `reasoning`, `reasoningSource` |
+| `CategoryRecommendation` | `categoryId`, `categoryName`, `riskGrade`, `riskGradeLabel`, `rank`, `reason` |
+| `Product` | `id`, `categoryId`, `categoryName`, `name`, `riskGrade`, `riskGradeLabel`, `expectedPeriod`, `description`, `disclaimer` |
+| `Question` | `id`, `content`, `orderNo`, `choices[]` |
+| `Choice` | `id`, `label`, `orderNo` |
+| `Error` | `code`, `message` |
+
+비밀번호, 비밀번호 해시, 선택지 점수, 질문 배점, 프롬프트 원문은 어떠한 외부 응답에도 포함하지 않는다.
+
+## 6. 에러 코드 및 사용자 처리
+
+| HTTP | 코드 | 사용 상황 | 화면 처리 |
+|---|---|---|---|
+| 400 | `INVALID_REQUEST` | 형식 오류, 답변 누락/중복, 문항-선택지 불일치 | 해당 입력 안내 |
+| 401 | `UNAUTHORIZED` | 로그인 필요 또는 인증 실패 | 로그인 화면으로 이동 |
+| 403 | `FORBIDDEN` | 다른 사용자의 진단 접근 | 접근 불가 안내 |
+| 404 | `NOT_FOUND` | 진단·상품 없음 | 없음 상태 안내 |
+| 503 | `ANALYSIS_UNAVAILABLE` | 문항·카테고리 데이터 준비 실패 | 답변 유지 후 재시도 |
+| 500 | `INTERNAL_ERROR` | 처리되지 않은 서버 오류 | 내부 상세를 숨기고 재시도 안내 |
+
+LLM 설명 실패는 별도 오류가 아니라 템플릿 폴백으로 처리한다.
+
+## 7. 명세 검증 순서
+
+1. [FinMATE-API.yml](../deliverables/FinMATE-API.yml)을 YAML/OAS 파서로 검증한다.
+2. `02-user-flow.md`의 S1~S6 동작과 엔드포인트를 1:1로 대조한다.
+3. 성공·400·401·403·404·503·500 경로를 최소 한 번씩 실행한다.
+4. 다른 사용자 `assessmentId` 접근과 선택지 점수 미노출을 확인한다.
+5. 실제 서비스화 전에는 인증·상품 위험정보·문구에 대한 별도 준법 검토를 수행한다.
+
+## 8. 2차 Agile API
+
+- `GET /products?ids=...` 상품 비교
+- `/portfolios` 포트폴리오 생성·조회·상품 담기·삭제
+- `/admin/questions`, `/admin/products` CRUD
+- 토큰 만료·로그아웃·재발급
+- 진단 질문/상품 버전 및 결과 스냅샷

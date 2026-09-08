@@ -1,0 +1,45 @@
+# 로컬에서 "실제 배포와 가까운 환경"(Postgres + 컨테이너)을 검증하기 위한 구성.
+# 운영 배포는 이 compose를 그대로 쓰지 않고, 선택한 호스팅(Railway/Render/AWS 등)의 방식을 따른다.
+#
+# 사용법:
+#   docker compose up --build
+#   (최초 1회, 다른 터미널에서) docker compose exec -T postgres psql -U finmate -d finmate < src/main/resources/data.sql
+#
+# 시드를 다시 하려면: docker compose down -v (볼륨 삭제 후 재기동)
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: finmate
+      POSTGRES_USER: finmate
+      POSTGRES_PASSWORD: finmate_local_dev_only
+    ports:
+      - "5432:5432"
+    volumes:
+      - finmate_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finmate"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/finmate
+      SPRING_DATASOURCE_USERNAME: finmate
+      SPRING_DATASOURCE_PASSWORD: finmate_local_dev_only
+      # 최초 스키마 생성 후 데이터를 넣으려면 위 psql 커맨드를 쓴다.
+      # 매 재시작마다 자동 시드가 필요하면 아래 줄의 주석을 해제한다 (재시작 시 PK 충돌 위험 있음).
+      # SPRING_SQL_INIT_MODE: always
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    ports:
+      - "8080:8080"
+
+volumes:
+  finmate_pg_data:

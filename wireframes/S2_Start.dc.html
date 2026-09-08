@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+    :root{
+      --bg:#F4F6FB; --surface:#FFFFFF; --border:#E2E7F1;
+      --text:#151B2E; --text-muted:#5C6685; --text-faint:#8B95B3;
+      --primary:#2F55E8; --primary-dark:#1E3FC4; --primary-tint:#EAEFFF;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0; font-family:'Noto Sans KR', -apple-system, sans-serif;}
+    a{color:var(--primary); text-decoration:none;}
+    a:hover{color:var(--primary-dark);}
+  </style>
+</helmet>
+<div style="width:1160px; height:800px; background:var(--bg); display:flex; flex-direction:column;">
+
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:0 40px; height:64px; border-bottom:1px solid var(--border); background:var(--surface); flex-shrink:0;">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="width:28px;height:28px;border-radius:8px;background:var(--primary);display:flex;align-items:center;justify-content:center;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 4h13M6 4v16M6 11h9" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span style="font-weight:700; font-size:16.5px; color:var(--text); letter-spacing:-0.2px;">FinMATE</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span style="font-size:13px; color:var(--text-muted);">사용자A 님</span>
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center; font-weight:700;font-size:13px;color:var(--primary);">A</div>
+    </div>
+  </div>
+
+  <div style="display:flex; justify-content:center; gap:36px; padding:26px 0 6px 0;">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">1</div>
+      <span style="font-size:13px; font-weight:700; color:var(--primary);">시작</span>
+    </div>
+    <div style="width:50px; height:1.5px; background:var(--border); margin-top:12px;"></div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--border);color:var(--text-faint);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">2</div>
+      <span style="font-size:13px; font-weight:500; color:var(--text-faint);">진단</span>
+    </div>
+    <div style="width:50px; height:1.5px; background:var(--border); margin-top:12px;"></div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--border);color:var(--text-faint);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">3</div>
+      <span style="font-size:13px; font-weight:500; color:var(--text-faint);">결과</span>
+    </div>
+  </div>
+
+  <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+    <div style="width:520px; background:var(--surface); border:1.5px solid var(--border); border-radius:20px; padding:48px 44px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:22px; box-shadow:0 2px 10px rgba(21,27,46,0.05);">
+      <div style="width:76px; height:76px; border-radius:20px; background:var(--primary-tint); display:flex; align-items:center; justify-content:center;">
+        <svg width="38" height="38" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="#2F55E8" stroke-width="1.8"/><path d="M9 8h6M9 12h6M9 16h3.5" stroke="#2F55E8" stroke-width="1.8" stroke-linecap="round"/><path d="M8 3.5l1 -1.5h6l1 1.5" stroke="#2F55E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div style="font-weight:700; font-size:21px; color:var(--text);">투자 성향 진단을 시작해볼까요?</div>
+      <div style="font-size:14px; color:var(--text-muted); line-height:1.6;">5개의 질문에 답하면 AI가 회원님의 투자 성향과<br/>탐색 가능한 금융상품 카테고리를 안내합니다.<br/>약 2분이 소요됩니다.</div>
+      <button style="width:100%; padding:15px; border-radius:10px; background:var(--primary); color:#fff; font-weight:700; font-size:15px; border:none; font-family:'Noto Sans KR',sans-serif; margin-top:8px;">진단 시작하기</button>
+      <a href="#" style="font-size:13px; display:flex; align-items:center; gap:5px;">지난 진단 결과 다시 보기
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#2F55E8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div style="font-size:11.5px; color:var(--text-faint); border-top:1px solid var(--border); padding-top:16px; width:100%;">이 진단은 투자 자문이 아닌 탐색 정보 제공을 목적으로 합니다.</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

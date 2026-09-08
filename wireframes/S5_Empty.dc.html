@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+    :root{
+      --bg:#F4F6FB; --surface:#FFFFFF; --border:#E2E7F1;
+      --text:#151B2E; --text-muted:#5C6685; --text-faint:#8B95B3;
+      --primary:#2F55E8; --primary-tint:#EAEFFF;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0; font-family:'Noto Sans KR', -apple-system, sans-serif;}
+    .chip{padding:10px 18px; border-radius:999px; border:1.5px solid var(--border); background:#fff; font-size:13.5px; color:var(--text-muted); display:flex; align-items:center; gap:8px; white-space:nowrap;}
+    .chip-active{border-color:var(--primary); background:var(--primary-tint); color:var(--primary); font-weight:700;}
+    .grade-dot{width:8px;height:8px;border-radius:50%;}
+  </style>
+</helmet>
+<div style="width:1160px; height:800px; background:var(--bg); display:flex; flex-direction:column;">
+
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 20px; background:#FDECEC; border-bottom:1px solid #F3B6B6;">
+    <span style="font-size:12px; font-weight:700; color:#B23A3A;">예외 상태 목업 — S5. 탐색 카테고리·상품 목록 · 조건에 맞는 상품 없음</span>
+  </div>
+
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:0 40px; height:64px; border-bottom:1px solid var(--border); background:var(--surface); flex-shrink:0;">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="width:28px;height:28px;border-radius:8px;background:var(--primary);display:flex;align-items:center;justify-content:center;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 4h13M6 4v16M6 11h9" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span style="font-weight:700; font-size:16.5px; color:var(--text); letter-spacing:-0.2px;">FinMATE</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span style="font-size:13px; color:var(--text-muted);">사용자A 님</span>
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center; font-weight:700;font-size:13px;color:var(--primary);">A</div>
+    </div>
+  </div>
+
+  <div style="padding:22px 40px 0; display:flex; flex-direction:column; gap:16px;">
+    <div style="font-size:12.5px; color:var(--text-faint);">분석 결과 &nbsp;›&nbsp; <span style="color:var(--text); font-weight:600;">탐색 카테고리</span></div>
+    <div style="font-weight:700; font-size:19px; color:var(--text);">안정추구형 고객님께 안내되는 탐색 카테고리</div>
+
+    <div style="display:flex; gap:10px;">
+      <div class="chip chip-active"><span class="grade-dot" style="background:#A7C43D;"></span>채권형 펀드 · 4등급</div>
+      <div class="chip"><span class="grade-dot" style="background:#4FB36B;"></span>국공채·우량회사채 · 5등급</div>
+      <div class="chip"><span class="grade-dot" style="background:#2D8F6B;"></span>예금·적금·MMF · 6등급</div>
+    </div>
+  </div>
+
+  <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+    <div style="width:400px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:16px;">
+      <div style="width:64px; height:64px; border-radius:16px; background:#EFF1F6; display:flex; align-items:center; justify-content:center;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="8" width="18" height="12" rx="1.6" stroke="#8B95B3" stroke-width="1.8"/><path d="M3 8l3-4h12l3 4" stroke="#8B95B3" stroke-width="1.8" stroke-linejoin="round"/><line x1="9" y1="12" x2="15" y2="12" stroke="#8B95B3" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </div>
+      <div style="font-weight:700; font-size:16px; color:var(--text);">조건에 맞는 상품이 없습니다</div>
+      <div style="font-size:13px; color:var(--text-muted); line-height:1.6;">이 카테고리에는 현재 안내 가능한 예시 상품이 없습니다.<br/>다른 카테고리를 확인해보세요.</div>
+    </div>
+  </div>
+
+  <div style="padding:14px 40px; background:#fff; border-top:1px solid var(--border); font-size:11.5px; color:var(--text-faint); text-align:center;">본 정보는 투자 참고용이며 투자 자문이나 투자 권유가 아닙니다.</div>
+</div>
+</x-dc>
+</body>
+</html>

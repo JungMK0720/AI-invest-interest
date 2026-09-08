@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: finmate-backend
+  datasource:
+    url: jdbc:h2:mem:finmate;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+    open-in-view: false
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+  h2:
+    console:
+      enabled: true
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# 키가 없으면 AI 근거 생성을 건너뛰고 템플릿 근거로 동작한다 (ADR-008).
+anthropic:
+  api-key: ${ANTHROPIC_API_KEY:}
+
+finmate:
+  analysis:
+    claude:
+      model: claude-opus-5
+      max-tokens: 4096
+      timeout-seconds: 30
+  cors:
+    allowed-origins: http://localhost:5173
+
+logging:
+  level:
+    com.finmate: INFO
