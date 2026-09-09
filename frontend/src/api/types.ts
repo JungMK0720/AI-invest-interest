@@ -103,3 +103,172 @@ export interface AvailabilityResponse {
   currentAssessmentId: string | null;
   currentStatus: AssessmentStatus | null;
 }
+
+// ---------------------------------------------------------------- 학습 도메인
+// backend com.finmate.learning.LearningDtos / SimulationDtos와 1:1로 맞춘 타입.
+
+/** 좌측 개념 트리의 한 노드. children을 그대로 품는다. */
+export interface LearningTreeNode {
+  slug: string;
+  title: string;
+  summary: string;
+  level: number;
+  hasSimulation: boolean;
+  quizCount: number;
+  descendantCount: number;
+  children: LearningTreeNode[];
+}
+
+export interface LearningTreeResponse {
+  contentVersion: string;
+  conceptCount: number;
+  roots: LearningTreeNode[];
+  notice: string;
+}
+
+export interface LearningCrumb {
+  slug: string;
+  title: string;
+  level: number;
+}
+
+export interface LearningConceptDetail {
+  slug: string;
+  title: string;
+  summary: string;
+  oneLiner: string;
+  level: number;
+  explanation: string[];
+  keyPoints: string[];
+  checklist: string[];
+  misconception: string | null;
+  diagramKey: string;
+  sourceName: string;
+  sourceUrl: string;
+  simulationId: string | null;
+  quizCount: number;
+  breadcrumb: LearningCrumb[];
+  children: LearningTreeNode[];
+  relatedSlugs: string[];
+  contentVersion: string;
+  notice: string;
+}
+
+/** 정답이 제거된 확인 문제. 채점은 서버에서만 한다. */
+export interface QuizQuestion {
+  id: string;
+  prompt: string;
+  difficulty: "BASIC" | "INTERMEDIATE" | "ADVANCED";
+  options: string[];
+}
+
+export interface QuizResponse {
+  slug: string;
+  title: string;
+  contentVersion: string;
+  questions: QuizQuestion[];
+  notice: string;
+}
+
+export interface QuizOptionFeedback {
+  index: number;
+  label: string;
+  correct: boolean;
+  rationale: string;
+}
+
+export interface QuizGradedItem {
+  questionId: string;
+  prompt: string;
+  selectedIndex: number;
+  correctIndex: number;
+  correct: boolean;
+  options: QuizOptionFeedback[];
+  takeaway: string;
+}
+
+export interface QuizGradeResponse {
+  slug: string;
+  total: number;
+  correctCount: number;
+  scorePercent: number;
+  contentVersion: string;
+  items: QuizGradedItem[];
+  summary: string;
+}
+
+export type SimulationFieldType = "NUMBER" | "CHOICE";
+
+export interface SimulationChoice {
+  value: string;
+  label: string;
+}
+
+export interface SimulationInputField {
+  key: string;
+  label: string;
+  type: SimulationFieldType;
+  unit: string | null;
+  min: number | null;
+  max: number | null;
+  step: number | null;
+  defaultValue: string;
+  choices: SimulationChoice[];
+  help: string;
+}
+
+export interface SimulationScenario {
+  id: string;
+  title: string;
+  question: string;
+  summary: string;
+  mechanism: string;
+  conceptSlugs: string[];
+  inputs: SimulationInputField[];
+  randomised: boolean;
+  notice: string;
+}
+
+export type SimulationTone = "GOOD" | "BAD" | "NEUTRAL";
+
+export interface SimulationMetric {
+  label: string;
+  value: string;
+  rawValue: number;
+  unit: string | null;
+  tone: SimulationTone;
+  note: string;
+}
+
+export interface SimulationPoint {
+  label: string;
+  value: number;
+}
+
+export interface SimulationSeries {
+  name: string;
+  kind: "line" | "bar" | "waterfall";
+  unit: string;
+  points: SimulationPoint[];
+}
+
+export interface SimulationTable {
+  title: string;
+  columns: string[];
+  rows: { label: string; cells: string[] }[];
+  note: string;
+}
+
+export interface SimulationRunResponse {
+  scenarioId: string;
+  title: string;
+  headline: string;
+  metrics: SimulationMetric[];
+  series: SimulationSeries[];
+  tables: SimulationTable[];
+  lessons: string[];
+  assumptions: string[];
+  echo: Record<string, string>;
+  seed: number;
+  notice: string;
+}

@@ -42,30 +42,131 @@ Table instrument_snapshots {
   source_document_id varchar [ref: > source_documents.id]
   indexes { (instrument_id, as_of) [unique] }
 }
+// 학습 개념은 3단계 트리다. parent_id가 null이면 대분류(level 1)다.
+// 현재 구현은 이 구조를 classpath의 learning/concepts.json으로 먼저 만들었고,
+// 배포 단계에서 아래 테이블이 그 JSON을 그대로 대체한다.
 Table concepts {
   id varchar [pk]
   slug varchar [unique, not null]
+  parent_id varchar [ref: > concepts.id, note: 'null이면 최상위 분류']
+  level integer [not null, note: '1=대분류, 2=핵심 개념, 3=세부 개념']
+  sort_order integer [not null]
   title varchar [not null]
+  summary varchar [not null]
+  one_liner varchar [not null, note: '한 문장 정의 (학습 5단계 중 1단계)']
+  diagram_key varchar [not null, note: '구조 그림 종류']
+  simulation_id varchar [ref: > simulation_scenarios.id, note: '이 개념을 실험할 기본 시나리오']
   status varchar [not null, note: 'DRAFT | REVIEW | PUBLISHED | RETIRED']
+  indexes { (parent_id, sort_order) }
 }
 Table content_revisions {
   id varchar [pk]
   concept_id varchar [ref: > concepts.id, not null]
   revision_no integer [not null]
+  content_version varchar [not null, note: '응답과 학습 진도에 함께 기록하는 개정 버전']
   body_markdown text [not null]
+  key_points text [note: 'JSON 배열: 확인 포인트']
+  checklist text [note: 'JSON 배열: 상품에서 확인할 문서·항목']
+  misconception text
   diagram_spec text
   source_document_id varchar [ref: > source_documents.id]
+  source_name varchar [not null, note: '출처 없는 개념은 공개하지 않는다']
+  source_url varchar [not null]
   reviewer varchar
   reviewed_at timestamp
   effective_from timestamp [not null]
   effective_to timestamp
   indexes { (concept_id, revision_no) [unique] }
 }
+
+// 확인 문제. 정답과 해설은 서버에만 두고 조회 API로 내려보내지 않는다.
+Table quiz_items {
+  id varchar [pk]
+  concept_id varchar [ref: > concepts.id, not null]
+  content_revision_id varchar [ref: > content_revisions.id, not null]
+  prompt text [not null]
+  difficulty varchar [not null, note: 'BASIC | INTERMEDIATE | ADVANCED']
+  takeaway text [not null, note: '정오답과 무관하게 남기는 한 줄 결론']
+  sort_order integer [not null]
+}
+
+// 오답 선택지에도 rationale이 필수다. 왜 틀렸는지가 없으면 확인 문제가 학습 도구가 되지 않는다.
+Table quiz_options {
+  id varchar [pk]
+  quiz_item_id varchar [ref: > quiz_items.id, not null]
+  option_index integer [not null]
+  label text [not null]
+  is_correct boolean [not null]
+  rationale text [not null]
+  indexes { (quiz_item_id, option_index) [unique] }
+}
+
+Table quiz_attempts {
+  id varchar [pk]
+  user_id varchar [ref: > users.id, not null]
+  concept_id varchar [ref: > concepts.id, not null]
+  content_version varchar [not null, note: '채점 시점의 콘텐츠 버전. 이후 개정되어도 기록은 유지된다']
+  total integer [not null]
+  correct_count integer [not null]
+  score_percent integer [not null]
+  attempted_at timestamp [not null]
+}
+
+Table quiz_attempt_answers {
+  id varchar [pk]
+  attempt_id varchar [ref: > quiz_attempts.id, not null]
+  quiz_item_id varchar [ref: > quiz_items.id, not null]
+  selected_index integer [not null, note: '-1은 미응답']
+  correct boolean [not null]
+  indexes { (attempt_id, quiz_item_id) [unique] }
+}
+
+// 모의투자 시나리오 정의. 계산식은 코드에 두고 여기에는 화면이 필요로 하는 명세만 둔다.
+Table simulation_scenarios {
+  id varchar [pk]
+  title varchar [not null]
+  question varchar [not null]
+  kind varchar [not null, note: 'PRICE_PATH | BOND_RATE_SHOCK | FEE_DRAG | ETF_TRACKING | DIVERSIFICATION | LIQUIDITY_EXIT | LEVERAGE_DECAY | OPTION_PAYOFF | FUTURES_MARGIN | DEPOSIT_INFLATION | DCA_VS_LUMPSUM']
+  mechanism text [not null, note: '계산식 요약. 결과를 검증 가능하게 만든다']
+  input_spec text [not null, note: 'JSON: 입력 필드 명세(min/max/기본값). 클라이언트가 이것으로 폼을 만든다']
+  randomised boolean [not null]
+  active boolean [not null]
+}
+
+// 개념 ↔ 시나리오는 다대다다. 한 시나리오가 여러 개념을 설명하고, 한 개념에 여러 시나리오가 붙는다.
+Table concept_simulations {
+  concept_id varchar [ref: > concepts.id, not null]
+  scenario_id varchar [ref: > simulation_scenarios.id, not null]
+  sort_order integer [not null]
+  indexes { (concept_id, scenario_id) [pk] }
+}
+
+// 실행 기록. seed와 입력값을 남기면 같은 결과를 언제든 재현할 수 있다(docs/09 결과 재현성).
+Table simulation_runs {
+  id varchar [pk]
+  user_id varchar [ref: > users.id]
+  scenario_id varchar [ref: > simulation_scenarios.id, not null]
+  concept_id varchar [ref: > concepts.id]
+  inputs_json text [not null, note: '명세 범위로 보정된 실제 적용값']
+  seed bigint [not null]
+  headline varchar [not null]
+  executed_at timestamp [not null]
+  indexes { (user_id, executed_at) }
+}
 Table learning_progress {
   id varchar [pk]
   user_id varchar [ref: > users.id, not null]
   content_revision_id varchar [ref: > content_revisions.id, not null]
+  viewed_at timestamp
   completed_at timestamp
   quiz_score integer
+  last_attempt_id varchar [ref: > quiz_attempts.id]
+  simulation_run_count integer [not null, default: 0]
   indexes { (user_id, content_revision_id) [unique] }
 }
+
+// 미구현 메모
+// - 현재 구현: concepts / content_revisions / quiz_items / quiz_options / simulation_scenarios는
+//   classpath JSON과 SimulationCatalog가 대신하고 있다. 읽기 경로는 동일한 형태로 이미 API에 노출된다.
+// - 미구현: quiz_attempts, quiz_attempt_answers, simulation_runs, learning_progress.
+//   사용자별 진도 저장은 로그인 사용자 식별과 개인정보 보관 정책을 정한 뒤 붙인다.

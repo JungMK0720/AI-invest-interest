@@ -36,12 +36,11 @@ finmate:
       timeout-seconds: 30
   cors:
     allowed-origins: http://localhost:5173
+  # 배포형 수집기는 키가 없어도 앱을 기동할 수 있으며, 별도 수집 작업에서만 활성화한다.
+  integrations:
+    opendart:
+      api-key: ${OPENDART_API_KEY:}
 
 logging:
   level:
     com.finmate: INFO
-
-# 배포형 수집기는 키가 없어도 앱을 기동할 수 있으며, 별도 수집 작업에서만 활성화한다.
-  integrations:
-    opendart:
-      api-key: ${OPENDART_API_KEY:}

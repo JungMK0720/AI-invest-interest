@@ -1,5 +1,11 @@
 import type {
   AnswerItem,
+  LearningTreeResponse,
+  LearningConceptDetail,
+  QuizResponse,
+  QuizGradeResponse,
+  SimulationScenario,
+  SimulationRunResponse,
   HistoryResponse,
   AvailabilityResponse,
   ApiErrorBody,
@@ -73,6 +79,30 @@ export const api = {
   getQuestions: () => request<QuestionResponse[]>("/questions"),
 
   getLearningConcepts: () => request<{ slug: string; title: string; summary: string; explanation: string; diagramKey: string; sourceUrl: string }[]>("/learning/concepts"),
+
+  // 학습 트리는 한 번 받아 두고 클라이언트에서 펼치고 접는다.
+  getLearningTree: () => request<LearningTreeResponse>("/learning/tree"),
+
+  getLearningConcept: (slug: string) => request<LearningConceptDetail>(`/learning/concepts/${slug}`),
+
+  getQuiz: (slug: string) => request<QuizResponse>(`/learning/concepts/${slug}/quiz`),
+
+  // 정답은 서버에만 있으므로 채점은 반드시 이 호출을 거친다.
+  gradeQuiz: (slug: string, answers: { questionId: string; selectedIndex: number }[]) =>
+    request<QuizGradeResponse>(`/learning/concepts/${slug}/quiz/grade`, {
+      method: "POST",
+      body: JSON.stringify({ answers }),
+    }),
+
+  getConceptSimulations: (slug: string) => request<SimulationScenario[]>(`/learning/concepts/${slug}/simulations`),
+
+  getSimulations: () => request<{ scenarios: SimulationScenario[]; notice: string }>("/learning/simulations"),
+
+  runSimulation: (scenarioId: string, inputs: Record<string, string>, seed?: number) =>
+    request<SimulationRunResponse>(`/learning/simulations/${scenarioId}/run`, {
+      method: "POST",
+      body: JSON.stringify({ inputs, seed: seed ?? null }),
+    }),
 
   submitAssessment: (answers: AnswerItem[]) =>
     request<AssessmentResultResponse>("/assessments", {

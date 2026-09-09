@@ -34,12 +34,29 @@ tags:
     description: 진단 생성, 결과 조회, 탐색 카테고리 조회
   - name: products
     description: 상품 카테고리 및 상품 조회
+  - name: learning
+    description: 개념 트리, 확인 문제 채점, 모의투자 시뮬레이션 (로그인 없이 접근 가능)
 
 paths:
+  /learning/tree:
+    get:
+      tags: [learning]
+      summary: 학습 개념 트리 전체
+      description: >
+        3단계 계층(대분류 → 핵심 개념 → 세부 개념)을 한 번에 내려준다.
+        클라이언트는 이 응답만으로 좌측 목록을 그리고 펼침·접힘을 로컬에서 처리한다.
+      responses:
+        '200':
+          description: 개념 트리
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LearningTree'
   /learning/concepts:
     get:
       tags: [learning]
-      summary: 학습 개념 카탈로그
+      summary: 학습 개념 평면 목록 (v1 호환)
+      description: 트리 도입 이전 클라이언트를 위해 유지한다. 신규 화면은 /learning/tree를 쓴다.
       responses:
         '200': { description: 출처 연결 개념 목록 }
   /learning/concepts/{slug}:
@@ -47,13 +64,142 @@ paths:
       tags: [learning]
       summary: 학습 개념 상세
       parameters:
-        - in: path
-          name: slug
-          required: true
-          schema: { type: string }
+        - $ref: '#/components/parameters/ConceptSlug'
       responses:
-        '200': { description: 개념·도식·출처 }
-        '404': { description: 개념 없음 }
+        '200':
+          description: 개념 본문·구조 도식·확인 포인트·체크리스트·breadcrumb·하위 개념
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LearningConceptDetail'
+        '404': { $ref: '#/components/responses/NotFound' }
+  /learning/concepts/{slug}/quiz:
+    get:
+      tags: [learning]
+      summary: 확인 문제 조회
+      description: >
+        정답 인덱스와 해설은 응답에 포함하지 않는다. 화면 소스에서 정답이 노출되면
+        확인 문제가 학습 도구로 동작하지 않기 때문이며, 채점은 grade 엔드포인트에서만 한다.
+      parameters:
+        - $ref: '#/components/parameters/ConceptSlug'
+      responses:
+        '200':
+          description: 정답이 제거된 문항 목록
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizResponse'
+        '404': { $ref: '#/components/responses/NotFound' }
+  /learning/concepts/{slug}/quiz/grade:
+    post:
+      tags: [learning]
+      summary: 확인 문제 채점
+      description: >
+        서버에서만 채점한다. 미응답(selectedIndex = -1)이나 범위를 벗어난 인덱스는
+        오답으로 처리하고 400을 내지 않는다. 응답에는 모든 선택지의 해설을 포함해
+        왜 틀렸는지까지 학습할 수 있게 한다.
+      parameters:
+        - $ref: '#/components/parameters/ConceptSlug'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizGradeRequest'
+      responses:
+        '200':
+          description: 문항별 정오답·해설·결론
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizGradeResponse'
+        '404': { $ref: '#/components/responses/NotFound' }
+  /learning/concepts/{slug}/simulations:
+    get:
+      tags: [learning]
+      summary: 이 개념으로 실행할 수 있는 모의투자 시나리오
+      description: 직접 연결된 시나리오가 없으면 상위 개념의 시나리오를 물려받는다.
+      parameters:
+        - $ref: '#/components/parameters/ConceptSlug'
+      responses:
+        '200':
+          description: 시나리오 명세 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SimulationScenario'
+        '404': { $ref: '#/components/responses/NotFound' }
+  /learning/simulations:
+    get:
+      tags: [learning]
+      summary: 모의투자 시나리오 전체 목록
+      responses:
+        '200':
+          description: 시나리오 명세와 고지 문구
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scenarios:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SimulationScenario'
+                  notice:
+                    type: string
+  /learning/simulations/{scenarioId}:
+    get:
+      tags: [learning]
+      summary: 모의투자 시나리오 명세
+      parameters:
+        - $ref: '#/components/parameters/ScenarioId'
+      responses:
+        '200':
+          description: 입력 필드 명세를 포함한 시나리오 정의
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimulationScenario'
+        '404': { $ref: '#/components/responses/NotFound' }
+  /learning/simulations/{scenarioId}/run:
+    post:
+      tags: [learning]
+      summary: 모의투자 실행
+      description: >
+        계산은 전부 서버에서 한다. 입력값은 시나리오 명세의 min/max로 보정하며 잘못된 값으로
+        400을 내지 않고 실제 적용값을 echo로 돌려준다. seed가 같으면 결과가 항상 같다
+        (docs/09의 결과 재현성 원칙과 동일). seed를 바꾸면 같은 가정의 다른 시장 경로를 본다.
+      parameters:
+        - $ref: '#/components/parameters/ScenarioId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inputs:
+                  type: object
+                  additionalProperties: { type: string }
+                  example:
+                    maturityYears: '10'
+                    yieldChangeBp: '100'
+                    plan: SELL
+                seed:
+                  type: integer
+                  format: int64
+                  nullable: true
+                  description: 생략하면 서버 기본 seed를 쓴다.
+      responses:
+        '200':
+          description: 지표·차트 계열·표·교훈·가정
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimulationRun'
+        '404': { $ref: '#/components/responses/NotFound' }
   /assessments/availability:
     get:
       tags: [assessments]
@@ -291,6 +437,20 @@ paths:
 components:
 
   parameters:
+    ConceptSlug:
+      name: slug
+      in: path
+      required: true
+      schema:
+        type: string
+      example: duration
+    ScenarioId:
+      name: scenarioId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: bond-rate-shock
     AssessmentId:
       name: assessmentId
       in: path
@@ -586,7 +746,299 @@ components:
           type: string
           description: 투자 자문·투자 권유가 아님을 알리는 고지 문구. 상품 상세 화면에 항상 노출한다.
 
+
+    # ---------------------------------------------------------------- 학습 도메인
+
+    LearningTreeNode:
+      type: object
+      description: 좌측 개념 트리의 한 노드. children을 그대로 품어 한 번의 호출로 전체를 그린다.
+      properties:
+        slug: { type: string, example: duration }
+        title: { type: string, example: 듀레이션 }
+        summary: { type: string, example: 금리 변화에 가격이 얼마나 민감한지를 나타내는 숫자 }
+        level:
+          type: integer
+          enum: [1, 2, 3]
+          description: 1=대분류, 2=핵심 개념, 3=세부 개념
+        hasSimulation:
+          type: boolean
+          description: 이 개념에 직접 연결된 모의투자 시나리오가 있는지
+        quizCount: { type: integer, example: 1 }
+        descendantCount: { type: integer, example: 0 }
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningTreeNode'
+
+    LearningTree:
+      type: object
+      properties:
+        contentVersion:
+          type: string
+          example: learning-content-v2-2026-09-09
+          description: 콘텐츠 개정 버전. 확인 문제 채점 결과와 함께 기록해 재현성을 남긴다.
+        conceptCount: { type: integer, example: 59 }
+        roots:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningTreeNode'
+        notice:
+          type: string
+          description: 교육용 콘텐츠이며 가입·매매를 권유하지 않음을 알리는 고지
+
+    LearningConceptDetail:
+      type: object
+      properties:
+        slug: { type: string }
+        title: { type: string }
+        summary: { type: string }
+        oneLiner:
+          type: string
+          description: 한 문장 정의. docs/10의 학습 5단계 중 1단계.
+        level: { type: integer }
+        explanation:
+          type: array
+          items: { type: string }
+          description: 문단 배열
+        keyPoints:
+          type: array
+          items: { type: string }
+        checklist:
+          type: array
+          items: { type: string }
+          description: 실제 상품을 볼 때 확인할 문서·항목
+        misconception:
+          type: string
+          nullable: true
+        diagramKey:
+          type: string
+          example: DURATION
+          description: 구조 그림 종류. 클라이언트가 도식으로 해석한다.
+        sourceName: { type: string, example: Investor.gov 채권 안내 }
+        sourceUrl: { type: string, format: uri }
+        simulationId:
+          type: string
+          nullable: true
+          example: bond-rate-shock
+        quizCount: { type: integer }
+        breadcrumb:
+          type: array
+          items:
+            type: object
+            properties:
+              slug: { type: string }
+              title: { type: string }
+              level: { type: integer }
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningTreeNode'
+        relatedSlugs:
+          type: array
+          items: { type: string }
+        contentVersion: { type: string }
+        notice: { type: string }
+
+    QuizQuestion:
+      type: object
+      description: 정답과 해설이 제거된 문항. options는 표시 순서 그대로의 라벨 배열이다.
+      properties:
+        id: { type: string, example: duration-q1 }
+        prompt: { type: string }
+        difficulty:
+          type: string
+          enum: [BASIC, INTERMEDIATE, ADVANCED]
+        options:
+          type: array
+          items: { type: string }
+
+    QuizResponse:
+      type: object
+      properties:
+        slug: { type: string }
+        title: { type: string }
+        contentVersion: { type: string }
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuizQuestion'
+        notice: { type: string }
+
+    QuizGradeRequest:
+      type: object
+      properties:
+        answers:
+          type: array
+          items:
+            type: object
+            properties:
+              questionId: { type: string }
+              selectedIndex:
+                type: integer
+                description: QuizQuestion.options의 인덱스. -1은 미응답이며 오답 처리된다.
+                example: 1
+
+    QuizGradeResponse:
+      type: object
+      properties:
+        slug: { type: string }
+        total: { type: integer }
+        correctCount: { type: integer }
+        scorePercent: { type: integer }
+        contentVersion: { type: string }
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              questionId: { type: string }
+              prompt: { type: string }
+              selectedIndex: { type: integer }
+              correctIndex: { type: integer }
+              correct: { type: boolean }
+              options:
+                type: array
+                description: 모든 선택지의 해설. 오답 이유까지 학습하도록 정답 여부와 무관하게 전부 내려준다.
+                items:
+                  type: object
+                  properties:
+                    index: { type: integer }
+                    label: { type: string }
+                    correct: { type: boolean }
+                    rationale: { type: string }
+              takeaway:
+                type: string
+                description: 정오답과 무관하게 남겨야 하는 한 줄 결론
+        summary:
+          type: string
+          description: 점수가 아니라 다음 행동을 안내한다. 높은 점수를 투자 적합성으로 오인하지 않게 한다.
+
+    SimulationInputField:
+      type: object
+      description: 서버가 내려주는 입력 명세. 클라이언트는 이것으로 폼을 생성하므로 시나리오 추가 시 화면 코드가 바뀌지 않는다.
+      properties:
+        key: { type: string, example: yieldChangeBp }
+        label: { type: string, example: 금리 변동 }
+        type:
+          type: string
+          enum: [NUMBER, CHOICE]
+        unit: { type: string, nullable: true, example: bp }
+        min: { type: number, nullable: true }
+        max: { type: number, nullable: true }
+        step: { type: number, nullable: true }
+        defaultValue: { type: string }
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              value: { type: string }
+              label: { type: string }
+        help: { type: string }
+
+    SimulationScenario:
+      type: object
+      properties:
+        id: { type: string, example: bond-rate-shock }
+        title: { type: string, example: 금리가 움직일 때 채권 가격 }
+        question:
+          type: string
+          example: 금리가 1%p 오르면 내 채권은 얼마나 떨어질까?
+        summary: { type: string }
+        mechanism:
+          type: string
+          description: 계산식의 요약. 결과를 검증 가능하게 만들기 위해 노출한다.
+        conceptSlugs:
+          type: array
+          items: { type: string }
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/SimulationInputField'
+        randomised:
+          type: boolean
+          description: 난수 경로를 쓰는 시나리오인지. true면 화면에 seed 재추첨 버튼을 노출한다.
+        notice: { type: string }
+
+    SimulationRun:
+      type: object
+      properties:
+        scenarioId: { type: string }
+        title: { type: string }
+        headline:
+          type: string
+          description: 숫자보다 해석을 먼저 읽게 하는 한 줄 결과
+        metrics:
+          type: array
+          items:
+            type: object
+            properties:
+              label: { type: string }
+              value: { type: string, description: 포맷된 표시 문자열 }
+              rawValue: { type: number, description: 비교·검증용 원값 }
+              unit: { type: string, nullable: true }
+              tone:
+                type: string
+                enum: [GOOD, BAD, NEUTRAL]
+              note: { type: string }
+        series:
+          type: array
+          items:
+            type: object
+            properties:
+              name: { type: string }
+              kind:
+                type: string
+                enum: [line, bar, waterfall]
+              unit: { type: string }
+              points:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    label: { type: string }
+                    value: { type: number }
+        tables:
+          type: array
+          items:
+            type: object
+            properties:
+              title: { type: string }
+              columns:
+                type: array
+                items: { type: string }
+              rows:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    label: { type: string }
+                    cells:
+                      type: array
+                      items: { type: string }
+              note: { type: string }
+        lessons:
+          type: array
+          items: { type: string }
+          description: 입력값에 따라 문장이 달라지는 교훈
+        assumptions:
+          type: array
+          items: { type: string }
+          description: 계산에 사용한 가정. 결과를 예측으로 오인하지 않게 항상 노출한다.
+        echo:
+          type: object
+          additionalProperties: { type: string }
+          description: 명세 범위로 보정된 실제 적용 입력값
+        seed:
+          type: integer
+          format: int64
+        notice: { type: string }
+
 # 고도화 API 메모
 # - GET /assessments/availability: monthly-kst-v1 정책 상태와 다음 진단일
 # - GET /assessments?page=0: 완료 이력 페이지
 # - AssessmentResult.evidence: 당시 답변·ruleVersion·questionnaireVersion·reviewFlags
+# - GET /learning/tree: 3단계 개념 트리 (59개 개념)
+# - POST /learning/concepts/{slug}/quiz/grade: 서버 채점. 정답은 클라이언트로 내려가지 않는다.
+# - POST /learning/simulations/{scenarioId}/run: 11개 모의투자 시나리오. seed 고정 시 결과 재현.
+# - 학습 API는 로그인 없이 접근 가능하다 (docs/09: 재진단 제한과 무관하게 학습은 열려 있어야 한다).

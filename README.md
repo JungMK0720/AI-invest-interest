@@ -15,6 +15,9 @@ docs/
 ├── 06-mvp-review-and-handoff.md # 1차 완료 판정, 다음 세션 인계
 ├── 07-usecase-review.md   # 유스케이스 검토 및 추적
 ├── 08-supervisor-review-and-plan.md # 감시자 감사 및 고도화 기준
+├── 09-product-learning-and-reassessment.md # 월 1회 진단 정책, 결과 재현성
+├── 10-data-platform-and-learning-expansion.md # 실데이터 수집·학습 플랫폼 설계
+├── 11-learning-tree-quiz-simulation.md # 개념 트리·확인 문제·모의투자 설계
 └── changelog.md          # 요구사항/설계 변경 이력 + backlog
 ```
 

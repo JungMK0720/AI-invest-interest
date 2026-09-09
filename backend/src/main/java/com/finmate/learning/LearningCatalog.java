@@ -1,36 +1,185 @@
 package com.finmate.learning;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.PostConstruct;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 /**
- * 학습 카탈로그의 MVP 제공자. 운영에서는 DB의 content_revisions와 source_documents로 교체한다.
- * 원문을 LLM이 재작성해 출처를 잃지 않도록 sourceUrl/sourceName을 필수로 둔다.
+ * 학습 카탈로그. classpath의 learning/concepts.json을 읽어 계층 구조와 인덱스를 만든다.
+ *
+ * <p>기동 시 한 번만 로드하고 이후에는 불변 컬렉션만 노출한다. 콘텐츠 무결성(부모 존재, slug 중복,
+ * 정답 개수, 출처 유무)은 로드 시점에 검증해 잘못된 콘텐츠가 배포되면 기동 자체가 실패하도록 한다.
+ * 화면에서 조용히 깨지는 것보다 배포 시점에 드러나는 편이 안전하다.
  */
 @Service
 public class LearningCatalog {
-    private final List<Concept> concepts = List.of(
-            new Concept("risk-return", "위험과 수익", "수익 가능성과 손실 가능성을 함께 읽기", "모든 금융상품에는 위험이 있습니다. 일반적으로 더 큰 수익 가능성에는 더 큰 손실 가능성이 함께 따릅니다.", "RISK", "https://www.investor.gov/introduction-investing/investing-basics/investment-products"),
-            new Concept("stocks", "주식", "기업의 소유권과 가격 변동", "주식은 기업의 소유권을 나타냅니다. 기업 실적과 시장 상황에 따라 가격이 오를 수도, 원금보다 낮아질 수도 있습니다.", "STOCK", "https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks"),
-            new Concept("bonds", "채권", "돈을 빌려주고 이자와 원금을 받는 구조", "채권에는 발행자의 신용위험이 있고, 만기 전에 팔면 금리 변화에 따라 가격이 달라질 수 있습니다.", "BOND", "https://www.investor.gov/introduction-investing/investing-basics/investment-products/bonds-or-fixed-income-products/bonds"),
-            new Concept("funds", "펀드", "여러 투자자의 돈을 모아 운용하는 구조", "펀드는 여러 자산에 투자할 수 있지만 운용보수와 환매 조건, 편입자산의 위험을 함께 확인해야 합니다.", "FUND", "https://www.investor.gov/introduction-investing/investing-basics/investment-products/mutual-funds-and-exchange-traded-funds-etfs/mutual-funds"),
-            new Concept("etf", "ETF", "거래소에서 거래되는 펀드 지분", "ETF는 분산에 도움을 줄 수 있지만 시장가격과 순자산가치의 차이, 스프레드, 보수와 기초자산 위험이 있습니다.", "ETF", "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins-24"),
-            new Concept("liquidity", "유동성", "필요한 시점에 현금화할 수 있는 정도", "팔 수 있는지와 원하는 가격·시간에 팔 수 있는지는 다릅니다. 거래량, 환매기간, 수수료와 가격충격을 확인합니다.", "LIQUIDITY", "https://www.investor.gov/introduction-investing/investing-basics/glossary/liquidity-or-marketability"),
-            new Concept("fees", "비용과 수수료", "작은 비용도 장기 결과에 누적되는 구조", "매매수수료뿐 아니라 운용보수, 환매수수료, 스프레드와 세금 등 상품별 비용을 비교해야 합니다.", "FEES", "https://www.investor.gov/introduction-investing/investing-basics/investment-products/mutual-funds-and-exchange-traded-funds-etfs/mutual-funds"),
-            new Concept("diversification", "분산투자", "서로 다른 위험을 나누는 방식", "여러 자산과 산업에 나누는 것이 위험을 낮추는 데 도움이 될 수 있지만, 특정 산업에 집중한 ETF 하나만으로 분산이 보장되지는 않습니다.", "DIVERSIFICATION", "https://www.investor.gov/introduction-investing/getting-started/asset-allocation"),
-            new Concept("time-horizon", "투자 기간", "돈을 사용해야 하는 시점과 위험의 관계", "가까운 시점에 필요한 자금은 가격 변동과 현금화 조건을 더 엄격하게 확인해야 합니다.", "HORIZON", "https://www.finra.org/rules-guidance/notices/11-25"),
-            new Concept("risk-capacity", "위험감수능력과 위험수용도", "감당할 수 있는 위험과 감정적으로 받아들일 위험의 차이", "재무적으로 감당할 수 있는 위험과 심리적으로 견딜 수 있는 위험은 다를 수 있습니다. 둘이 충돌하면 충돌 사실을 먼저 확인해야 합니다.", "RISK_PROFILE", "https://www.finra.org/sites/default/files/digital-investment-advice-report.pdf"),
-            new Concept("derivatives", "파생상품", "기초자산 가격에 따라 가치가 변하는 계약", "파생상품은 기초자산의 가격·금리·환율 등에 연동됩니다. 구조가 복잡하고 손실이 빠르게 커질 수 있어 계약조건과 증거금을 확인해야 합니다.", "DERIVATIVE", "https://www.investor.gov/introduction-investing/investing-basics/investment-products"),
-            new Concept("futures", "선물", "미래 시점의 거래를 현재 약속하는 계약", "선물은 만기·증거금·일일정산 구조를 이해해야 합니다. 작은 가격 변동도 증거금 대비 큰 손익으로 나타날 수 있습니다.", "FUTURES", "https://www.cmegroup.com/education/courses/introduction-to-futures.html"),
-            new Concept("options", "옵션", "미래에 사고팔 권리를 거래하는 계약", "콜·풋과 행사가·만기·프리미엄을 이해해야 합니다. 매수자와 매도자의 손실 구조가 다르고 시간가치가 줄어들 수 있습니다.", "OPTIONS", "https://www.investor.gov/introduction-investing/investing-basics/investment-products"),
-            new Concept("margin", "마진과 증거금", "빌린 자금 또는 계약 이행을 위해 맡기는 담보", "증거금 부족 시 추가 납입이나 강제청산이 발생할 수 있습니다. 레버리지는 수익뿐 아니라 손실도 확대합니다.", "MARGIN", "https://www.investor.gov/introduction-investing/investing-basics"),
-            new Concept("leverage", "레버리지", "적은 자기자본으로 큰 포지션을 만드는 구조", "레버리지는 손익의 변동폭을 확대합니다. 원금보다 큰 손실 가능성, 이자·수수료·청산 조건을 함께 확인해야 합니다.", "LEVERAGE", "https://www.investor.gov/introduction-investing/investing-basics"),
-            new Concept("real-estate", "부동산과 리츠", "실물 부동산과 부동산 투자회사의 차이", "부동산은 임대수익·공실·금리·거래비용을 살펴야 하고, 리츠는 주식처럼 거래되면서도 부동산·금리 위험을 함께 가집니다.", "REAL_ESTATE", "https://www.investor.gov/introduction-investing/investing-basics/investment-products"),
-            new Concept("gold", "금 투자", "실물·금 ETF·선물의 구조 차이", "금 투자는 실물 보관비용, ETF 보수와 추적오차, 선물의 증거금과 만기 구조가 서로 다릅니다. 금 가격 외에 환율도 결과에 영향을 줄 수 있습니다.", "GOLD", "https://www.investor.gov/introduction-investing/investing-basics/investment-products"),
-            new Concept("cash", "예금과 현금성 자산", "원금 안정성과 유동성을 우선하는 자산", "예금과 현금성 상품도 금리·인플레이션·예금자보호 범위를 확인해야 합니다. 투자상품과 예금의 보호 구조를 구분해야 합니다.", "CASH", "https://www.investor.gov/introduction-investing/investing-basics/save-and-invest/understand-what-it-means-invest")
-    );
 
-    public List<Concept> list() { return concepts; }
-    public Concept find(String slug) { return concepts.stream().filter(c -> c.slug().equals(slug)).findFirst().orElseThrow(() -> new IllegalArgumentException("학습 개념을 찾을 수 없습니다.")); }
-    public record Concept(String slug, String title, String summary, String explanation, String diagramKey, String sourceUrl) {}
+    private static final String RESOURCE_PATH = "learning/concepts.json";
+
+    private final ObjectMapper objectMapper;
+
+    private String version;
+    private List<LearningContent.Node> nodes;
+    private Map<String, LearningContent.Node> bySlug;
+    private Map<String, List<String>> childrenOf;
+    private List<String> roots;
+
+    public LearningCatalog(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
+    @PostConstruct
+    void load() {
+        LearningContent.Catalog catalog = read();
+        List<LearningContent.Node> sorted = new ArrayList<>(catalog.concepts());
+        sorted.sort(Comparator.comparingInt(LearningContent.Node::level).thenComparingInt(LearningContent.Node::order));
+
+        Map<String, LearningContent.Node> index = new LinkedHashMap<>();
+        for (LearningContent.Node node : sorted) {
+            if (index.put(node.slug(), node) != null) {
+                throw new IllegalStateException("학습 개념 slug가 중복되었습니다: " + node.slug());
+            }
+        }
+
+        Map<String, List<String>> children = new LinkedHashMap<>();
+        List<String> rootSlugs = new ArrayList<>();
+        for (LearningContent.Node node : sorted) {
+            validate(node, index);
+            if (node.parent() == null) {
+                rootSlugs.add(node.slug());
+            } else {
+                children.computeIfAbsent(node.parent(), key -> new ArrayList<>()).add(node.slug());
+            }
+        }
+
+        this.version = catalog.version();
+        this.nodes = List.copyOf(sorted);
+        this.bySlug = Map.copyOf(index);
+        this.childrenOf = children.entrySet().stream()
+                .collect(LinkedHashMap::new, (map, entry) -> map.put(entry.getKey(), List.copyOf(entry.getValue())), Map::putAll);
+        this.roots = List.copyOf(rootSlugs);
+    }
+
+    private LearningContent.Catalog read() {
+        try (InputStream in = new ClassPathResource(RESOURCE_PATH).getInputStream()) {
+            LearningContent.Catalog catalog = objectMapper.readValue(in, LearningContent.Catalog.class);
+            if (catalog.concepts() == null || catalog.concepts().isEmpty()) {
+                throw new IllegalStateException("학습 콘텐츠가 비어 있습니다.");
+            }
+            return catalog;
+        } catch (IOException e) {
+            throw new IllegalStateException("학습 콘텐츠를 읽지 못했습니다: " + RESOURCE_PATH, e);
+        }
+    }
+
+    private void validate(LearningContent.Node node, Map<String, LearningContent.Node> index) {
+        if (node.parent() != null && !index.containsKey(node.parent())) {
+            throw new IllegalStateException("상위 개념을 찾을 수 없습니다: " + node.slug() + " -> " + node.parent());
+        }
+        if (node.parent() != null && index.get(node.parent()).level() != node.level() - 1) {
+            throw new IllegalStateException("상위 개념의 레벨이 맞지 않습니다: " + node.slug());
+        }
+        if (node.sourceUrl() == null || node.sourceUrl().isBlank()) {
+            throw new IllegalStateException("출처가 없는 학습 개념은 배포할 수 없습니다: " + node.slug());
+        }
+        for (LearningContent.QuizItem item : node.quiz()) {
+            long correct = item.options().stream().filter(LearningContent.Option::correct).count();
+            if (correct != 1) {
+                throw new IllegalStateException("확인 문제의 정답은 정확히 1개여야 합니다: " + item.id());
+            }
+            if (item.options().size() < 3) {
+                throw new IllegalStateException("확인 문제의 선택지는 3개 이상이어야 합니다: " + item.id());
+            }
+            boolean missingRationale = item.options().stream()
+                    .anyMatch(option -> option.rationale() == null || option.rationale().isBlank());
+            if (missingRationale) {
+                throw new IllegalStateException("모든 선택지에 해설이 필요합니다: " + item.id());
+            }
+        }
+    }
+
+    public String version() {
+        return version;
+    }
+
+    public List<LearningContent.Node> nodes() {
+        return nodes;
+    }
+
+    public List<String> rootSlugs() {
+        return roots;
+    }
+
+    public List<String> childSlugs(String slug) {
+        return childrenOf.getOrDefault(slug, List.of());
+    }
+
+    /** 자기 자신 포함 하위 전체. 진도·검색 범위 계산에 쓴다. */
+    public List<LearningContent.Node> descendants(String slug) {
+        List<LearningContent.Node> collected = new ArrayList<>();
+        collect(slug, collected);
+        return List.copyOf(collected);
+    }
+
+    private void collect(String slug, List<LearningContent.Node> into) {
+        LearningContent.Node node = bySlug.get(slug);
+        if (node == null) {
+            return;
+        }
+        into.add(node);
+        for (String child : childSlugs(slug)) {
+            collect(child, into);
+        }
+    }
+
+    /** 루트부터 대상까지의 경로. 화면의 breadcrumb에 사용한다. */
+    public List<LearningContent.Node> path(String slug) {
+        List<LearningContent.Node> reversed = new ArrayList<>();
+        LearningContent.Node current = bySlug.get(slug);
+        while (current != null) {
+            reversed.add(0, current);
+            current = current.parent() == null ? null : bySlug.get(current.parent());
+        }
+        return List.copyOf(reversed);
+    }
+
+    public LearningContent.Node node(String slug) {
+        LearningContent.Node node = bySlug.get(slug);
+        if (node == null) {
+            throw new IllegalArgumentException("학습 개념을 찾을 수 없습니다: " + slug);
+        }
+        return node;
+    }
+
+    public boolean contains(String slug) {
+        return bySlug.containsKey(slug);
+    }
+
+    /** 기존 /learning/concepts 응답 형태를 유지하기 위한 평면 목록 (하위 호환). */
+    public List<Concept> list() {
+        return nodes.stream()
+                .map(node -> new Concept(node.slug(), node.title(), node.summary(), flatten(node), node.diagramKey(), node.sourceUrl()))
+                .toList();
+    }
+
+    public Concept find(String slug) {
+        LearningContent.Node node = node(slug);
+        return new Concept(node.slug(), node.title(), node.summary(), flatten(node), node.diagramKey(), node.sourceUrl());
+    }
+
+    private static String flatten(LearningContent.Node node) {
+        return String.join(" ", node.explanation());
+    }
+
+    /** v1 응답 호환용 축약 표현. 신규 화면은 LearningDtos.ConceptDetail을 사용한다. */
+    public record Concept(String slug, String title, String summary, String explanation, String diagramKey, String sourceUrl) {
+    }
 }

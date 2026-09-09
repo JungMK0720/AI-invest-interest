@@ -1,36 +1,354 @@
-import { useEffect, useState } from "react";
-import Header from "../components/Header";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
+import ConceptTree from "../components/ConceptTree";
+import ConceptDiagram from "../components/ConceptDiagram";
+import QuizPanel from "../components/QuizPanel";
+import SimulatorPanel from "../components/SimulatorPanel";
 import { api } from "../api/client";
+import type { LearningConceptDetail, LearningTreeNode, LearningTreeResponse } from "../api/types";
 
-type Concept = { slug: string; title: string; summary: string; explanation: string; diagramKey: string; sourceUrl: string };
-const fallback: Concept[] = [
-  { slug: "risk-return", title: "위험과 수익", summary: "수익 가능성과 손실 가능성을 함께 읽기", explanation: "모든 금융상품에는 위험이 있습니다. 일반적으로 더 큰 수익 가능성에는 더 큰 손실 가능성이 함께 따릅니다.", diagramKey: "RISK", sourceUrl: "https://www.investor.gov/introduction-investing/investing-basics/investment-products" },
-  { slug: "stocks", title: "주식", summary: "기업의 소유권과 가격 변동", explanation: "주식은 기업의 소유권을 나타냅니다. 기업 실적과 시장 상황에 따라 가격이 오를 수도, 원금보다 낮아질 수도 있습니다.", diagramKey: "STOCK", sourceUrl: "https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks" },
-  { slug: "bonds", title: "채권", summary: "돈을 빌려주고 이자와 원금을 받는 구조", explanation: "채권에는 발행자의 신용위험이 있고, 만기 전에 팔면 금리 변화에 따라 가격이 달라질 수 있습니다.", diagramKey: "BOND", sourceUrl: "https://www.investor.gov/introduction-investing/investing-basics/investment-products/bonds-or-fixed-income-products/bonds" },
-  { slug: "funds", title: "펀드", summary: "여러 투자자의 돈을 모아 운용하는 구조", explanation: "펀드는 여러 자산에 투자할 수 있지만 운용보수와 환매 조건, 편입자산의 위험을 함께 확인해야 합니다.", diagramKey: "FUND", sourceUrl: "https://www.investor.gov/introduction-investing/investing-basics/investment-products/mutual-funds-and-exchange-traded-funds-etfs/mutual-funds" },
-  { slug: "etf", title: "ETF", summary: "거래소에서 거래되는 펀드 지분", explanation: "ETF는 분산에 도움을 줄 수 있지만 시장가격과 순자산가치의 차이, 스프레드, 보수와 기초자산 위험이 있습니다.", diagramKey: "ETF", sourceUrl: "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins-24" },
-  { slug: "liquidity", title: "유동성", summary: "필요한 시점에 현금화할 수 있는 정도", explanation: "팔 수 있는지와 원하는 가격·시간에 팔 수 있는지는 다릅니다. 거래량, 환매기간, 수수료와 가격충격을 확인합니다.", diagramKey: "LIQUIDITY", sourceUrl: "https://www.investor.gov/introduction-investing/investing-basics/glossary/liquidity-or-marketability" },
-];
+type Tab = "concept" | "quiz" | "sim";
 
+const START_SLUG = "risk-return";
+const DEEP_KEY = "finmate.learn.showDeep";
+
+/**
+ * 상품 학습 화면.
+ *
+ * 좌측은 개념 트리, 우측은 선택한 개념의 본문이다. 하위 개념은 두 단계로 제어한다.
+ * 상단 토글로 세부 개념(3단계) 전체를 켜고 끄고, 노드별 캐럿으로 가지 하나씩 펼친다.
+ * 사용자가 트리 깊이를 통제할 수 있어야 59개 개념이 목록이 아니라 지도처럼 읽힌다.
+ *
+ * 진단 등급을 바꾸거나 상품 가입을 유도하지 않는다. 이 화면은 재진단 제한과 무관하게 열려 있다(docs/09).
+ */
 export default function LearnPage() {
-  const [concepts, setConcepts] = useState<Concept[]>(fallback);
-  const [selected, setSelected] = useState("risk-return");
-  const [answers, setAnswers] = useState<Record<string, string>>({});
-  useEffect(() => { api.getLearningConcepts().then(setConcepts).catch(() => undefined); }, []);
-  const topic = concepts.find(t => t.slug === selected) ?? concepts[0];
-  return <div className="app-page"><Header /><main className="journey-main">
-    <span className="eyebrow">상품 기초 학습 · 출처 연결 콘텐츠</span><h1>상품을 보기 전에,<br />구조를 읽는 법부터.</h1>
-    <p className="intro-copy">진단 등급을 바꾸거나 가입을 권유하는 페이지가 아닙니다. 상품의 구조·위험·비용·현금화 조건을 실제 자료와 함께 학습합니다.</p>
-    <div className="learning-topics">{concepts.map(t => <button className="btn btn-secondary" aria-pressed={selected === t.slug} key={t.slug} onClick={() => setSelected(t.slug)}>{t.title}</button>)}</div>
-    {topic && <><article className="card evidence-card"><h2>{topic.title}</h2><p><strong>{topic.summary}</strong></p><ConceptDiagram kind={topic.diagramKey} /><p>{topic.explanation}</p><a className="lesson-source" href={topic.sourceUrl} target="_blank" rel="noreferrer">원문 출처 열기 ↗</a></article>
-    <section className="card evidence-card"><h2>확인 질문</h2><p>이 개념을 실제 상품을 살펴볼 때 어떻게 확인할까요?</p><div className="quiz-options">{["상품설명서와 위험·비용 정보를 먼저 확인한다", "최근 수익률만 보고 판단한다", "진단 등급이 안정형이면 위험이 없다고 생각한다"].map(option => <label key={option}><input type="radio" name={topic.slug} checked={answers[topic.slug] === option} onChange={() => setAnswers({...answers, [topic.slug]: option})} />{option}</label>)}</div>{answers[topic.slug] && <p className="policy-card">{answers[topic.slug].startsWith("상품설명서") ? "좋습니다. 구조·위험·비용을 확인하는 것이 출발점입니다." : "수익률 하나만으로 위험을 판단할 수 없습니다. 상품설명서와 공식 위험 정보를 함께 확인하세요."}</p>}</section></>}
-    <div className="action-row"><Link className="btn btn-secondary" to="/start">진단 시작 화면</Link><Link className="btn btn-secondary" to="/history">진단 이력 보기</Link></div>
-  </main></div>;
+  const [tree, setTree] = useState<LearningTreeResponse | null>(null);
+  const [treeError, setTreeError] = useState(false);
+  const [slug, setSlug] = useState(START_SLUG);
+  const [detail, setDetail] = useState<LearningConceptDetail | null>(null);
+  const [detailError, setDetailError] = useState(false);
+  const [tab, setTab] = useState<Tab>("concept");
+  const [query, setQuery] = useState("");
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [showDeep, setShowDeep] = useState(() => {
+    try {
+      return localStorage.getItem(DEEP_KEY) !== "false";
+    } catch {
+      return true;
+    }
+  });
+  const [navOpen, setNavOpen] = useState(false);
+  const [detailRetry, setDetailRetry] = useState(0);
+
+  const loadTree = useCallback(() => {
+    setTreeError(false);
+    api
+      .getLearningTree()
+      .then(data => {
+        setTree(data);
+        // 첫 진입에서 선택된 개념까지의 경로는 펼쳐 둔다. 어디에 있는지 보이지 않으면 트리가 소용없다.
+        setExpanded(new Set(data.roots.map(root => root.slug)));
+      })
+      .catch(() => setTreeError(true));
+  }, []);
+
+  useEffect(loadTree, [loadTree]);
+
+  useEffect(() => {
+    let alive = true;
+    setDetail(null);
+    setDetailError(false);
+    api
+      .getLearningConcept(slug)
+      .then(data => {
+        if (!alive) return;
+        setDetail(data);
+        // 선택한 개념의 조상을 펼쳐 트리에서 현재 위치가 보이게 한다.
+        setExpanded(prev => {
+          const next = new Set(prev);
+          data.breadcrumb.forEach(crumb => next.add(crumb.slug));
+          return next;
+        });
+      })
+      .catch(() => alive && setDetailError(true));
+    return () => {
+      alive = false;
+    };
+  }, [slug, detailRetry]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(DEEP_KEY, String(showDeep));
+    } catch {
+      // 저장에 실패해도 학습 자체에는 영향이 없으므로 조용히 넘어간다.
+    }
+  }, [showDeep]);
+
+  const titleBySlug = useMemo(() => {
+    const map = new Map<string, string>();
+    const walk = (node: LearningTreeNode) => {
+      map.set(node.slug, node.title);
+      node.children.forEach(walk);
+    };
+    tree?.roots.forEach(walk);
+    return map;
+  }, [tree]);
+
+  function select(next: string) {
+    setSlug(next);
+    setTab("concept");
+    setNavOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function toggle(target: string) {
+    setExpanded(prev => {
+      const next = new Set(prev);
+      if (next.has(target)) next.delete(target);
+      else next.add(target);
+      return next;
+    });
+  }
+
+  return (
+    <div className="app-page">
+      <Header />
+      <main className="learn-main">
+        <section className="learn-intro">
+          <span className="eyebrow">상품 기초 학습 · 출처 연결 콘텐츠 · 모의투자</span>
+          <h1>상품을 보기 전에, 구조를 읽는 법부터.</h1>
+          <p className="intro-copy">
+            진단 등급을 바꾸거나 가입을 권유하는 페이지가 아닙니다. 개념을 고르면 구조·확인 포인트·확인 문제·모의투자가
+            함께 열립니다. 왼쪽 목록에서 하위 개념을 펼쳐 원하는 깊이까지 내려갈 수 있습니다.
+          </p>
+          {tree && (
+            <p className="subtle">
+              개념 {tree.conceptCount}개 · 콘텐츠 버전 {tree.contentVersion}
+            </p>
+          )}
+        </section>
+
+        <div className="learn-layout">
+          <aside className={`learn-aside${navOpen ? " is-open" : ""}`}>
+            <div className="aside-controls">
+              <label className="field-label" htmlFor="concept-search">
+                개념 찾기
+              </label>
+              <input
+                id="concept-search"
+                className="field-input"
+                type="search"
+                placeholder="예: 듀레이션, 스프레드, 레버리지"
+                value={query}
+                onChange={event => setQuery(event.target.value)}
+              />
+              <button
+                type="button"
+                className={`deep-toggle${showDeep ? " is-on" : ""}`}
+                role="switch"
+                aria-checked={showDeep}
+                onClick={() => setShowDeep(value => !value)}
+              >
+                <span className="deep-track" aria-hidden="true">
+                  <span className="deep-thumb" />
+                </span>
+                <span>세부 개념까지 보기</span>
+              </button>
+              <p className="aside-hint">
+                {showDeep ? "3단계 세부 개념까지 표시합니다." : "대분류와 핵심 개념만 표시합니다."}
+              </p>
+            </div>
+
+            {treeError ? (
+              <div role="alert" className="panel-error">
+                개념 목록을 불러오지 못했습니다.{" "}
+                <button className="btn btn-secondary" onClick={loadTree}>
+                  다시 시도
+                </button>
+              </div>
+            ) : !tree ? (
+              <p role="status">개념 목록을 불러오는 중…</p>
+            ) : (
+              <ConceptTree
+                roots={tree.roots}
+                selected={slug}
+                expanded={expanded}
+                showDeep={showDeep}
+                query={query}
+                onSelect={select}
+                onToggle={toggle}
+              />
+            )}
+          </aside>
+
+          <div className="learn-content">
+            <button className="btn btn-secondary nav-toggle" onClick={() => setNavOpen(open => !open)}>
+              {navOpen ? "개념 목록 닫기" : "개념 목록 열기"}
+            </button>
+
+            {detailError && (
+              <div role="alert" className="panel-error">
+                개념을 불러오지 못했습니다.{" "}
+                <button className="btn btn-secondary" onClick={() => setDetailRetry(count => count + 1)}>
+                  다시 시도
+                </button>
+              </div>
+            )}
+            {!detail && !detailError && <p role="status">개념을 불러오는 중…</p>}
+
+            {detail && (
+              <>
+                <nav className="breadcrumb" aria-label="현재 위치">
+                  {detail.breadcrumb.map((crumb, index) => (
+                    <span key={crumb.slug}>
+                      {index > 0 && <span aria-hidden="true"> › </span>}
+                      {crumb.slug === detail.slug ? (
+                        <strong>{crumb.title}</strong>
+                      ) : (
+                        <button className="crumb-link" onClick={() => select(crumb.slug)}>
+                          {crumb.title}
+                        </button>
+                      )}
+                    </span>
+                  ))}
+                </nav>
+
+                <header className="concept-head">
+                  <h2>{detail.title}</h2>
+                  <p className="concept-oneliner">{detail.oneLiner}</p>
+                </header>
+
+                <div className="tab-row" role="tablist" aria-label="학습 단계">
+                  <TabButton current={tab} value="concept" onSelect={setTab}>
+                    개념과 구조
+                  </TabButton>
+                  <TabButton current={tab} value="quiz" onSelect={setTab}>
+                    확인 문제{detail.quizCount > 0 ? ` ${detail.quizCount}` : ""}
+                  </TabButton>
+                  <TabButton current={tab} value="sim" onSelect={setTab}>
+                    모의투자
+                  </TabButton>
+                </div>
+
+                {tab === "concept" && (
+                  <article className="card concept-card">
+                    <ConceptDiagram kind={detail.diagramKey} />
+                    {detail.explanation.map(paragraph => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+
+                    {detail.keyPoints.length > 0 && (
+                      <section className="point-block">
+                        <h3>확인 포인트</h3>
+                        <ul className="point-list">
+                          {detail.keyPoints.map(point => (
+                            <li key={point}>{point}</li>
+                          ))}
+                        </ul>
+                      </section>
+                    )}
+
+                    {detail.misconception && (
+                      <p className="misconception">
+                        <strong>자주 하는 오해</strong> {detail.misconception}
+                      </p>
+                    )}
+
+                    {detail.checklist.length > 0 && (
+                      <section className="point-block">
+                        <h3>이 상품에서 확인할 것</h3>
+                        <ul className="check-list">
+                          {detail.checklist.map(item => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </section>
+                    )}
+
+                    {detail.children.length > 0 && (
+                      <section className="point-block">
+                        <h3>하위 개념 {detail.children.length}개</h3>
+                        <div className="child-grid">
+                          {detail.children.map(child => (
+                            <button className="child-card" key={child.slug} onClick={() => select(child.slug)}>
+                              <strong>{child.title}</strong>
+                              <span>{child.summary}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </section>
+                    )}
+
+                    {detail.relatedSlugs.length > 0 && (
+                      <section className="point-block">
+                        <h3>함께 보면 좋은 개념</h3>
+                        <div className="related-row">
+                          {detail.relatedSlugs.map(related => (
+                            <button className="btn btn-secondary" key={related} onClick={() => select(related)}>
+                              {titleBySlug.get(related) ?? related}
+                            </button>
+                          ))}
+                        </div>
+                      </section>
+                    )}
+
+                    <a className="lesson-source" href={detail.sourceUrl} target="_blank" rel="noreferrer">
+                      원문 출처 열기 · {detail.sourceName} ↗
+                    </a>
+                    <p className="notice-line">{detail.notice}</p>
+                  </article>
+                )}
+
+                {tab === "quiz" && (
+                  <article className="card concept-card">
+                    <QuizPanel slug={detail.slug} />
+                  </article>
+                )}
+
+                {tab === "sim" && (
+                  <article className="card concept-card">
+                    <SimulatorPanel slug={detail.slug} />
+                  </article>
+                )}
+              </>
+            )}
+
+            <div className="action-row">
+              <Link className="btn btn-secondary" to="/start">
+                진단 시작 화면
+              </Link>
+              <Link className="btn btn-secondary" to="/history">
+                진단 이력 보기
+              </Link>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
 }
-function ConceptDiagram({ kind }: { kind: string }) {
-  if (kind === "BOND") return <div className="concept-diagram"><span>투자자</span><b>자금 →</b><span>발행자</span><b>이자·원금 →</b><span>투자자</span><small>신용위험 · 금리위험 · 만기</small></div>;
-  if (kind === "ETF" || kind === "FUND") return <div className="concept-diagram"><span>여러 투자자</span><b>자금 →</b><span>펀드</span><b>보유 →</b><span>여러 자산</span><small>분산 가능성 · 보수 · 기초자산 위험</small></div>;
-  if (kind === "LIQUIDITY") return <div className="concept-diagram"><span>보유</span><b>시장·환매 →</b><span>현금</span><small>시간 · 거래량 · 수수료 · 가격충격</small></div>;
-  return <div className="concept-diagram"><span>낮은 위험</span><i /><span>높은 위험</span><small>수익 가능성과 손실 가능성을 함께 확인</small></div>;
+
+function TabButton({
+  current,
+  value,
+  onSelect,
+  children,
+}: {
+  current: Tab;
+  value: Tab;
+  onSelect: (tab: Tab) => void;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      role="tab"
+      aria-selected={current === value}
+      className={`tab-button${current === value ? " is-active" : ""}`}
+      onClick={() => onSelect(value)}
+    >
+      {children}
+    </button>
+  );
 }
