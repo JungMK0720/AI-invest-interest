@@ -1,5 +1,7 @@
 import type {
   AnswerItem,
+  HistoryResponse,
+  AvailabilityResponse,
   ApiErrorBody,
   AssessmentResultResponse,
   CategoryRecommendationResponse,
@@ -70,11 +72,16 @@ export const api = {
 
   getQuestions: () => request<QuestionResponse[]>("/questions"),
 
+  getLearningConcepts: () => request<{ slug: string; title: string; summary: string; explanation: string; diagramKey: string; sourceUrl: string }[]>("/learning/concepts"),
+
   submitAssessment: (answers: AnswerItem[]) =>
     request<AssessmentResultResponse>("/assessments", {
       method: "POST",
       body: JSON.stringify({ answers }),
     }),
+
+  getHistory: (page = 0) => request<HistoryResponse>(`/assessments?page=${page}`),
+  getAvailability: () => request<AvailabilityResponse>("/assessments/availability"),
 
   getAssessment: (assessmentId: string) =>
     request<AssessmentResultResponse>(`/assessments/${assessmentId}`),

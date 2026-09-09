@@ -30,6 +30,8 @@ export default function ResultPage() {
     );
   }
 
+  if (data && !data.profile) return <Shell><section className="policy-card"><h2>{data.status === "FAILED" ? "진단을 완료하지 못했습니다" : "진단을 처리하고 있습니다"}</h2><p>시작 화면에서 진단 가능 상태를 확인해 주세요. 처리가 오래 지속되면 운영 확인이 필요합니다.</p><button className="btn btn-secondary" onClick={() => navigate("/start")}>시작 화면으로</button></section></Shell>;
+
   if (!data || !data.profile) {
     return (
       <Shell>
@@ -100,7 +102,7 @@ export default function ResultPage() {
               <circle cx="12" cy="16" r="1" fill="#8A5A00" />
             </svg>
             <span style={{ fontSize: 12.5, color: "var(--warn-text)" }}>
-              AI 설명 생성이 지연되어 기본 설명으로 안내합니다. 성향 등급과 탐색 카테고리는 정상적으로 산출되었습니다.
+              AI 설명을 사용할 수 없어 기본 설명으로 안내합니다. 성향 등급과 탐색 카테고리는 정상적으로 산출되었습니다.
             </span>
           </div>
         )}
@@ -115,6 +117,14 @@ export default function ResultPage() {
           <div style={{ fontSize: 13.5, color: "var(--text-muted)", lineHeight: 1.7 }}>{profile.reasoning}</div>
         </div>
 
+        {data.evidence ? <section className="card evidence-card">
+          <h2>진단 당시의 답변</h2>
+          <p className="subtle">결과를 이해하기 위한 기록입니다. 지금 다시 답해도 이번 달 결과는 변경되지 않습니다.</p>
+          <dl>{data.evidence.answers.map(answer => <div key={answer.questionId}><dt>{answer.question}</dt><dd>{answer.answer}</dd></div>)}</dl>
+          {data.evidence.reviewFlags.length > 0 && <div className="policy-card"><strong>상품을 살펴보기 전에 확인해 주세요</strong>{data.evidence.reviewFlags.map(flag => <p key={flag.code}>{flag.message}</p>)}</div>}
+        </section> : <p className="subtle">이전 버전의 진단은 답변 근거 기록을 제공하지 않습니다.</p>}
+        <button className="btn btn-secondary btn-block" onClick={() => navigate("/history")}>지난 진단과 비교하기</button>
+        <button className="btn btn-secondary btn-block" onClick={() => navigate("/learn")}>안내 범위 밖 상품도 기초 개념 배우기</button>
         <button className="btn btn-primary btn-block" onClick={() => navigate(`/explore/${data.id}`)}>
           탐색 카테고리 보기
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none">

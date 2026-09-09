@@ -49,6 +49,12 @@ export interface AssessmentResultResponse {
   profile: ProfileResponse | null;
   createdAt: string;
   completedAt: string | null;
+  evidence: {
+    ruleVersion: string;
+    questionnaireVersion: string;
+    answers: { questionId: string; question: string; answer: string }[];
+    reviewFlags: { code: string; message: string }[];
+  } | null;
 }
 
 export interface CategoryRecommendationResponse {
@@ -83,4 +89,17 @@ export interface ProductResponse {
 export interface ApiErrorBody {
   code: string;
   message: string;
+}
+
+export interface HistoryResponse {
+  items: AssessmentResultResponse[];
+  page: number;
+  hasNext: boolean;
+}
+export interface AvailabilityResponse {
+  canSubmit: boolean;
+  policyVersion: string;
+  nextAvailableAt: string | null;
+  currentAssessmentId: string | null;
+  currentStatus: AssessmentStatus | null;
 }

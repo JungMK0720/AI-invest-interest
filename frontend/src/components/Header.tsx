@@ -50,7 +50,9 @@ export default function Header() {
 
       {user && (
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <span style={{ fontSize: 13, color: "var(--text-muted)" }}>{user.name} 님</span>
+          <button className="btn btn-secondary" onClick={() => navigate("/learn")}>상품 학습</button>
+          <button className="btn btn-secondary" onClick={() => navigate("/history")}>진단 이력</button>
+          <span className="header-name" style={{ fontSize: 13, color: "var(--text-muted)" }}>{user.name} 님</span>
           <div
             style={{
               width: 30,

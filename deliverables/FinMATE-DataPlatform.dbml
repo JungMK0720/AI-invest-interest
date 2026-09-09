@@ -1,0 +1,71 @@
+// FinMATE 배포형 데이터 플랫폼 초안
+Table source_registry {
+  id varchar [pk]
+  provider_key varchar [unique, not null]
+  source_name varchar [not null]
+  source_url varchar [not null]
+  access_mode varchar [not null, note: 'API | DOCUMENT | MANUAL']
+  terms_url varchar
+  rate_limit_note varchar
+  last_success_at timestamp
+}
+Table source_documents {
+  id varchar [pk]
+  source_id varchar [ref: > source_registry.id, not null]
+  external_id varchar [not null]
+  document_type varchar [not null]
+  published_at timestamp
+  observed_at timestamp [not null]
+  content_hash varchar [not null]
+  storage_uri varchar [not null]
+  source_url varchar [not null]
+  status varchar [not null, note: 'ACTIVE | REPLACED | REMOVED | FAILED']
+  indexes { (source_id, external_id, content_hash) [unique] }
+}
+Table instrument_master {
+  id varchar [pk]
+  external_code varchar [not null]
+  name varchar [not null]
+  instrument_type varchar [not null]
+  issuer_name varchar
+  active boolean [not null]
+}
+Table instrument_snapshots {
+  id varchar [pk]
+  instrument_id varchar [ref: > instrument_master.id, not null]
+  as_of timestamp [not null]
+  price decimal
+  nav decimal
+  risk_grade integer
+  expense_ratio decimal
+  liquidity_score decimal
+  source_document_id varchar [ref: > source_documents.id]
+  indexes { (instrument_id, as_of) [unique] }
+}
+Table concepts {
+  id varchar [pk]
+  slug varchar [unique, not null]
+  title varchar [not null]
+  status varchar [not null, note: 'DRAFT | REVIEW | PUBLISHED | RETIRED']
+}
+Table content_revisions {
+  id varchar [pk]
+  concept_id varchar [ref: > concepts.id, not null]
+  revision_no integer [not null]
+  body_markdown text [not null]
+  diagram_spec text
+  source_document_id varchar [ref: > source_documents.id]
+  reviewer varchar
+  reviewed_at timestamp
+  effective_from timestamp [not null]
+  effective_to timestamp
+  indexes { (concept_id, revision_no) [unique] }
+}
+Table learning_progress {
+  id varchar [pk]
+  user_id varchar [ref: > users.id, not null]
+  content_revision_id varchar [ref: > content_revisions.id, not null]
+  completed_at timestamp
+  quiz_score integer
+  indexes { (user_id, content_revision_id) [unique] }
+}

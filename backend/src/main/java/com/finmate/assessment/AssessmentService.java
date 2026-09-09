@@ -25,7 +25,14 @@ public class AssessmentService {
     }
 
     public AssessmentDtos.AssessmentResultResponse submit(String userId, AssessmentDtos.SubmitRequest request) {
-        AssessmentDtos.PreparedAnalysis prepared = store.prepare(userId, request);
+        AssessmentDtos.PreparedAnalysis prepared;
+        try {
+            prepared = store.prepare(userId, request);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            // 동시 제출의 마지막 방어선은 DB의 사용자/월 유일성 제약이다.
+            if (!store.findAvailability(userId).canSubmit()) throw store.monthlyLimit();
+            throw e;
+        }
 
         List<String> categoryNames = prepared.rankedCategories().stream()
                 .map(SuitabilityMatcher.RankedCategory::category)
@@ -38,7 +45,20 @@ public class AssessmentService {
                 prepared.scoredAnswers(),
                 categoryNames));
 
-        return store.complete(prepared, reasoning);
+        try {
+            return store.complete(prepared, reasoning);
+        } catch (RuntimeException e) {
+            store.failAndRelease(prepared.assessmentId());
+            throw e;
+        }
+    }
+
+    public AssessmentDtos.AvailabilityResponse findAvailability(String userId) {
+        return store.findAvailability(userId);
+    }
+
+    public AssessmentDtos.HistoryResponse findHistory(String userId, int page) {
+        return store.findHistory(userId, page);
     }
 
     public AssessmentDtos.AssessmentResultResponse findResult(String userId, String assessmentId) {

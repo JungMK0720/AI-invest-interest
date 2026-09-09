@@ -18,9 +18,11 @@ public class ReasoningService {
 
     private final ClaudeReasoningGenerator claudeGenerator;
     private final TemplateReasoningGenerator templateGenerator;
+    private final ReasoningValidator validator;
 
     public ReasoningService(ClaudeReasoningGenerator claudeGenerator,
-                            TemplateReasoningGenerator templateGenerator) {
+                            TemplateReasoningGenerator templateGenerator, ReasoningValidator validator) {
+        this.validator = validator;
         this.claudeGenerator = claudeGenerator;
         this.templateGenerator = templateGenerator;
     }
@@ -28,9 +30,11 @@ public class ReasoningService {
     public Reasoning generate(ReasoningRequest request) {
         if (claudeGenerator.isEnabled()) {
             try {
-                return new Reasoning(claudeGenerator.generate(request), ReasoningSource.LLM);
+                String text = claudeGenerator.generate(request);
+                if (validator.accepts(text, request)) return new Reasoning(text, ReasoningSource.LLM);
+                log.warn("AI 설명 출력 검사 실패로 기본 설명을 사용합니다.");
             } catch (RuntimeException e) {
-                log.warn("AI 근거 생성에 실패해 템플릿으로 대체합니다: {}", e.toString());
+                log.warn("AI 근거 생성에 실패해 템플릿으로 대체합니다. 오류 유형: {}", e.getClass().getSimpleName());
             }
         }
         return new Reasoning(templateGenerator.generate(request), ReasoningSource.TEMPLATE);

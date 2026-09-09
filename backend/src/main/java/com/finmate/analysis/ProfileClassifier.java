@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 /**
  * 투자자 성향 판정 규칙 엔진.
  *
- * 성향 등급은 규제 대상 판단이므로 LLM이 아니라 결정적 규칙으로 산출한다.
+ * 과제용 성향 등급은 LLM이 아니라 결정적 규칙으로 산출한다.
  * 같은 답변은 언제나 같은 등급을 만들고, 산출 근거를 점수로 재현할 수 있어야 하기 때문이다.
  */
 @Component

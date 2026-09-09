@@ -36,6 +36,31 @@ tags:
     description: 상품 카테고리 및 상품 조회
 
 paths:
+  /learning/concepts:
+    get:
+      tags: [learning]
+      summary: 학습 개념 카탈로그
+      responses:
+        '200': { description: 출처 연결 개념 목록 }
+  /learning/concepts/{slug}:
+    get:
+      tags: [learning]
+      summary: 학습 개념 상세
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: 개념·도식·출처 }
+        '404': { description: 개념 없음 }
+  /assessments/availability:
+    get:
+      tags: [assessments]
+      summary: 이번 달 진단 가능 여부
+      responses:
+        '200':
+          description: FinMATE 자체 월 1회 정책 상태
   /auth/signup:
     post:
       tags: [auth]
@@ -108,6 +133,15 @@ paths:
                   $ref: '#/components/schemas/Question'
 
   /assessments:
+    get:
+      tags: [assessments]
+      summary: 완료한 진단 이력
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer, minimum: 0, default: 0 }
+      responses:
+        '200': { description: 진단 이력 페이지 }
     post:
       tags: [assessments]
       summary: 진단 답변 제출 및 성향 분석
@@ -551,3 +585,8 @@ components:
         disclaimer:
           type: string
           description: 투자 자문·투자 권유가 아님을 알리는 고지 문구. 상품 상세 화면에 항상 노출한다.
+
+# 고도화 API 메모
+# - GET /assessments/availability: monthly-kst-v1 정책 상태와 다음 진단일
+# - GET /assessments?page=0: 완료 이력 페이지
+# - AssessmentResult.evidence: 당시 답변·ruleVersion·questionnaireVersion·reviewFlags

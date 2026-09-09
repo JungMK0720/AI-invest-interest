@@ -29,6 +29,17 @@ public class AssessmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.submit(userId, request));
     }
 
+    @GetMapping("/availability")
+    public AssessmentDtos.AvailabilityResponse getAvailability(@CurrentUserId String userId) {
+        return assessmentService.findAvailability(userId);
+    }
+
+    @GetMapping
+    public AssessmentDtos.HistoryResponse getHistory(@CurrentUserId String userId,
+            @org.springframework.web.bind.annotation.RequestParam(defaultValue = "0") int page) {
+        return assessmentService.findHistory(userId, page);
+    }
+
     @GetMapping("/{assessmentId}")
     public AssessmentDtos.AssessmentResultResponse getResult(
             @CurrentUserId String userId,

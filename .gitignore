@@ -18,3 +18,7 @@ frontend/.vite/
 .idea/
 *.iml
 .vscode/
+
+# 산출물 생성 중간물 (스크립트/렌더 캐시)
+.build/
+output/

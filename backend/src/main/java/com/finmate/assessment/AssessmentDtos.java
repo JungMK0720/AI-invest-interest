@@ -34,7 +34,8 @@ public final class AssessmentDtos {
             String status,
             ProfileResponse profile,
             Instant createdAt,
-            Instant completedAt) {
+            Instant completedAt,
+            EvidenceResponse evidence) {
     }
 
     public record CategoryRecommendationResponse(
@@ -45,6 +46,15 @@ public final class AssessmentDtos {
             int rank,
             String reason) {
     }
+
+    public record AvailabilityResponse(boolean canSubmit, String policyVersion,
+            Instant nextAvailableAt, String currentAssessmentId, String currentStatus) {}
+
+    public record HistoryResponse(List<AssessmentResultResponse> items, int page, boolean hasNext) {}
+
+    public record EvidenceAnswer(String questionId, String question, String answer) {}
+    public record EvidenceResponse(String ruleVersion, String questionnaireVersion,
+            List<EvidenceAnswer> answers, List<DecisionSnapshot.ReviewFlag> reviewFlags) {}
 
     /** 트랜잭션 밖에서 AI 호출을 하기 위해 1단계 결과를 담아 넘기는 중간 객체. */
     public record PreparedAnalysis(

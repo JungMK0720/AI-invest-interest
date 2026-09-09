@@ -53,6 +53,8 @@ Table assessments {
   failure_reason varchar   [note: '사용자에게 직접 노출하지 않는 내부 실패 사유']
   created_at     timestamp [not null]
   completed_at   timestamp
+  submission_period varchar [note: 'FinMATE 자체 월 1회 정책의 한국 달력 월(YYYY-MM)']
+  decision_snapshot text [note: '불변 JSON: 규칙/질문지 버전, 답변 근거, 확인 플래그']
 
   Note: '사용자의 1회 진단 세션. 한 사용자가 여러 번 진단할 수 있다'
 }

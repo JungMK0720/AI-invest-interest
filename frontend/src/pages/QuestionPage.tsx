@@ -4,12 +4,14 @@ import Header from "../components/Header";
 import Stepper from "../components/Stepper";
 import { api, ApiError } from "../api/client";
 import type { QuestionResponse } from "../api/types";
-import { LAST_ASSESSMENT_KEY } from "./StartPage";
+import AssessmentAvailability from "../components/AssessmentAvailability";
+import type { AvailabilityResponse } from "../api/types";
 
 type LoadState = "loading" | "ready" | "unavailable";
 
 export default function QuestionPage() {
   const navigate = useNavigate();
+  const [availability, setAvailability] = useState<AvailabilityResponse | null>(null);
   const [loadState, setLoadState] = useState<LoadState>("loading");
   const [questions, setQuestions] = useState<QuestionResponse[]>([]);
   const [step, setStep] = useState(0);
@@ -20,9 +22,9 @@ export default function QuestionPage() {
 
   const load = () => {
     setLoadState("loading");
-    api
-      .getQuestions()
-      .then((qs) => {
+    Promise.all([api.getQuestions(), api.getAvailability()])
+      .then(([qs, available]) => {
+        setAvailability(available);
         setQuestions(qs);
         setLoadState(qs.length > 0 ? "ready" : "unavailable");
       })
@@ -48,6 +50,10 @@ export default function QuestionPage() {
         <UnavailableState onRetry={load} />
       </Shell>
     );
+  }
+
+  if (availability && !availability.canSubmit) {
+    return <Shell><div style={{ maxWidth: 640 }}><AssessmentAvailability value={availability} /></div></Shell>;
   }
 
   const current = questions[step];
@@ -78,10 +84,11 @@ export default function QuestionPage() {
     try {
       const payload = questions.map((q) => ({ questionId: q.id, choiceId: answers[q.id] }));
       const result = await api.submitAssessment(payload);
-      localStorage.setItem(LAST_ASSESSMENT_KEY, result.id);
       navigate(`/result/${result.id}`);
     } catch (err) {
-      if (err instanceof ApiError && err.status === 503) {
+      if (err instanceof ApiError && err.code === "ASSESSMENT_MONTHLY_LIMIT") {
+        load();
+      } else if (err instanceof ApiError && err.status === 503) {
         setLoadState("unavailable");
       } else if (err instanceof ApiError) {
         setSubmitError(err.message);

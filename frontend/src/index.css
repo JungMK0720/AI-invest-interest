@@ -136,3 +136,37 @@ input {
   color: var(--danger);
   font-size: 13px;
 }
+
+/* 진단 이후의 학습과 이력 */
+.app-page { min-height: 100vh; background: var(--bg); }
+.journey-main { width: min(100% - 40px, 1000px); margin: 0 auto; padding: 46px 0 70px; display: flex; flex-direction: column; gap: 24px; }
+.eyebrow { font-size: 12px; font-weight: 700; color: var(--primary); letter-spacing: .06em; }
+.journey-main h1 { font-size: clamp(26px, 4vw, 40px); line-height: 1.3; margin: 0; letter-spacing: -.035em; }
+.journey-main h2, .evidence-card h2 { font-size: 18px; margin: 0 0 12px; }
+.intro-copy { max-width: 680px; color: var(--text-muted); line-height: 1.8; margin: 0; }
+.policy-card { padding: 22px; border: 1px solid #bdc9ed; border-radius: 14px; background: var(--primary-tint); line-height: 1.7; }
+.policy-card p { margin: 10px 0; font-size: 14px; }
+.action-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.feature-grid .card { padding: 24px; line-height: 1.8; }
+.feature-grid p, .subtle { color: var(--text-muted); font-size: 13px; line-height: 1.8; }
+.evidence-card { padding: 26px; line-height: 1.8; }
+.evidence-card dl { margin: 0; }
+.evidence-card dl > div { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.evidence-card dt { font-size: 13px; color: var(--text-muted); }
+.evidence-card dd { margin: 5px 0 0; font-size: 14px; font-weight: 600; }
+.history-list { display: grid; gap: 12px; }
+.history-item { padding: 22px; display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; align-items: center; }
+.history-item input { width: 18px; height: 18px; vertical-align: middle; margin-right: 8px; }
+.learning-topics { display: flex; gap: 10px; flex-wrap: wrap; }
+.learning-topics button[aria-pressed="true"] { background: var(--primary); color: white; }
+.lesson-source { display: block; margin-top: 16px; font-size: 12px; }
+.quiz-options { display: flex; flex-direction: column; gap: 12px; margin: 18px 0; }
+.quiz-options label { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.quiz-options input { width: 18px; height: 18px; }
+@media (max-width: 650px) { .header-name { display: none; } header { padding: 0 12px !important; } header .btn { padding: 7px 9px !important; font-size: 11px !important; } .journey-main { padding-top: 30px; } }
+
+.concept-diagram { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; padding:24px 12px; margin:18px 0; background:#f7f8fc; border:1px solid var(--border); border-radius:12px; color:var(--primary); font-size:13px; font-weight:700; }
+.concept-diagram b { color:var(--text-muted); font-size:12px; }
+.concept-diagram small { flex-basis:100%; text-align:center; color:var(--text-muted); font-weight:400; }
+.concept-diagram i { display:block; width:180px; height:10px; border-radius:8px; background:linear-gradient(90deg,#54b87a,#e5aa4d,#dc5b65); }

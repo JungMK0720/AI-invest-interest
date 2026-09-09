@@ -13,7 +13,8 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 
 @Entity
-@Table(name = "assessments")
+@Table(name = "assessments", uniqueConstraints = @jakarta.persistence.UniqueConstraint(
+        name = "uq_assessment_user_period", columnNames = {"user_id", "submission_period"}))
 public class Assessment {
 
     @Id
@@ -36,6 +37,21 @@ public class Assessment {
 
     @Column(name = "completed_at")
     private Instant completedAt;
+
+    @Column(name = "decision_snapshot", columnDefinition = "text")
+    private String decisionSnapshot;
+
+    public String getDecisionSnapshot() { return decisionSnapshot; }
+    public void captureDecision(String snapshot) {
+        if (decisionSnapshot != null) throw new IllegalStateException("진단 근거는 변경할 수 없습니다.");
+        this.decisionSnapshot = snapshot;
+    }
+
+    @Column(name = "submission_period", length = 7)
+    private String submissionPeriod;
+
+    public void reservePeriod(String period) { this.submissionPeriod = period; }
+    public void releaseFailedPeriod() { this.submissionPeriod = null; }
 
     protected Assessment() {
     }

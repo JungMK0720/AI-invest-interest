@@ -1,6 +1,8 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import HistoryPage from "./pages/HistoryPage";
+import LearnPage from "./pages/LearnPage";
 import LoginPage from "./pages/LoginPage";
 import StartPage from "./pages/StartPage";
 import QuestionPage from "./pages/QuestionPage";
@@ -12,6 +14,8 @@ export default function App() {
   return (
     <AuthProvider>
       <Routes>
+        <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
+        <Route path="/learn" element={<ProtectedRoute><LearnPage /></ProtectedRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route
           path="/start"
