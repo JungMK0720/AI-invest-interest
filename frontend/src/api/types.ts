@@ -154,6 +154,17 @@ export interface LearningConceptDetail {
   notice: string;
 }
 
+export interface LearningAiExplainResponse {
+  slug: string;
+  title: string;
+  answer: string;
+  source: "CLAUDE" | "TEMPLATE";
+  sourceName: string;
+  sourceUrl: string;
+  contentVersion: string;
+  notice: string;
+}
+
 /** 정답이 제거된 확인 문제. 채점은 서버에서만 한다. */
 export interface QuizQuestion {
   id: string;
@@ -272,3 +283,17 @@ export interface SimulationRunResponse {
   seed: number;
   notice: string;
 }
+
+export interface PracticeProduct {
+  id: string; name: string; assetClass: string; mechanism: string; driver: string;
+  duration: number; annualFeePercent: number; leverage: number; foreignCurrency: boolean;
+  conceptSlug: string; explanation: string;
+}
+export interface PracticeScenario {
+  id: string; name: string; description: string;
+  shocks: { equityPercent: number; ratePoints: number; creditSpreadPoints: number; goldPercent: number; realEstatePercent: number; fxPercent: number; days: number };
+}
+export interface PracticeEffect { label: string; amount: number; formula: string; meaning: string; }
+export interface PracticePosition { rowId: string; productId: string; label: string; assetClass: string; conceptSlug: string; invested: number; weightPercent: number; economicExposure: number; endingValue: number; profitLoss: number; returnPercent: number; effects: PracticeEffect[]; observations: string[]; }
+export interface PracticeAnalysis { modelVersion: string; budget: number; unallocatedCash: number; endingValue: number; profitLoss: number; returnPercent: number; linearExposureRatio: number; optionPremium: number; allocation: { assetClass: string; amount: number; weightPercent: number }[]; positions: PracticePosition[]; lessons: string[]; limitations: string[]; }
+export interface PracticeComparison { before: PracticeAnalysis; after: PracticeAnalysis; profitLossDifference: number; interpretation: string; }

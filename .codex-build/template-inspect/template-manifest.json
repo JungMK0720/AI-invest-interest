@@ -1,0 +1,236 @@
+{
+  "sourcePptx": "/Users/minkyu/Lecture/August/week9/deliverables/FinMATE-발표자료.pptx",
+  "workspace": "/Users/minkyu/Lecture/August/week9",
+  "outDir": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect",
+  "generatedAt": "2026-09-10T02:24:35.327Z",
+  "slideCount": 13,
+  "slideArtifacts": [
+    {
+      "slide": 1,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-01.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-01.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-01.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-01.layout.json"
+    },
+    {
+      "slide": 2,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-02.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-02.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-02.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-02.layout.json"
+    },
+    {
+      "slide": 3,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-03.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-03.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-03.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-03.layout.json"
+    },
+    {
+      "slide": 4,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-04.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-04.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-04.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-04.layout.json"
+    },
+    {
+      "slide": 5,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-05.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-05.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-05.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-05.layout.json"
+    },
+    {
+      "slide": 6,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-06.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-06.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-06.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-06.layout.json"
+    },
+    {
+      "slide": 7,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-07.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-07.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-07.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-07.layout.json"
+    },
+    {
+      "slide": 8,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-08.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-08.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-08.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-08.layout.json"
+    },
+    {
+      "slide": 9,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-09.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-09.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-09.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-09.layout.json"
+    },
+    {
+      "slide": 10,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-10.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-10.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-10.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-10.layout.json"
+    },
+    {
+      "slide": 11,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-11.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-11.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-11.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-11.layout.json"
+    },
+    {
+      "slide": 12,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-12.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-12.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-12.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-12.layout.json"
+    },
+    {
+      "slide": 13,
+      "previewPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/source-slides/source-slide-13.png",
+      "previewRelativePath": ".codex-build/template-inspect/source-slides/source-slide-13.png",
+      "layoutPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/layouts/source-slide-13.layout.json",
+      "layoutRelativePath": ".codex-build/template-inspect/layouts/source-slide-13.layout.json"
+    }
+  ],
+  "inspectPath": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/template-inspect.ndjson",
+  "inspectRelativePath": ".codex-build/template-inspect/template-inspect.ndjson",
+  "inspectTruncated": true,
+  "inspectMetadata": {
+    "revision": "5dyes4",
+    "target": {
+      "id": "pr/8yfhll"
+    },
+    "kind": {
+      "requested": "slide,textbox,shape,image,table,chart",
+      "tokens": [
+        "slide",
+        "textbox",
+        "shape",
+        "image",
+        "table",
+        "chart"
+      ]
+    },
+    "include": {
+      "tokens": []
+    },
+    "exclude": {
+      "tokens": []
+    },
+    "notices": []
+  },
+  "extractedMedia": [
+    {
+      "entry": "ppt/media/image1.png",
+      "path": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/assets/ppt/media/image1.png",
+      "relativePath": ".codex-build/template-inspect/assets/ppt/media/image1.png",
+      "bytes": 65654
+    },
+    {
+      "entry": "ppt/media/image2.png",
+      "path": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/assets/ppt/media/image2.png",
+      "relativePath": ".codex-build/template-inspect/assets/ppt/media/image2.png",
+      "bytes": 48445
+    },
+    {
+      "entry": "ppt/media/image3.png",
+      "path": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/assets/ppt/media/image3.png",
+      "relativePath": ".codex-build/template-inspect/assets/ppt/media/image3.png",
+      "bytes": 230464
+    },
+    {
+      "entry": "ppt/media/image4.png",
+      "path": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/assets/ppt/media/image4.png",
+      "relativePath": ".codex-build/template-inspect/assets/ppt/media/image4.png",
+      "bytes": 41194
+    },
+    {
+      "entry": "ppt/media/image5.png",
+      "path": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/assets/ppt/media/image5.png",
+      "relativePath": ".codex-build/template-inspect/assets/ppt/media/image5.png",
+      "bytes": 42987
+    },
+    {
+      "entry": "ppt/media/image6.png",
+      "path": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/assets/ppt/media/image6.png",
+      "relativePath": ".codex-build/template-inspect/assets/ppt/media/image6.png",
+      "bytes": 57343
+    },
+    {
+      "entry": "ppt/media/image7.png",
+      "path": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/assets/ppt/media/image7.png",
+      "relativePath": ".codex-build/template-inspect/assets/ppt/media/image7.png",
+      "bytes": 60947
+    },
+    {
+      "entry": "ppt/media/image8.png",
+      "path": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/assets/ppt/media/image8.png",
+      "relativePath": ".codex-build/template-inspect/assets/ppt/media/image8.png",
+      "bytes": 46363
+    },
+    {
+      "entry": "ppt/media/image9.png",
+      "path": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/assets/ppt/media/image9.png",
+      "relativePath": ".codex-build/template-inspect/assets/ppt/media/image9.png",
+      "bytes": 50680
+    },
+    {
+      "entry": "ppt/media/image10.png",
+      "path": "/Users/minkyu/Lecture/August/week9/.codex-build/template-inspect/assets/ppt/media/image10.png",
+      "relativePath": ".codex-build/template-inspect/assets/ppt/media/image10.png",
+      "bytes": 67753
+    }
+  ],
+  "fonts": [
+    "+mj-cs",
+    "+mj-ea",
+    "+mj-lt",
+    "+mn-cs",
+    "+mn-ea",
+    "+mn-lt",
+    "Angsana New",
+    "Apple SD Gothic Neo",
+    "Arial",
+    "Calibri",
+    "Cordia New",
+    "DaunPenh",
+    "DokChampa",
+    "Estrangelo Edessa",
+    "Euphemia",
+    "Gautami",
+    "Iskoola Pota",
+    "Kalinga",
+    "Kartika",
+    "Latha",
+    "MV Boli",
+    "Mangal",
+    "Microsoft Himalaya",
+    "Microsoft Uighur",
+    "Microsoft Yi Baiti",
+    "Mongolian Baiti",
+    "MoolBoran",
+    "Nyala",
+    "Plantagenet Cherokee",
+    "Raavi",
+    "Shruti",
+    "Sylfaen",
+    "Times New Roman",
+    "Tunga",
+    "Vrinda",
+    "宋体",
+    "新細明體",
+    "맑은 고딕",
+    "ＭＳ Ｐゴシック"
+  ],
+  "packageParts": {
+    "mediaCount": 10,
+    "slideXmlCount": 13,
+    "chartCount": 0,
+    "tableSlideCount": 0
+  }
+}

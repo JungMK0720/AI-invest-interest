@@ -60,9 +60,18 @@ public final class LearningDtos {
             String notice) {
     }
 
-    /** 정답이 제거된 확인 문제. options는 표시 순서 그대로의 라벨만 담는다. */
-    public record QuizQuestion(String id, String prompt, String difficulty, List<String> options) {
+    /** 정답이 제거된 확인 문제. 기존 options는 하위 호환으로 유지하고 choices를 함께 제공한다. */
+    public record QuizQuestion(String id, String prompt, String difficulty, List<String> options, List<QuizChoice> choices) {
+        public QuizQuestion(String id, String prompt, String difficulty, List<String> options) {
+            this(id, prompt, difficulty, options,
+                    java.util.stream.IntStream.range(0, options.size())
+                            .mapToObj(i -> new QuizChoice(id + "-choice-" + i, options.get(i)))
+                            .toList());
+        }
     }
+
+    /** 선택지 식별자는 화면의 인덱스가 바뀌어도 제출을 재현할 수 있게 고정한다. */
+    public record QuizChoice(String id, String text) { }
 
     public record QuizResponse(String slug, String title, String contentVersion, List<QuizQuestion> questions, String notice) {
     }
@@ -97,4 +106,32 @@ public final class LearningDtos {
             List<QuizGradedItem> items,
             String summary) {
     }
+
+    /** 실서비스형 제출 계약. 정답 인덱스가 아니라 choice id를 받는다. */
+    public record QuizAttemptRequest(String contentVersion, List<QuizAttemptAnswer> answers) { }
+
+    public record QuizAttemptAnswer(String questionId, String choiceId) { }
+
+    public record QuizAttemptOption(
+            String id, String text, boolean correct, String rationale) { }
+
+    public record QuizAttemptItem(
+            String questionId,
+            String prompt,
+            String selectedChoiceId,
+            String correctChoiceId,
+            boolean correct,
+            List<QuizAttemptOption> choices,
+            String takeaway) { }
+
+    public record QuizAttemptResponse(
+            String slug,
+            int total,
+            int answered,
+            int correctCount,
+            int scorePercent,
+            String contentVersion,
+            List<QuizAttemptItem> items,
+            String summary,
+            String notice) { }
 }

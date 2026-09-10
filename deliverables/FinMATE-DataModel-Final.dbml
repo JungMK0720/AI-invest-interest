@@ -1,0 +1,458 @@
+// =============================================================================
+// FinMATE — 최종 배포 목표 데이터 모델 (통합본)
+//
+// dbdiagram.io (https://dbdiagram.io/home) 에 이 파일 전체를 붙여넣으면 ERD로 볼 수 있다.
+//
+// 각 테이블 Note의 접두어로 구현 상태를 구분한다.
+//   [구현됨]      실제 JPA 엔터티/영속 데이터로 존재한다 (deliverables/FinMATE-DB.dbml과 1:1 일치)
+//   [구현: JSON]  현재는 classpath JSON(concepts.json)·정적 카탈로그로 존재하고, 배포 시 이 테이블로 대체한다
+//   [설계 제안]   아직 코드/DB에 없다. 최종 배포 고도화(P1~P2)를 위해 이번에 새로 설계한 테이블이다
+//
+// 근거 코드(현재 저장소 기준):
+//   backend/src/main/java/com/finmate/assessment/{Assessment,DecisionSnapshot,AssessmentPeriodPolicy}.java
+//   backend/src/main/java/com/finmate/analysis/{ReasoningValidator,ProfileClassifier,SuitabilityMatcher}.java
+//   backend/src/main/java/com/finmate/learning/{LearningCatalog,LearningAiService,ClaudeLearningTutor,QuizGrader}.java
+//   backend/src/main/java/com/finmate/practice/{PracticeCatalog,PracticeEngine,PracticeDtos}.java
+//   backend/src/main/java/com/finmate/integration/{MarketDataProvider,OpenDartProvider}.java
+//   backend/src/main/resources/learning/concepts.json (version: learning-content-v3-2026-09-10, 59개 개념)
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// SECTION 1. 계정·인증
+// -----------------------------------------------------------------------------
+
+Table users {
+  id            varchar   [pk, note: 'UUID']
+  email         varchar   [not null, unique]
+  password_hash varchar   [not null, note: 'BCrypt 해시. 평문 비밀번호는 저장하지 않는다']
+  name          varchar
+  created_at    timestamp [not null]
+
+  Note: '[구현됨] 일반 사용자 계정'
+}
+
+// -----------------------------------------------------------------------------
+// SECTION 2. 투자성향 진단 (규칙 엔진이 판정, AI는 근거 설명만 생성)
+// -----------------------------------------------------------------------------
+
+Table questions {
+  id        varchar [pk]
+  content   varchar [not null]
+  order_no  integer [not null, unique, note: '화면 노출 순서']
+  weight    integer [not null, note: '문항 배점 비중. 활성 문항의 합이 100']
+  is_active boolean [not null, default: true]
+
+  Note: '[구현됨] 투자자 성향 진단 문항. 과제용 예시 질문이며 실제 투자자 분류 절차를 대체하지 않는다'
+}
+
+Table question_choices {
+  id           varchar [pk]
+  question_id  varchar [ref: > questions.id, not null]
+  label        varchar [not null, note: '화면에 노출되는 문구']
+  analysis_key varchar [not null, note: '문구가 바뀌어도 유지되는 의미 키. AI 프롬프트 입력에 사용']
+  score        integer [not null, note: '0~100 원점수. 클라이언트에는 내려주지 않는다']
+  order_no     integer [not null]
+
+  indexes {
+    (question_id, order_no) [unique]
+  }
+
+  Note: '[구현됨] 선택지. score가 노출되면 사용자가 원하는 성향에 맞춰 답을 고를 수 있어 API 응답에서 제외한다'
+}
+
+Table assessments {
+  id                 varchar   [pk, note: 'UUID']
+  user_id            varchar   [ref: > users.id, not null]
+  status             varchar   [not null, note: 'PROCESSING | COMPLETED | FAILED']
+  failure_reason     varchar   [note: '사용자에게 직접 노출하지 않는 내부 실패 사유']
+  submission_period  varchar   [note: 'AssessmentPeriodPolicy(monthly-kst-v1) 기준 한국 달력 월(YYYY-MM). (user_id, submission_period) unique']
+  decision_snapshot  text      [note: 'DecisionSnapshot record를 JSON으로 저장(SnapshotCodec). 완료 후 불변']
+  created_at         timestamp [not null]
+  completed_at       timestamp
+
+  indexes {
+    (user_id, submission_period) [unique, note: 'AssessmentPeriodPolicy: 월 1회 정책. FinMATE 자체 정책이며 금융권 공통 규정이 아니다']
+  }
+
+  Note: '[구현됨] 사용자의 1회 진단 세션. 월 1회 제출 제한(자체 정책)'
+}
+
+Table answers {
+  id            varchar [pk, note: 'UUID']
+  assessment_id varchar [ref: > assessments.id, not null]
+  question_id   varchar [ref: > questions.id, not null]
+  choice_id     varchar [ref: > question_choices.id, not null]
+
+  indexes {
+    (assessment_id, question_id) [unique, note: '한 진단에서 같은 문항에 두 번 답할 수 없다']
+  }
+
+  Note: '[구현됨] 진단 내 문항별 답변'
+}
+
+Table investment_profiles {
+  id               varchar   [pk, note: 'UUID']
+  assessment_id    varchar   [ref: - assessments.id, not null, unique]
+  profile_type     varchar   [not null, note: 'AGGRESSIVE | ACTIVE | NEUTRAL | CONSERVATIVE | STABLE']
+  total_score      integer   [not null, note: '0~100 가중 평균 점수']
+  reasoning        varchar   [not null, note: '판단 근거 설명 문장']
+  reasoning_source varchar   [not null, note: 'LLM | TEMPLATE. ReasoningValidator를 통과하지 못하면 TEMPLATE로 대체']
+  created_at       timestamp [not null]
+
+  Note: '[구현됨] 성향 판정 결과. profile_type·total_score는 규칙 엔진이, reasoning 문장만 AI가 생성한다'
+}
+
+Table assessment_reasoning_generations {
+  id               varchar   [pk, note: 'UUID']
+  assessment_id    varchar   [ref: > assessments.id, not null]
+  attempt_no       integer   [not null]
+  provider         varchar   [not null, note: 'CLAUDE | TEMPLATE']
+  raw_text         text      [note: 'ReasoningValidator에 넣기 전 LLM 원문. 채택되지 않아도 감사용으로 남긴다']
+  validation_passed boolean  [not null]
+  rejected_reason  varchar   [note: '길이초과 | 금칙어 | 등급불일치 | 점수불일치 | 타임아웃 | API키없음']
+  model            varchar   [note: '예: claude-opus-5']
+  latency_ms       integer
+  created_at       timestamp [not null]
+
+  Note: '[설계 제안·P1] ReasoningValidator(현재는 boolean만 반환) 판정 이력을 저장해 NFR-02 재현성·NFR-10 관측가능성을 증명한다'
+}
+
+Table product_categories {
+  id          varchar [pk]
+  name        varchar [not null, unique]
+  risk_grade  integer [not null, note: '금융투자상품 위험등급 1~6. 1등급이 가장 위험이 크다']
+  description varchar [not null]
+
+  Note: '[구현됨] 탐색 대상 상품 카테고리. risk_grade는 과제용 내부 필터 기준이다'
+}
+
+Table products {
+  id              varchar   [pk]
+  category_id     varchar   [ref: > product_categories.id, not null]
+  name            varchar   [not null]
+  risk_grade      integer   [not null, note: '금융투자상품 위험등급 1~6']
+  expected_period varchar   [not null]
+  description     varchar   [not null]
+  created_at      timestamp [not null]
+  updated_at      timestamp [not null]
+
+  Note: '[구현됨] 카테고리에 속한 사전 등록 예시 상품. 실제 판매 상품이 아니다'
+}
+
+Table category_recommendations {
+  id            varchar   [pk, note: 'UUID']
+  assessment_id varchar   [ref: > assessments.id, not null]
+  category_id   varchar   [ref: > product_categories.id, not null]
+  rank_no       integer   [not null]
+  reason        varchar   [not null]
+  created_at    timestamp [not null]
+
+  indexes {
+    (assessment_id, category_id) [unique]
+    (assessment_id, rank_no)     [unique]
+  }
+
+  Note: '[구현됨] 내부 탐색 필터(상품 위험등급 >= 투자자 성향 등급)를 통과한 카테고리만 저장'
+}
+
+// -----------------------------------------------------------------------------
+// SECTION 3. 학습 개념 트리·확인 문제·AI 개념 설명
+//   현재는 concepts.json(version learning-content-v3-2026-09-10, 59개 개념, 75개 문항)이
+//   아래 concepts~quiz_options 구조를 그대로 대신하고 있다. 배포 단계에서 이 테이블이 JSON을 대체한다.
+// -----------------------------------------------------------------------------
+
+Table concepts {
+  id             varchar [pk]
+  slug           varchar [unique, not null]
+  parent_id      varchar [ref: > concepts.id, note: 'null이면 최상위 대분류(level 1)']
+  level          integer [not null, note: '1=대분류, 2=핵심 개념, 3=세부 개념']
+  sort_order     integer [not null]
+  title          varchar [not null]
+  summary        varchar [not null]
+  one_liner      varchar [not null, note: '한 문장 정의']
+  diagram_key    varchar [not null, note: '구조 그림 종류 (예: FOUNDATION, BOND_DURATION)']
+  simulation_id  varchar [ref: > simulation_scenarios.id, note: '이 개념의 기본 실험 시나리오']
+  status         varchar [not null, note: 'DRAFT | REVIEW | PUBLISHED | RETIRED']
+
+  indexes { (parent_id, sort_order) }
+
+  Note: '[구현: JSON] 3단계 개념 트리. concepts.json의 slug/parent/level/order/title/summary/oneLiner/diagramKey/simulationId와 1:1'
+}
+
+Table content_revisions {
+  id                  varchar   [pk]
+  concept_id          varchar   [ref: > concepts.id, not null]
+  revision_no         integer   [not null]
+  content_version     varchar   [not null, note: '응답과 학습 진도에 함께 기록. 현재 값: learning-content-v3-2026-09-10']
+  explanation         text      [not null, note: 'concepts.json의 explanation[] 단락 배열을 합친 본문']
+  key_points          text      [note: 'JSON 배열']
+  checklist           text      [note: 'JSON 배열: 상품에서 확인할 문서·항목']
+  misconception       text
+  diagram_spec        text
+  source_document_id  varchar   [ref: > source_documents.id]
+  source_name         varchar   [not null, note: '출처 없는 개념은 공개하지 않는다']
+  source_url          varchar   [not null]
+  reviewer            varchar
+  reviewed_at         timestamp
+  effective_from      timestamp [not null]
+  effective_to        timestamp
+
+  indexes { (concept_id, revision_no) [unique] }
+
+  Note: '[구현: JSON] concepts.json 필드가 대신함. 개정 이력을 버전으로 분리해 "과거 자료" 탭을 만들 때 이 테이블이 필요하다'
+}
+
+Table quiz_items {
+  id                   varchar [pk]
+  concept_id           varchar [ref: > concepts.id, not null]
+  content_revision_id  varchar [ref: > content_revisions.id]
+  prompt               text    [not null]
+  difficulty           varchar [not null, note: 'BASIC | INTERMEDIATE | ADVANCED']
+  takeaway             text    [not null, note: '정오답과 무관하게 남기는 한 줄 결론']
+  sort_order           integer [not null]
+
+  Note: '[구현: JSON] 확인 문제. concepts.json의 quiz[]. 정답·해설은 서버에만 두고 조회 응답에서 제외(QuizGrader)'
+}
+
+Table quiz_options {
+  id           varchar [pk]
+  quiz_item_id varchar [ref: > quiz_items.id, not null]
+  option_index integer [not null]
+  label        text    [not null]
+  is_correct   boolean [not null]
+  rationale    text    [not null, note: '오답이어도 필수. 왜 틀렸는지 없으면 학습 도구가 아니다']
+
+  indexes { (quiz_item_id, option_index) [unique] }
+
+  Note: '[구현: JSON] concepts.json quiz[].options[]'
+}
+
+Table quiz_attempts {
+  id               varchar   [pk]
+  user_id          varchar   [ref: > users.id, not null]
+  concept_id       varchar   [ref: > concepts.id, not null]
+  content_version  varchar   [not null, note: '채점 시점 콘텐츠 버전. 이후 개정돼도 기록 유지']
+  total            integer   [not null]
+  correct_count    integer   [not null]
+  score_percent    integer   [not null]
+  attempted_at     timestamp [not null]
+
+  Note: '[설계 제안·P1] 로그인 사용자별 진도 저장. 현재는 POST /learning/concepts/{slug}/quiz/grade가 즉시 채점만 하고 저장하지 않는다'
+}
+
+Table quiz_attempt_answers {
+  id              varchar [pk]
+  attempt_id      varchar [ref: > quiz_attempts.id, not null]
+  quiz_item_id    varchar [ref: > quiz_items.id, not null]
+  selected_index  integer [not null, note: '-1은 미응답']
+  correct         boolean [not null]
+
+  indexes { (attempt_id, quiz_item_id) [unique] }
+
+  Note: '[설계 제안·P1] 문항별 오답노트의 근거 데이터'
+}
+
+Table simulation_scenarios {
+  id          varchar [pk]
+  title       varchar [not null]
+  question    varchar [not null]
+  kind        varchar [not null, note: 'PRICE_PATH | BOND_RATE_SHOCK | FEE_DRAG | ETF_TRACKING | DIVERSIFICATION | LIQUIDITY_EXIT | LEVERAGE_DECAY | OPTION_PAYOFF | FUTURES_MARGIN | DEPOSIT_INFLATION | DCA_VS_LUMPSUM']
+  mechanism   text    [not null, note: '계산식 요약. 결과를 검증 가능하게 만든다']
+  input_spec  text    [not null, note: 'JSON: 입력 필드 명세(min/max/기본값)']
+  randomised  boolean [not null]
+  active      boolean [not null]
+
+  Note: '[구현: JSON] SimulationCatalog가 대신함. 개념별 메커니즘 시뮬레이션(금리·수수료·옵션 등) 정의'
+}
+
+Table concept_simulations {
+  concept_id  varchar [ref: > concepts.id, not null]
+  scenario_id varchar [ref: > simulation_scenarios.id, not null]
+  sort_order  integer [not null]
+
+  indexes { (concept_id, scenario_id) [pk] }
+
+  Note: '[구현: JSON] 개념 ↔ 시나리오 다대다'
+}
+
+Table simulation_runs {
+  id            varchar   [pk]
+  user_id       varchar   [ref: > users.id]
+  scenario_id   varchar   [ref: > simulation_scenarios.id, not null]
+  concept_id    varchar   [ref: > concepts.id]
+  inputs_json   text      [not null, note: '명세 범위로 보정된 실제 적용값']
+  seed          bigint    [not null]
+  headline      varchar   [not null]
+  executed_at   timestamp [not null]
+
+  indexes { (user_id, executed_at) }
+
+  Note: '[설계 제안·P1] seed+입력을 남기면 같은 결과를 재현할 수 있다(NFR-02). 현재는 요청마다 즉시 계산만 하고 저장하지 않는다'
+}
+
+Table learning_progress {
+  id                    varchar [pk]
+  user_id               varchar [ref: > users.id, not null]
+  content_revision_id   varchar [ref: > content_revisions.id, not null]
+  viewed_at             timestamp
+  completed_at          timestamp
+  quiz_score            integer
+  last_attempt_id       varchar [ref: > quiz_attempts.id]
+  simulation_run_count  integer [not null, default: 0]
+
+  indexes { (user_id, content_revision_id) [unique] }
+
+  Note: '[설계 제안·P1] 로그인 사용자의 개념별 학습 진도·오답노트(FR-15)'
+}
+
+Table concept_ai_explanations {
+  id                varchar   [pk]
+  user_id           varchar   [ref: > users.id, note: '비로그인 질문도 허용하면 null']
+  concept_id        varchar   [ref: > concepts.id, not null]
+  content_version   varchar   [not null]
+  question          text      [note: '비어 있으면 "이 개념을 초보자 눈높이로 다시 설명"']
+  answer            text      [not null]
+  source            varchar   [not null, note: 'CLAUDE | TEMPLATE (LearningAiService 판정 결과)']
+  source_name       varchar   [not null]
+  source_url        varchar   [not null]
+  latency_ms        integer
+  created_at        timestamp [not null]
+
+  Note: '[설계 제안·P1] POST /learning/concepts/{slug}/explain 호출 이력. 현재는 매 요청을 저장 없이 바로 응답한다(docs/14 1단계: 요청 로그 계획)'
+}
+
+// -----------------------------------------------------------------------------
+// SECTION 4. 교육용 모의투자 연습기 (계산은 결정적 엔진, DB 없이 stateless로 동작 중)
+// -----------------------------------------------------------------------------
+
+Table practice_products {
+  id                    varchar [pk]
+  name                  varchar [not null]
+  asset_class           varchar [not null, note: '주식 | 채권 | 현금성 | 금 | 부동산 | 파생 등']
+  mechanism             varchar [not null]
+  driver                varchar [not null, note: '결과를 바꾸는 핵심 변수 (금리, 신용스프레드, 환율 등)']
+  duration              decimal [note: '채권 듀레이션 등 민감도 계수']
+  annual_fee_percent    decimal
+  leverage              decimal [note: '기본 노출 배수']
+  foreign_currency      boolean [not null]
+  concept_id            varchar [ref: > concepts.id, note: '이 상품이 설명하는 학습 개념과 연결']
+  explanation           text
+
+  Note: '[구현: 정적 카탈로그] PracticeCatalog.ProductSpec. 현재 16종(현금·주식·ETF·펀드·채권·금·리츠·부동산·신용주식·선물·옵션 등)'
+}
+
+Table practice_scenarios {
+  id                       varchar [pk]
+  name                     varchar [not null]
+  description              varchar [not null]
+  equity_percent           decimal [not null]
+  rate_points              decimal [not null]
+  credit_spread_points     decimal [not null]
+  gold_percent             decimal [not null]
+  real_estate_percent      decimal [not null]
+  fx_percent               decimal [not null]
+  days                     integer [not null]
+
+  Note: '[구현: 정적 카탈로그] PracticeDtos.Shocks 사전 구성 시나리오. 사용자는 커스텀 값도 직접 입력 가능'
+}
+
+Table practice_runs {
+  id                       varchar   [pk]
+  user_id                  varchar   [ref: > users.id, note: '비로그인 실험도 허용하면 null']
+  model_version            varchar   [not null, note: 'PracticeEngine 계산식 버전(Analysis.modelVersion)']
+  budget                   decimal   [not null]
+  holdings_json            text      [not null, note: '요청 시점의 Portfolio.holdings 원본']
+  shocks_json              text      [not null]
+  result_json              text      [not null, note: 'Analysis 응답 전체(자산배분·손익·기여도·한계)']
+  ending_value             decimal   [not null]
+  profit_loss              decimal   [not null]
+  created_at               timestamp [not null]
+
+  indexes { (user_id, created_at) }
+
+  Note: '[설계 제안·P1] POST /practice/analyze 실행 이력. 현재는 순수 계산 API로 아무 것도 저장하지 않는다. 저장 시 "내 실험 다시 보기"가 가능해진다'
+}
+
+Table practice_run_comparisons {
+  id                     varchar   [pk]
+  before_run_id          varchar   [ref: > practice_runs.id, not null]
+  after_run_id           varchar   [ref: > practice_runs.id, not null]
+  profit_loss_difference decimal   [not null]
+  interpretation         text      [not null]
+  created_at             timestamp [not null]
+
+  Note: '[설계 제안·P1] POST /practice/compare 이력. before/after 두 practice_runs를 연결'
+}
+
+// -----------------------------------------------------------------------------
+// SECTION 5. 실데이터 플랫폼 (공식 API 우선 → 원문 보존 → 정규화 → 스냅샷)
+//   MarketDataProvider 인터페이스(OpenDartProvider 등 구현체)가 이 경계를 통해 데이터를 공급한다.
+// -----------------------------------------------------------------------------
+
+Table source_registry {
+  id                varchar   [pk]
+  provider_key      varchar   [unique, not null, note: '예: opendart, krx']
+  source_name       varchar   [not null]
+  source_url        varchar   [not null]
+  access_mode       varchar   [not null, note: 'API | DOCUMENT | MANUAL']
+  terms_url         varchar
+  rate_limit_note   varchar
+  last_success_at   timestamp
+
+  Note: '[설계 제안·P1] 허용된 데이터 공급자 등록. MarketDataProvider.providerKey()와 대응'
+}
+
+Table source_documents {
+  id               varchar   [pk]
+  source_id        varchar   [ref: > source_registry.id, not null]
+  external_id      varchar   [not null, note: 'MarketDataProvider.RawDataRecord.externalId']
+  document_type    varchar   [not null]
+  published_at     timestamp
+  observed_at      timestamp [not null]
+  content_hash     varchar   [not null, note: '중복 수집 방지']
+  storage_uri      varchar   [not null, note: '원문 보존 위치']
+  source_url       varchar   [not null]
+  status           varchar   [not null, note: 'ACTIVE | REPLACED | REMOVED | FAILED']
+
+  indexes { (source_id, external_id, content_hash) [unique] }
+
+  Note: '[설계 제안·P1] 수집 원문. 공시·설명서·투자자 안내 등을 시점별로 보존'
+}
+
+Table instrument_master {
+  id               varchar [pk]
+  external_code    varchar [not null, note: '종목코드·ISIN 등']
+  name             varchar [not null]
+  instrument_type  varchar [not null]
+  issuer_name      varchar
+  active           boolean [not null]
+
+  Note: '[설계 제안·P1] 실제 상품/종목 기준정보'
+}
+
+Table instrument_snapshots {
+  id                  varchar   [pk]
+  instrument_id       varchar   [ref: > instrument_master.id, not null]
+  as_of               timestamp [not null]
+  price               decimal
+  nav                 decimal
+  risk_grade          integer
+  expense_ratio       decimal
+  liquidity_score     decimal
+  source_document_id  varchar   [ref: > source_documents.id]
+
+  indexes { (instrument_id, as_of) [unique] }
+
+  Note: '[설계 제안·P1] 시점별 스냅샷. 최신값을 덮어쓰지 않아 "현재/과거 자료" 탭을 만들 수 있다'
+}
+
+// =============================================================================
+// 관계 요약
+//   users 1─N assessments 1─1 investment_profiles
+//   assessments 1─N answers, 1─N category_recommendations, 1─N assessment_reasoning_generations
+//   concepts 1─N content_revisions 1─N quiz_items 1─N quiz_options
+//   concepts N─N simulation_scenarios (concept_simulations)
+//   users 1─N quiz_attempts / simulation_runs / practice_runs / concept_ai_explanations / learning_progress
+//   source_registry 1─N source_documents 1─N instrument_snapshots
+//   practice_runs 1─N practice_run_comparisons (before/after 두 건씩)
+// =============================================================================

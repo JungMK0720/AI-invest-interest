@@ -2,6 +2,7 @@ import type {
   AnswerItem,
   LearningTreeResponse,
   LearningConceptDetail,
+  LearningAiExplainResponse,
   QuizResponse,
   QuizGradeResponse,
   SimulationScenario,
@@ -40,7 +41,7 @@ export function setToken(token: string | null) {
   else localStorage.removeItem(TOKEN_KEY);
 }
 
-async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
+export async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = getToken();
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
@@ -85,6 +86,12 @@ export const api = {
 
   getLearningConcept: (slug: string) => request<LearningConceptDetail>(`/learning/concepts/${slug}`),
 
+  askLearningConcept: (slug: string, question: string) =>
+    request<LearningAiExplainResponse>(`/learning/concepts/${slug}/explain`, {
+      method: "POST",
+      body: JSON.stringify({ question }),
+    }),
+
   getQuiz: (slug: string) => request<QuizResponse>(`/learning/concepts/${slug}/quiz`),
 
   // 정답은 서버에만 있으므로 채점은 반드시 이 호출을 거친다.
@@ -125,4 +132,10 @@ export const api = {
     request<ProductResponse[]>(categoryId ? `/products?categoryId=${categoryId}` : "/products"),
 
   getProduct: (productId: string) => request<ProductResponse>(`/products/${productId}`),
+
+  getPracticeProducts: () => request<import("./types").PracticeProduct[]>("/practice/products"),
+  getPracticeScenarios: () => request<import("./types").PracticeScenario[]>("/practice/scenarios"),
+  getPracticeMethodology: () => request<unknown>("/practice/methodology"),
+  analyzePractice: (payload: unknown) => request<import("./types").PracticeAnalysis>("/practice/analyze", { method: "POST", body: JSON.stringify(payload) }),
+  comparePractice: (payload: unknown) => request<import("./types").PracticeComparison>("/practice/compare", { method: "POST", body: JSON.stringify(payload) }),
 };

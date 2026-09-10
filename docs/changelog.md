@@ -2,6 +2,20 @@
 
 날짜는 KST 기준, 최신 항목이 위로 오도록 추가한다.
 
+## 2026-09-10 (요구사항 분석·문제 인식·데이터 모델 통합본)
+
+- 우선순위 1(요구사항 분석·문제 인식)과 2(Data Model)를 제출·복사용으로 한 문서에 모은 `docs/15-requirements-problem-and-datamodel.md`를 추가했다. 기획 배경, 문제 인식(관찰/제보/가설 분리), 페르소나별 PainPoint, FR/NFR 요약, 데이터 모델 개요를 담는다.
+- 기존 `deliverables/FinMATE-DB.dbml`(P0)과 `deliverables/FinMATE-DataPlatform.dbml`(배포형 초안)을 하나로 합친 `deliverables/FinMATE-DataModel-Final.dbml`을 추가했다. 총 29개 테이블(계정 1, 진단 9, 학습·AI 설명 11, 모의투자 이력 4, 실데이터 플랫폼 4)이며 `dbml2sql --postgres`로 문법 검증했다.
+- 실제 구현(`Assessment`, `DecisionSnapshot`, `AssessmentPeriodPolicy`, `ReasoningValidator`, `PracticeEngine`, `LearningAiService`, `concepts.json`)과 대조해 테이블마다 `[구현됨]/[구현: JSON]/[구현: 정적 카탈로그]/[설계 제안·P1]` 상태를 표시했다. AI 설명 검증 이력(`assessment_reasoning_generations`), 개념 AI 질의응답 이력(`concept_ai_explanations`), 모의투자 실행·비교 이력(`practice_runs`, `practice_run_comparisons`)을 새로 설계해 현재 stateless로 동작하는 구간의 배포형 확장 지점을 명시했다.
+- Figma에서 "AI 학습 코치" 와이어프레임(AI 학습 코치 홈, 퀴즈 결과 AI 맞춤 해설, 포트폴리오 AI 코멘터리) 3장을 제작하고 캡처해 `presentation/captures/10~12-*.png`에 저장, `presentation/FinMATE-플로우차트-와이어프레임.pptx`에 09~11번 슬라이드로 반영했다. AI의 역할을 "진단 근거 설명(대체 가능)"에서 "학습·연습 개인화 엔진(제거 시 서비스 가치가 실제로 빠짐)"으로 재배치한 기획 근거를 함께 슬라이드화했다.
+
+## 2026-09-10 (기능·비기능 요구사항과 Use Case 확장)
+
+- 기능 요구사항 FR-01~FR-20, 비기능 요구사항 NFR-01~NFR-14, P0/P1 범위를 `docs/13-functional-nonfunctional-usecases.md`에 정리했다.
+- 학습·개념별 퀴즈·메커니즘 시뮬레이션·교육용 포트폴리오 실험과 실데이터 수집·과거 자료·콘텐츠 검수의 Use Case를 `docs/07-usecase.puml`에 반영했다.
+- Sparx Enterprise Architect에서 프로젝트 패키지·Use Case·Requirements Diagram·FR/NFR 추적·이미지 내보내기까지 재현하는 발표용 SOP를 `presentation/FinMATE-Enterprise-Architect-UseCase-SOP.md`에 추가했다.
+- 기존 발표자료의 16:9 스타일을 유지한 편집 가능한 플로우차트·와이어프레임 부록 `presentation/FinMATE-플로우차트-와이어프레임.pptx`와 화면/API 명세를 추가했다.
+
 ## 2026-09-08 (2차: React 프론트엔드 구현 및 실브라우저 E2E 검증)
 
 - 배포 조합 확정: 프론트엔드 Netlify, 백엔드(Spring Boot 컨테이너) Render, DB Supabase Postgres. Netlify/Supabase 단독으로는 상시구동 JVM을 못 올리는 제약을 확인하고 이 조합으로 결정.
@@ -77,3 +91,11 @@
 - 진단 이력 페이지와 동일 버전 간 답변 변경 비교를 추가했다.
 - AI 설명 출력 검증기를 추가해 다른 등급·수익 예측·특정 상품 권유·과도한 길이를 템플릿 폴백한다.
 - 상품 위험·채권·ETF·유동성 기초 학습 페이지를 추가했다. 카드 내용은 Investor.gov 공개 안내를 참고한 교육 요약이다.
+
+## 2026-09-10 — 개념별 퀴즈·포트폴리오 실험기·사용자 전략 고도화
+
+- 반복되던 공통 확인 질문을 개념별 75문항과 선택지별 오답 해설로 교체했다. 정답을 인덱스가 아닌 choice ID로 제출하고 콘텐츠 버전을 검증한다.
+- 학습 개념 59개 트리에서 상품·메커니즘을 선택하고, 서버가 채점·해설을 반환하는 흐름을 추가했다.
+- DB 없이 실행하는 `/practice` 포트폴리오 연습기를 추가했다. 주식·채권·펀드·ETF·금·부동산·리츠·마진·선물·옵션을 조합하고 가격·금리·스프레드·환율·비용 충격을 바꿔 자산별 원인과 의미를 비교한다.
+- `GET /practice/products`, `GET /practice/scenarios`, `GET /practice/methodology`, `POST /practice/analyze`, `POST /practice/compare` API와 OAS 경로를 추가했다.
+- 사용자 페인포인트·가설·Jobs-to-be-Done·우선순위·검증 계획은 [docs/12-product-strategy-and-user-journeys.md](12-product-strategy-and-user-journeys.md)에 정리했다.

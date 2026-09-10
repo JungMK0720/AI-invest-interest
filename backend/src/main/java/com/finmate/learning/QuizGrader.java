@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import com.finmate.common.ApiException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,6 +33,76 @@ public class QuizGrader {
                 .toList();
         return new LearningDtos.QuizResponse(
                 node.slug(), node.title(), catalog.version(), questions, LearningDtos.EDUCATION_NOTICE);
+    }
+
+    /**
+     * ID 기반 제출 계약. 화면 인덱스가 아니라 콘텐츠 버전과 고정 choice ID를 검증하므로
+     * 선택지 순서 변경이나 다른 개념의 문항을 섞어 보내는 실수를 숨기지 않는다.
+     */
+    public LearningDtos.QuizAttemptResponse attempt(String slug, LearningDtos.QuizAttemptRequest request) {
+        LearningContent.Node node = catalog.node(slug);
+        if (request == null || request.contentVersion() == null || request.contentVersion().isBlank()) {
+            throw ApiException.badRequest("contentVersion은 필수입니다.");
+        }
+        if (!catalog.version().equals(request.contentVersion())) {
+            throw ApiException.conflict("콘텐츠 버전이 변경되었습니다. 문제를 다시 불러오세요.");
+        }
+        if (request.answers() == null || request.answers().isEmpty()) {
+            throw ApiException.badRequest("최소 한 문항은 선택해야 합니다.");
+        }
+        Map<String, LearningDtos.QuizAttemptAnswer> submitted = new LinkedHashMap<>();
+        for (LearningDtos.QuizAttemptAnswer answer : request.answers()) {
+            if (answer == null || answer.questionId() == null || answer.questionId().isBlank()) {
+                throw ApiException.badRequest("questionId가 없는 답변입니다.");
+            }
+            if (submitted.put(answer.questionId(), answer) != null) {
+                throw ApiException.badRequest("같은 문항을 두 번 제출했습니다: " + answer.questionId());
+            }
+        }
+        Map<String, LearningContent.QuizItem> questions = new LinkedHashMap<>();
+        node.quiz().forEach(item -> questions.put(item.id(), item));
+        for (LearningDtos.QuizAttemptAnswer answer : submitted.values()) {
+            LearningContent.QuizItem item = questions.get(answer.questionId());
+            if (item == null) {
+                throw ApiException.badRequest("이 개념에 속하지 않는 문항입니다: " + answer.questionId());
+            }
+            if (answer.choiceId() != null && !choiceIds(item).contains(answer.choiceId())) {
+                throw ApiException.badRequest("이 문항에 속하지 않는 선택지입니다: " + answer.choiceId());
+            }
+        }
+        List<LearningDtos.QuizAttemptItem> items = new ArrayList<>();
+        int correctCount = 0;
+        int answered = 0;
+        for (LearningContent.QuizItem item : node.quiz()) {
+            LearningDtos.QuizAttemptAnswer answer = submitted.get(item.id());
+            String selected = answer == null ? null : answer.choiceId();
+            String correct = choiceId(item, correctIndexOf(item));
+            boolean isCorrect = selected != null && selected.equals(correct);
+            if (selected != null) answered++;
+            if (isCorrect) correctCount++;
+            List<LearningDtos.QuizAttemptOption> choices = new ArrayList<>();
+            for (int i = 0; i < item.options().size(); i++) {
+                LearningContent.Option option = item.options().get(i);
+                choices.add(new LearningDtos.QuizAttemptOption(
+                        choiceId(item, i), option.label(), option.correct(), option.rationale()));
+            }
+            items.add(new LearningDtos.QuizAttemptItem(item.id(), item.prompt(), selected, correct,
+                    isCorrect, List.copyOf(choices), item.takeaway()));
+        }
+        int total = items.size();
+        int score = total == 0 ? 0 : (int) Math.round(correctCount * 100.0 / total);
+        return new LearningDtos.QuizAttemptResponse(node.slug(), total, answered, correctCount, score,
+                catalog.version(), List.copyOf(items), summary(node, correctCount, total), LearningDtos.EDUCATION_NOTICE);
+    }
+
+    private static List<String> choiceIds(LearningContent.QuizItem item) {
+        List<String> ids = new ArrayList<>();
+        for (int i = 0; i < item.options().size(); i++) ids.add(choiceId(item, i));
+        return ids;
+    }
+
+    private static String choiceId(LearningContent.QuizItem item, int index) {
+        return item.id() + "-choice-" + index;
     }
 
     public LearningDtos.QuizGradeResponse grade(String slug, LearningDtos.QuizGradeRequest request) {

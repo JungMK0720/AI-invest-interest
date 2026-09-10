@@ -1,34 +1,53 @@
 @startuml
-title FinMATE - AI 투자 성향 진단 및 금융상품 탐색
+title FinMATE - 기능·비기능 요구사항 기반 Use Case Diagram
 left to right direction
 skinparam packageStyle rectangle
+skinparam shadowing false
 skinparam usecase {
   BackgroundColor #EAF3FF
   BorderColor #5B7FA3
+  ArrowColor #5B7FA3
+}
+skinparam actor {
+  BackgroundColor #FFF4D6
+  BorderColor #A77B00
 }
 
 actor "일반 사용자" as User
-actor "AI 분석 엔진" as AI
-actor "관리자" as Admin
+actor "운영자/콘텐츠\n검수자" as Operator
+actor "규칙 엔진" as Rules
+actor "AI 설명\n생성기" as AI
+actor "외부 데이터\n공급자" as Provider
+actor "인증·관측\n인프라" as Infra
 
 rectangle "FinMATE" {
-  package "1차 Agile (P0)" {
-    usecase "UC-01. 회원가입·로그인한다" as UC01
-    usecase "UC-02. 진단 질문 목록을 조회한다" as UC02
-    usecase "UC-03. 진단을 시작한다" as UC03
-    usecase "UC-04. 진단 답변을 제출한다" as UC04
-    usecase "UC-05. 분석 근거 문장을 생성한다" as UC05
-    usecase "UC-06. 분석 결과를 조회한다" as UC06
-    usecase "UC-07. 탐색 카테고리를 조회한다" as UC07
-    usecase "UC-08. 카테고리별 상품 목록을 조회한다" as UC08
-    usecase "UC-09. 상품 상세를 조회한다" as UC09
+  package "발표용 P0 · 진단과 상품 탐색" {
+    usecase "UC-01\n회원가입·로그인" as UC01
+    usecase "UC-02\n진단 가능 여부 확인" as UC02
+    usecase "UC-03\n질문 조회·진단 시작" as UC03
+    usecase "UC-04\n답변 제출·진단 생성" as UC04
+    usecase "UC-05\n성향·탐색 범위 판정" as UC05
+    usecase "UC-06\n근거 생성·폴백" as UC06
+    usecase "UC-07\n결과·고지 조회" as UC07
+    usecase "UC-08\n카테고리·상품 탐색" as UC08
   }
 
-  package "2차 Agile (P1)" {
-    usecase "UC-10. 상품을 비교한다" as UC10
-    usecase "UC-11. 가상 포트폴리오를 저장·조회한다" as UC11
-    usecase "UC-12. 진단 질문을 관리한다" as UC12
-    usecase "UC-13. 상품·카테고리를 관리한다" as UC13
+  package "발표용 P0 · 학습과 모의투자" {
+    usecase "UC-10\n개념 트리·그림·출처 학습" as UC10
+    usecase "UC-11\n개념별 문제·오답 교정" as UC11
+    usecase "UC-12\n메커니즘 시뮬레이션" as UC12
+    usecase "UC-13\n포트폴리오 실험·분석" as UC13
+    usecase "UC-14\n전후 결과 비교" as UC14
+    usecase "UC-15\n방법론·가정·기준시각 확인" as UC15
+  }
+
+  package "배포형 P1 · 이력·데이터·운영" {
+    usecase "UC-09\n진단 이력·변화 비교" as UC09
+    usecase "UC-16\n진도·오답노트 저장" as UC16
+    usecase "UC-17\n외부 자료 수집·스냅샷" as UC17
+    usecase "UC-18\n과거 자료·사례 게시·조회" as UC18
+    usecase "UC-19\n콘텐츠·출처 검수·게시" as UC19
+    usecase "UC-20\n장애·지연·만료 운영" as UC20
   }
 }
 
@@ -36,26 +55,54 @@ User -- UC01
 User -- UC02
 User -- UC03
 User -- UC04
-User -- UC06
 User -- UC07
 User -- UC08
 User -- UC09
 User -- UC10
 User -- UC11
+User -- UC12
+User -- UC13
+User -- UC14
+User -- UC15
+User -- UC16
+User -- UC18
 
-AI -- UC05
-Admin -- UC12
-Admin -- UC13
+Operator -- UC18
+Operator -- UC19
+Operator -- UC20
 
-UC04 .> UC05 : <<include>>
+Rules -- UC05
+Rules -- UC11
+Rules -- UC12
+Rules -- UC13
+AI -- UC06
+Provider -- UC17
+Infra -- UC01
+Infra -- UC17
+Infra -- UC20
 
-note right of UC05
-  입력: 규칙 엔진 결과·실제 답변
-  출력: 설명 문장
-  실패 시 템플릿으로 대체
+UC04 ..> UC05 : <<include>>
+UC04 ..> UC06 : <<include>>
+UC07 ..> UC15 : <<include>>
+UC10 ..> UC15 : <<include>>
+UC12 ..> UC15 : <<include>>
+UC13 ..> UC14 : <<include>>
+UC17 ..> UC19 : <<include>>
+UC18 ..> UC17 : <<include>>
+UC20 ..> UC17 : <<extend>>
+
+note right of UC06
+  AI 실패·정책 위반 시
+  버전 있는 템플릿으로 완료
 end note
 
-note bottom of UC10
-  UC-10~UC-13은 2차 범위
+note bottom of UC12
+  교육용 가정값·seed 기반
+  실제 주문·수익 예측 아님
+end note
+
+note bottom of UC17
+  API/허용 문서만 수집
+  원문 URL·기준일·hash 저장
 end note
 @enduml

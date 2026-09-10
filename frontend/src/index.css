@@ -166,6 +166,50 @@ input {
 .quiz-options input { width: 18px; height: 18px; }
 @media (max-width: 650px) { .header-name { display: none; } header { padding: 0 12px !important; } header .btn { padding: 7px 9px !important; font-size: 11px !important; } .journey-main { padding-top: 30px; } }
 
+/* 상품을 직접 조합해 변수의 의미를 확인하는 모의투자 연습기 */
+.practice-main { width: min(100% - 32px, 1320px); margin: 0 auto; padding: 38px 0 72px; }
+.practice-head { display:flex; justify-content:space-between; gap:28px; align-items:flex-end; margin-bottom:26px; }
+.practice-head h1 { font-size:clamp(26px,3.8vw,42px); line-height:1.28; margin:8px 0 12px; letter-spacing:-.04em; }
+.practice-grid { display:grid; grid-template-columns:280px minmax(0,1fr); gap:20px; align-items:start; }
+.practice-controls { padding:20px; position:sticky; top:16px; max-height:calc(100vh - 32px); overflow:auto; }
+.practice-controls h2,.practice-card h2,.analysis-card h2 { font-size:17px; margin:0 0 12px; }
+.practice-total { font-size:12px; color:var(--text-muted); padding:12px; background:#f4f6fb; border-radius:10px; line-height:1.8; }
+.product-add-list { display:flex; flex-direction:column; gap:7px; margin-top:14px; }
+.product-add { display:flex; justify-content:space-between; gap:10px; align-items:center; text-align:left; background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:10px 12px; color:var(--text); }
+.product-add:hover { border-color:var(--primary); background:var(--primary-tint); }
+.product-add span { display:flex; flex-direction:column; gap:2px; }
+.product-add small,.holding-top small { color:var(--text-muted); font-size:11px; line-height:1.55; }
+.product-add b { color:var(--primary); font-size:18px; }
+.practice-workspace { display:flex; flex-direction:column; gap:18px; }
+.practice-card,.analysis-card { padding:22px; }
+.holding-row { border:1px solid var(--border); border-radius:12px; padding:15px; margin-top:13px; }
+.holding-top { display:flex; justify-content:space-between; gap:12px; align-items:start; }
+.holding-top > div { display:flex; flex-direction:column; gap:4px; min-width:0; }
+.remove-button { border:0; background:transparent; color:var(--danger); font-size:12px; }
+.holding-fields,.shock-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-top:14px; }
+.holding-fields label,.shock-grid label { font-size:11px; color:var(--text-muted); }
+.holding-fields .field-input,.shock-grid .field-input { margin-top:4px; padding:9px 10px; font-size:13px; }
+.scenario-buttons { display:flex; flex-wrap:wrap; gap:8px; }
+.scenario-buttons .btn { padding:9px 12px; font-size:12px; }
+.analysis-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin:16px 0 22px; }
+.analysis-metrics > div { background:#f4f6fb; border-radius:11px; padding:12px; display:flex; flex-direction:column; gap:4px; }
+.analysis-metrics span { color:var(--text-muted); font-size:11px; }
+.analysis-metrics strong { font-size:18px; }
+.allocation-bars { margin:14px 0 22px; }
+.allocation-bars h3,.effect-list h3 { font-size:14px; margin:0 0 10px; }
+.bar-label { display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted); margin-top:7px; }
+.bar-track { height:8px; border-radius:9px; background:#edf0f6; overflow:hidden; margin-top:4px; }
+.bar-track i { display:block; height:100%; background:var(--primary); border-radius:9px; }
+.effect-list p { margin:8px 0; font-size:13px; color:var(--text-muted); line-height:1.7; }
+.position-detail { border-top:1px solid var(--border); padding:13px 0; font-size:13px; }
+.position-detail summary { cursor:pointer; font-weight:700; }
+.effect-line { display:grid; grid-template-columns:110px 130px 1fr; gap:8px; padding:8px 0; border-bottom:1px dashed var(--border); color:var(--text-muted); }
+.effect-line small { line-height:1.6; }
+.limitation-box { margin-top:18px; padding:14px; border-radius:11px; background:var(--warn-bg); color:var(--warn-text); font-size:11.5px; line-height:1.7; }
+.limitation-box p { margin:4px 0; }
+@media (max-width: 820px) { .practice-head { align-items:flex-start; flex-direction:column; } .practice-grid { grid-template-columns:1fr; } .practice-controls { position:static; max-height:none; } }
+@media (max-width: 560px) { .effect-line { grid-template-columns:1fr; gap:2px; } }
+
 /* ---------------------------------------------------------------- 학습 화면 */
 .learn-main { width: min(100% - 32px, 1360px); margin: 0 auto; padding: 40px 0 72px; }
 .learn-intro { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
@@ -227,6 +271,10 @@ input {
 .related-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .related-row .btn { padding: 8px 13px; font-size: 12.5px; }
 .notice-line { margin: 22px 0 0; font-size: 11.5px; color: var(--text-faint); line-height: 1.7; }
+.ai-tutor { padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-soft); }
+.ai-tutor .field-input { flex: 1; min-width: 220px; margin: 0; }
+.ai-answer { margin-top: 14px; padding: 14px 16px; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); line-height: 1.75; }
+.ai-answer p { margin: 0 0 8px; }
 .panel-error { padding: 14px 16px; border-radius: 12px; background: var(--danger-bg); border: 1px solid var(--danger-border); color: var(--danger); font-size: 13.5px; }
 
 /* 구조 도식 */

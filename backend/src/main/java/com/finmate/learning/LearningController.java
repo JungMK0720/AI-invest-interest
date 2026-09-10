@@ -24,14 +24,17 @@ public class LearningController {
     private final QuizGrader grader;
     private final SimulationCatalog simulations;
     private final SimulationEngine engine;
+    private final LearningAiService learningAiService;
 
     public LearningController(LearningCatalog catalog, LearningService service, QuizGrader grader,
-                              SimulationCatalog simulations, SimulationEngine engine) {
+                              SimulationCatalog simulations, SimulationEngine engine,
+                              LearningAiService learningAiService) {
         this.catalog = catalog;
         this.service = service;
         this.grader = grader;
         this.simulations = simulations;
         this.engine = engine;
+        this.learningAiService = learningAiService;
     }
 
     /** 좌측 개념 트리 전체. 한 번 받아 두고 클라이언트에서 펼치고 접는다. */
@@ -51,6 +54,13 @@ public class LearningController {
         return service.detail(slug);
     }
 
+    /** 승인된 개념 콘텐츠를 근거로 AI가 질문에 답한다. 진단·추천·계산은 이 API가 담당하지 않는다. */
+    @PostMapping("/concepts/{slug}/explain")
+    public LearningAiDtos.ExplainResponse explain(@PathVariable String slug,
+                                                   @RequestBody(required = false) LearningAiDtos.ExplainRequest request) {
+        return learningAiService.explain(slug, request);
+    }
+
     @GetMapping("/concepts/{slug}/quiz")
     public LearningDtos.QuizResponse quiz(@PathVariable String slug) {
         service.require(slug);
@@ -63,6 +73,14 @@ public class LearningController {
                                                 @RequestBody(required = false) LearningDtos.QuizGradeRequest request) {
         service.require(slug);
         return grader.grade(slug, request);
+    }
+
+    /** 운영 제출 계약: 콘텐츠 버전과 choice ID를 검증하고, 문항별 의미를 남긴다. */
+    @PostMapping("/concepts/{slug}/quiz/attempts")
+    public LearningDtos.QuizAttemptResponse attempt(@PathVariable String slug,
+                                                     @RequestBody(required = false) LearningDtos.QuizAttemptRequest request) {
+        service.require(slug);
+        return grader.attempt(slug, request);
     }
 
     @GetMapping("/concepts/{slug}/simulations")

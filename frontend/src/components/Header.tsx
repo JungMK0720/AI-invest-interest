@@ -52,6 +52,7 @@ export default function Header() {
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <button className="btn btn-secondary" onClick={() => navigate("/learn")}>상품 학습</button>
           <button className="btn btn-secondary" onClick={() => navigate("/history")}>진단 이력</button>
+          <button className="btn btn-secondary" onClick={() => navigate("/practice")}>모의투자</button>
           <span className="header-name" style={{ fontSize: 13, color: "var(--text-muted)" }}>{user.name} 님</span>
           <div
             style={{

@@ -7,7 +7,7 @@ import ConceptDiagram from "../components/ConceptDiagram";
 import QuizPanel from "../components/QuizPanel";
 import SimulatorPanel from "../components/SimulatorPanel";
 import { api } from "../api/client";
-import type { LearningConceptDetail, LearningTreeNode, LearningTreeResponse } from "../api/types";
+import type { LearningAiExplainResponse, LearningConceptDetail, LearningTreeNode, LearningTreeResponse } from "../api/types";
 
 type Tab = "concept" | "quiz" | "sim";
 
@@ -41,6 +41,10 @@ export default function LearnPage() {
   });
   const [navOpen, setNavOpen] = useState(false);
   const [detailRetry, setDetailRetry] = useState(0);
+  const [aiQuestion, setAiQuestion] = useState("");
+  const [aiAnswer, setAiAnswer] = useState<LearningAiExplainResponse | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState(false);
 
   const loadTree = useCallback(() => {
     setTreeError(false);
@@ -99,6 +103,8 @@ export default function LearnPage() {
   function select(next: string) {
     setSlug(next);
     setTab("concept");
+    setAiAnswer(null);
+    setAiError(false);
     setNavOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -110,6 +116,19 @@ export default function LearnPage() {
       else next.add(target);
       return next;
     });
+  }
+
+  async function askAi() {
+    if (!detail || aiLoading) return;
+    setAiLoading(true);
+    setAiError(false);
+    try {
+      setAiAnswer(await api.askLearningConcept(detail.slug, aiQuestion));
+    } catch {
+      setAiError(true);
+    } finally {
+      setAiLoading(false);
+    }
   }
 
   return (
@@ -294,6 +313,32 @@ export default function LearnPage() {
                       </section>
                     )}
 
+                    <section className="point-block ai-tutor" aria-labelledby="ai-tutor-title">
+                      <h3 id="ai-tutor-title">AI에게 이 개념 다시 묻기</h3>
+                      <p className="subtle">현재 개념의 승인된 학습 콘텐츠만 근거로 답합니다. 진단 점수나 상품 추천은 하지 않습니다.</p>
+                      <div className="action-row">
+                        <input
+                          className="field-input"
+                          value={aiQuestion}
+                          onChange={event => setAiQuestion(event.target.value)}
+                          onKeyDown={event => { if (event.key === "Enter") void askAi(); }}
+                          maxLength={300}
+                          placeholder="예: 금리가 오르면 왜 가격이 떨어지나요?"
+                          aria-label="AI에게 물어볼 질문"
+                        />
+                        <button className="btn btn-primary" type="button" onClick={() => void askAi()} disabled={aiLoading}>
+                          {aiLoading ? "설명 생성 중…" : "설명 받기"}
+                        </button>
+                      </div>
+                      {aiError && <p className="panel-error" role="alert">AI 설명을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>}
+                      {aiAnswer && (
+                        <div className="ai-answer" role="status">
+                          <p>{aiAnswer.answer}</p>
+                          <span className="subtle">근거: {aiAnswer.sourceName} · 콘텐츠 {aiAnswer.contentVersion} · {aiAnswer.source === "CLAUDE" ? "AI 생성" : "기본 설명"}</span>
+                        </div>
+                      )}
+                    </section>
+
                     <a className="lesson-source" href={detail.sourceUrl} target="_blank" rel="noreferrer">
                       원문 출처 열기 · {detail.sourceName} ↗
                     </a>
@@ -316,6 +361,9 @@ export default function LearnPage() {
             )}
 
             <div className="action-row">
+              <Link className="btn btn-primary" to={`/practice?concept=${encodeURIComponent(slug)}`}>
+                모의투자 연습기 열기
+              </Link>
               <Link className="btn btn-secondary" to="/start">
                 진단 시작 화면
               </Link>

@@ -113,6 +113,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/QuizGradeResponse'
+
+  /practice/products:
+    get:
+      tags: [learning]
+      summary: 모의 투자 연습 상품 목록
+      description: 실제 판매 상품이 아니라 메커니즘 학습용 가상 상품 정의다.
+      responses:
+        '200': { description: 자산군·메커니즘·기본 가정 목록 }
+  /practice/scenarios:
+    get:
+      tags: [learning]
+      summary: 모의 투자 충격 시나리오 목록
+      responses:
+        '200': { description: 가격·금리·환율 등의 교육용 가정 목록 }
+  /practice/methodology:
+    get:
+      tags: [learning]
+      summary: 모의 투자 계산 가정과 공식
+      responses:
+        '200': { description: 모델 버전·가정·출처 }
+  /practice/analyze:
+    post:
+      tags: [learning]
+      summary: 사용자가 조합한 포트폴리오 분석
+      description: 입력 상품과 충격을 순수 계산하며 저장하지 않는다. 주문·추천·미래 예측이 아니다.
+      requestBody:
+        required: true
+        content:
+          application/json: { schema: { $ref: '#/components/schemas/PracticeAnalyzeRequest' } }
+      responses:
+        '200': { description: 자산별 손익·노출·효과·학습 해설 }
+        '400': { description: 입력 범위 또는 예산 오류 }
+  /practice/compare:
+    post:
+      tags: [learning]
+      summary: 변경 전후 포트폴리오 비교
+      requestBody:
+        required: true
+        content:
+          application/json: { schema: { $ref: '#/components/schemas/PracticeCompareRequest' } }
+      responses:
+        '200': { description: 같은 충격에서 배분 변경의 차이 }
+        '400': { description: 입력 범위 또는 예산 오류 }
         '404': { $ref: '#/components/responses/NotFound' }
   /learning/concepts/{slug}/simulations:
     get:
@@ -487,6 +530,60 @@ components:
             $ref: '#/components/schemas/Error'
 
   schemas:
+
+    PracticeAnalyzeRequest:
+      type: object
+      required: [portfolio, shocks]
+      properties:
+        portfolio:
+          $ref: '#/components/schemas/PracticePortfolio'
+        shocks:
+          $ref: '#/components/schemas/PracticeShocks'
+
+    PracticeCompareRequest:
+      type: object
+      required: [before, after, shocks]
+      properties:
+        before: { $ref: '#/components/schemas/PracticePortfolio' }
+        after: { $ref: '#/components/schemas/PracticePortfolio' }
+        shocks: { $ref: '#/components/schemas/PracticeShocks' }
+
+    PracticePortfolio:
+      type: object
+      required: [budget, holdings]
+      properties:
+        budget: { type: number, minimum: 1000, maximum: 10000000000 }
+        holdings:
+          type: array
+          maxItems: 20
+          items: { $ref: '#/components/schemas/PracticeHolding' }
+
+    PracticeHolding:
+      type: object
+      required: [rowId, productId, label, amount, annualFeePercent, duration, leverage, strike, premium, borrowingRatePercent]
+      properties:
+        rowId: { type: string }
+        productId: { type: string, description: /practice/products의 메커니즘 ID }
+        label: { type: string }
+        amount: { type: number, minimum: 1000 }
+        annualFeePercent: { type: number, minimum: 0, maximum: 5 }
+        duration: { type: number, minimum: 0.1, maximum: 20 }
+        leverage: { type: number, minimum: 1, maximum: 20 }
+        strike: { type: number, minimum: 10, maximum: 200 }
+        premium: { type: number, minimum: 0.1, maximum: 100 }
+        borrowingRatePercent: { type: number, minimum: 0, maximum: 20 }
+
+    PracticeShocks:
+      type: object
+      required: [equityPercent, ratePoints, creditSpreadPoints, goldPercent, realEstatePercent, fxPercent, days]
+      properties:
+        equityPercent: { type: number, minimum: -80, maximum: 100 }
+        ratePoints: { type: number, minimum: -2, maximum: 2 }
+        creditSpreadPoints: { type: number, minimum: -2, maximum: 3 }
+        goldPercent: { type: number, minimum: -80, maximum: 100 }
+        realEstatePercent: { type: number, minimum: -80, maximum: 100 }
+        fxPercent: { type: number, minimum: -50, maximum: 100 }
+        days: { type: integer, minimum: 1, maximum: 365 }
 
     Error:
       type: object

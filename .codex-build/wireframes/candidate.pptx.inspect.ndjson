@@ -1,0 +1,379 @@
+{"kind":"deck","id":"pr/z5vhxu","name":"Deck"}
+{"kind":"layout","layoutId":"9e4f3588-db26-4304-9056-fc93fbd02c39","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"3e7a881d-cf40-4124-a177-56d715bda56a","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/xftnhi","slide":1,"title":"01. 사용자 플로우","textShapes":24}
+{"kind":"shape","id":"sh/zqto7i9w","slide":1,"name":"background","bbox":[0,0,1280,720]}
+{"kind":"shape","id":"sh/kb2p03qh","slide":1,"name":"accent","bbox":[52,48,8,40]}
+{"kind":"textbox","id":"sh/lcb698r2","slide":1,"name":"section-number","text":"01. 사용자 플로우","textPreview":"01. 사용자 플로우","textChars":11,"textLines":1,"bbox":[76,45,100,26]}
+{"kind":"textbox","id":"sh/mdk72d8n","slide":1,"name":"slide-title","text":"FinMATE의 전체 사용자 여정","textPreview":"FinMATE의 전체 사용자 여정","textChars":18,"textLines":1,"bbox":[76,74,1030,54]}
+{"kind":"textbox","id":"sh/7ed8bi98","slide":1,"name":"slide-subtitle","text":"진단 결과를 학습·실험으로 확장하는 구조","textPreview":"진단 결과를 학습·실험으로 확장하는 구조","textChars":22,"textLines":1,"bbox":[78,128,1050,30]}
+{"kind":"textbox","id":"sh/8fmp4nqt","slide":1,"name":"footer","text":"FinMATE  ·  flowchart & wireframe appendix","textPreview":"FinMATE  ·  flowchart & wireframe appendix","textChars":42,"textLines":1,"bbox":[78,686,450,18]}
+{"kind":"shape","id":"sh/9gvqdsry","slide":1,"name":"label-진단·탐색","bbox":[78,180,112,28]}
+{"kind":"textbox","id":"sh/2h07qt83","slide":1,"text":"진단·탐색","textPreview":"진단·탐색","textChars":5,"textLines":1,"bbox":[82,183,104,22]}
+{"kind":"shape","id":"sh/3i9oze9o","slide":1,"name":"로그인","bbox":[78,230,180,94]}
+{"kind":"shape","id":"sh/be1gjqho","slide":1,"bbox":[78,230,5,94]}
+{"kind":"textbox","id":"sh/adszalg3","slide":1,"text":"로그인","textPreview":"로그인","textChars":3,"textLines":1,"bbox":[94,242,156,28]}
+{"kind":"textbox","id":"sh/x03ylgzu","slide":1,"text":"계정과 진단 이력 확인","textPreview":"계정과 진단 이력 확인","textChars":12,"textLines":1,"bbox":[94,274,156,44]}
+{"kind":"shape","id":"sh/cfahcvy9","slide":1,"name":"진단 질문","bbox":[322,230,180,94]}
+{"kind":"shape","id":"sh/na1gf6hs","slide":1,"bbox":[322,230,5,94]}
+{"kind":"textbox","id":"sh/29sf61g7","slide":1,"text":"진단 질문","textPreview":"진단 질문","textChars":5,"textLines":1,"bbox":[338,242,156,28]}
+{"kind":"textbox","id":"sh/pcjyhgzi","slide":1,"text":"질문·선택지 조회","textPreview":"질문·선택지 조회","textChars":9,"textLines":1,"bbox":[338,274,156,44]}
+{"kind":"shape","id":"sh/obax8byd","slide":1,"name":"규칙 판정","bbox":[566,230,180,94]}
+{"kind":"shape","id":"sh/f6hgb6hg","slide":1,"bbox":[566,230,5,94]}
+{"kind":"textbox","id":"sh/e58f21gv","slide":1,"text":"규칙 판정","textPreview":"규칙 판정","textChars":5,"textLines":1,"bbox":[582,242,156,28]}
+{"kind":"textbox","id":"sh/ih8zu1k3","slide":1,"text":"점수·5단계 성향","textPreview":"점수·5단계 성향","textChars":9,"textLines":1,"bbox":[582,274,156,44]}
+{"kind":"shape","id":"sh/3ihgn61o","slide":1,"name":"근거 설명","bbox":[810,230,180,94]}
+{"kind":"shape","id":"sh/43qhwr2t","slide":1,"bbox":[810,230,5,94]}
+{"kind":"textbox","id":"sh/54zipwje","slide":1,"text":"근거 설명","textPreview":"근거 설명","textChars":5,"textLines":1,"bbox":[826,242,156,28]}
+{"kind":"textbox","id":"sh/q58zy1kz","slide":1,"text":"AI 또는 템플릿","textPreview":"AI 또는 템플릿","textChars":9,"textLines":1,"bbox":[826,274,156,44]}
+{"kind":"shape","id":"sh/r6h0r61k","slide":1,"name":"상품 탐색","bbox":[1054,230,148,94]}
+{"kind":"shape","id":"sh/s7qh0bi5","slide":1,"bbox":[1054,230,5,94]}
+{"kind":"textbox","id":"sh/d8jitgjq","slide":1,"text":"상품 탐색","textPreview":"상품 탐색","textChars":5,"textLines":1,"bbox":[1070,242,124,28]}
+{"kind":"textbox","id":"sh/e9sz2l0b","slide":1,"text":"카테고리·상세·고지","textPreview":"카테고리·상세·고지","textChars":10,"textLines":1,"bbox":[1070,274,124,44]}
+{"kind":"shape","id":"sh/fa10vq1g","slide":1,"bbox":[258,277,64,0]}
+{"kind":"shape","id":"sh/9gnah47u","slide":1,"bbox":[502,277,64,0]}
+{"kind":"shape","id":"sh/ofet8zqp","slide":1,"bbox":[746,277,64,0]}
+{"kind":"shape","id":"sh/ne5sfup4","slide":1,"bbox":[990,277,64,0]}
+{"kind":"shape","id":"sh/mdwb698j","slide":1,"name":"label-학습·연습","bbox":[78,410,112,28]}
+{"kind":"textbox","id":"sh/x4nulo76","slide":1,"text":"학습·연습","textPreview":"학습·연습","textChars":5,"textLines":1,"bbox":[82,413,104,22]}
+{"kind":"shape","id":"sh/wjetcj6l","slide":1,"name":"개념 트리","bbox":[78,460,220,104]}
+{"kind":"shape","id":"sh/bi5sjep0","slide":1,"bbox":[78,460,5,104]}
+{"kind":"textbox","id":"sh/ahwba98f","slide":1,"text":"개념 트리","textPreview":"개념 트리","textChars":5,"textLines":1,"bbox":[94,472,196,28]}
+{"kind":"textbox","id":"sh/l87upo72","slide":1,"text":"자산군 → 상품 구조 → 메커니즘","textPreview":"자산군 → 상품 구조 → 메커니즘","textChars":18,"textLines":1,"bbox":[94,504,196,54]}
+{"kind":"shape","id":"sh/k7ytgj6x","slide":1,"name":"개념별 퀴즈","bbox":[360,460,220,104]}
+{"kind":"shape","id":"sh/g3id8nq5","slide":1,"bbox":[360,460,5,104]}
+{"kind":"textbox","id":"sh/h4behsra","slide":1,"text":"개념별 퀴즈","textPreview":"개념별 퀴즈","textChars":6,"textLines":1,"bbox":[376,472,196,28]}
+{"kind":"textbox","id":"sh/u10v6xsz","slide":1,"text":"오답 이유와 다음 학습","textPreview":"오답 이유와 다음 학습","textChars":12,"textLines":1,"bbox":[376,504,196,54]}
+{"kind":"shape","id":"sh/v29wfi9k","slide":1,"name":"메커니즘 실험","bbox":[642,460,220,104]}
+{"kind":"shape","id":"sh/8zid4nat","slide":1,"bbox":[642,460,5,104]}
+{"kind":"textbox","id":"sh/t0redsre","slide":1,"text":"메커니즘 실험","textPreview":"메커니즘 실험","textChars":7,"textLines":1,"bbox":[658,472,196,28]}
+{"kind":"textbox","id":"sh/6d0v2dsn","slide":1,"text":"금리·수수료·옵션·레버리지","textPreview":"금리·수수료·옵션·레버리지","textChars":14,"textLines":1,"bbox":[658,504,196,54]}
+{"kind":"shape","id":"sh/7y9wbi98","slide":1,"name":"포트폴리오 연습","bbox":[924,460,220,104]}
+{"kind":"shape","id":"sh/cv2xg7qx","slide":1,"bbox":[924,460,5,104]}
+{"kind":"textbox","id":"sh/dwvepcri","slide":1,"text":"포트폴리오 연습","textPreview":"포트폴리오 연습","textChars":8,"textLines":1,"bbox":[940,472,196,28]}
+{"kind":"textbox","id":"sh/nqxgf6t0","slide":1,"text":"가상 상품·충격·전후 비교","textPreview":"가상 상품·충격·전후 비교","textChars":14,"textLines":1,"bbox":[940,504,196,54]}
+{"kind":"shape","id":"sh/mpoz61sf","slide":1,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/9sfyhgbq","slide":1,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/or6h8ba5","slide":1,"bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/xftnhi","slide":1,"text":"발표 포인트: 진단 결과와 학습 접근을 분리해, 성향 제한을 받은 사용자도 금융상품 구조를 공부하고 가정값으로 실험할 수 있다."}
+{"kind":"slide","id":"sl/czcs4u","slide":2,"title":"02. 진단 흐름","textShapes":26}
+{"kind":"shape","id":"sh/yt0nyxsj","slide":2,"name":"background","bbox":[0,0,1280,720]}
+{"kind":"shape","id":"sh/lwr6tcbu","slide":2,"name":"accent","bbox":[52,48,8,40]}
+{"kind":"textbox","id":"sh/kvi507a9","slide":2,"name":"section-number","text":"02. 진단 흐름","textPreview":"02. 진단 흐름","textChars":9,"textLines":1,"bbox":[76,45,100,26]}
+{"kind":"textbox","id":"sh/bqponits","slide":2,"name":"slide-title","text":"답변 제출부터 결과 확인까지","textPreview":"답변 제출부터 결과 확인까지","textChars":15,"textLines":1,"bbox":[76,74,1030,54]}
+{"kind":"textbox","id":"sh/qpgnudc7","slide":2,"name":"slide-subtitle","text":"정상 경로와 예외 경로를 함께 설계","textPreview":"정상 경로와 예외 경로를 함께 설계","textChars":19,"textLines":1,"bbox":[78,128,1050,30]}
+{"kind":"textbox","id":"sh/dsr6psby","slide":2,"name":"footer","text":"FinMATE  ·  flowchart & wireframe appendix","textPreview":"FinMATE  ·  flowchart & wireframe appendix","textChars":42,"textLines":1,"bbox":[78,686,450,18]}
+{"kind":"shape","id":"sh/cri5wnud","slide":2,"name":"label-정상 경로","bbox":[78,178,110,28]}
+{"kind":"textbox","id":"sh/vmtozmtw","slide":2,"text":"정상 경로","textPreview":"정상 경로","textChars":5,"textLines":1,"bbox":[82,181,102,22]}
+{"kind":"shape","id":"sh/ulk76hsr","slide":2,"name":"진단 가능 여부","bbox":[78,230,190,100]}
+{"kind":"shape","id":"sh/c7yt8ru1","slide":2,"bbox":[78,230,5,100]}
+{"kind":"textbox","id":"sh/xs7uhwv6","slide":2,"text":"진단 가능 여부","textPreview":"진단 가능 여부","textChars":8,"textLines":1,"bbox":[94,242,166,28]}
+{"kind":"textbox","id":"sh/a5gb61cv","slide":2,"text":"GET /assessments/availability","textPreview":"GET /assessments/availability","textChars":29,"textLines":1,"bbox":[94,274,166,50]}
+{"kind":"shape","id":"sh/b6pcf6dg","slide":2,"name":"질문 응답","bbox":[314,230,190,100]}
+{"kind":"shape","id":"sh/o3yt4rup","slide":2,"bbox":[314,230,5,100]}
+{"kind":"textbox","id":"sh/p47udwva","slide":2,"text":"질문 응답","textPreview":"질문 응답","textChars":5,"textLines":1,"bbox":[330,242,166,28]}
+{"kind":"textbox","id":"sh/21wb2hcj","slide":2,"text":"GET /questions","textPreview":"GET /questions","textChars":14,"textLines":1,"bbox":[330,274,166,50]}
+{"kind":"shape","id":"sh/n2psbmd4","slide":2,"name":"답변 제출","bbox":[550,230,190,100]}
+{"kind":"shape","id":"sh/0zet07ut","slide":2,"bbox":[550,230,5,100]}
+{"kind":"textbox","id":"sh/10na9cve","slide":2,"text":"답변 제출","textPreview":"답변 제출","textChars":5,"textLines":1,"bbox":[566,242,166,28]}
+{"kind":"textbox","id":"sh/hkvihojq","slide":2,"text":"POST /assessments","textPreview":"POST /assessments","textChars":17,"textLines":1,"bbox":[566,274,166,50]}
+{"kind":"shape","id":"sh/gjmhoji5","slide":2,"name":"규칙 판정","bbox":[786,230,190,100]}
+{"kind":"shape","id":"sh/vid0fe1k","slide":2,"bbox":[786,230,5,100]}
+{"kind":"textbox","id":"sh/uh4zm90f","slide":2,"text":"규칙 판정","textPreview":"규칙 판정","textChars":5,"textLines":1,"bbox":[802,242,166,28]}
+{"kind":"textbox","id":"sh/tgvid4ju","slide":2,"text":"score · profileGrade","textPreview":"score · profileGrade","textChars":20,"textLines":1,"bbox":[802,274,166,50]}
+{"kind":"shape","id":"sh/8fmhkzi9","slide":2,"name":"결과·탐색","bbox":[1022,230,180,100]}
+{"kind":"shape","id":"sh/7ud0bu1o","slide":2,"bbox":[1022,230,5,100]}
+{"kind":"textbox","id":"sh/mt4zip03","slide":2,"text":"결과·탐색","textPreview":"결과·탐색","textChars":5,"textLines":1,"bbox":[1038,242,156,28]}
+{"kind":"textbox","id":"sh/dczip8jy","slide":2,"text":"GET result + recommendations","textPreview":"GET result + recommendations","textChars":28,"textLines":1,"bbox":[1038,274,156,50]}
+{"kind":"shape","id":"sh/sb61w3id","slide":2,"bbox":[268,280,46,0]}
+{"kind":"shape","id":"sh/ax0fqlgv","slide":2,"bbox":[504,280,46,0]}
+{"kind":"shape","id":"sh/by9gjqhg","slide":2,"bbox":[740,280,46,0]}
+{"kind":"shape","id":"sh/czixsvy1","slide":2,"bbox":[976,280,46,0]}
+{"kind":"shape","id":"sh/x0ryl0zm","slide":2,"name":"label-예외 경로","bbox":[78,390,110,28]}
+{"kind":"textbox","id":"sh/2tgfmlgz","slide":2,"text":"예외 경로","textPreview":"예외 경로","textChars":5,"textLines":1,"bbox":[82,393,102,22]}
+{"kind":"shape","id":"sh/nu9wfqhk","slide":2,"name":"미응답 문항","bbox":[78,442,250,90]}
+{"kind":"shape","id":"sh/ovixovyp","slide":2,"bbox":[78,442,5,90]}
+{"kind":"textbox","id":"sh/pwreh0za","slide":2,"text":"미응답 문항","textPreview":"미응답 문항","textChars":6,"textLines":1,"bbox":[94,454,226,28]}
+{"kind":"textbox","id":"sh/mpkfy5g3","slide":2,"text":"제출 버튼 비활성화","textPreview":"제출 버튼 비활성화","textChars":10,"textLines":1,"bbox":[94,486,226,40]}
+{"kind":"shape","id":"sh/7qtgraho","slide":2,"name":"AI 설명 실패","bbox":[378,442,250,90]}
+{"kind":"shape","id":"sh/ri9cnml4","slide":2,"bbox":[378,442,5,90]}
+{"kind":"textbox","id":"sh/6h0behkj","slide":2,"text":"AI 설명 실패","textPreview":"AI 설명 실패","textChars":8,"textLines":1,"bbox":[394,454,226,28]}
+{"kind":"textbox","id":"sh/tkrupw3u","slide":2,"text":"TEMPLATE로 결과 완료","textPreview":"TEMPLATE로 결과 완료","textChars":15,"textLines":1,"bbox":[394,486,226,40]}
+{"kind":"shape","id":"sh/sjitgr2p","slide":2,"name":"데이터 준비 실패","bbox":[678,442,250,90]}
+{"kind":"shape","id":"sh/jepsj2ls","slide":2,"bbox":[678,442,5,90]}
+{"kind":"textbox","id":"sh/idgbaxk7","slide":2,"text":"데이터 준비 실패","textPreview":"데이터 준비 실패","textChars":9,"textLines":1,"bbox":[694,454,226,28]}
+{"kind":"textbox","id":"sh/5grulc3y","slide":2,"text":"503 + 답변 유지 재시도","textPreview":"503 + 답변 유지 재시도","textChars":15,"textLines":1,"bbox":[694,486,226,40]}
+{"kind":"shape","id":"sh/4fitc72d","slide":2,"name":"권한 오류","bbox":[978,442,224,90]}
+{"kind":"shape","id":"sh/3atcv6lc","slide":2,"bbox":[978,442,5,90]}
+{"kind":"textbox","id":"sh/29kbm1kr","slide":2,"text":"권한 오류","textPreview":"권한 오류","textChars":5,"textLines":1,"bbox":[994,454,200,28]}
+{"kind":"textbox","id":"sh/0vu9g3i9","slide":2,"text":"401/403 안내","textPreview":"401/403 안내","textChars":10,"textLines":1,"bbox":[994,486,200,40]}
+{"kind":"textbox","id":"sh/lwnqp8ju","slide":2,"text":"화면은 실패를 숨기지 않고 사용자가 다음 행동을 선택하게 한다.","textPreview":"화면은 실패를 숨기지 않고 사용자가 다음 행동을 선택하게 한다.","textChars":35,"textLines":1,"bbox":[78,590,750,34]}
+{"kind":"textbox","id":"sh/ytcret03","slide":2,"text":"FR-02~07  ·  /assessments  ·  reasoningSource  ·  고지 문구","textPreview":"FR-02~07  ·  /assessments  ·  reasoningSource  ·  고지 문구","textChars":55,"textLines":1,"bbox":[78,625,900,24]}
+{"kind":"notes","id":"nt/czcs4u","slide":2,"text":"발표 포인트: 규칙 엔진이 성향과 탐색 범위를 결정하며, AI는 설명만 담당한다. AI 실패는 진단 실패가 아니라 TEMPLATE 폴백이다."}
+{"kind":"slide","id":"sl/hj668i","slide":3,"title":"03. 학습·연습 흐름","textShapes":19}
+{"kind":"shape","id":"sh/1c3etsvq","slide":3,"name":"background","bbox":[0,0,1280,720]}
+{"kind":"shape","id":"sh/e9svydwz","slide":3,"name":"accent","bbox":[52,48,8,40]}
+{"kind":"textbox","id":"sh/fa1wridk","slide":3,"name":"section-number","text":"03. 학습·연습 흐름","textPreview":"03. 학습·연습 흐름","textChars":12,"textLines":1,"bbox":[76,45,100,26]}
+{"kind":"textbox","id":"sh/ofux47u1","slide":3,"name":"slide-title","text":"상품명을 외우는 화면에서 메커니즘을 실험하는 화면으로","textPreview":"상품명을 외우는 화면에서 메커니즘을 실험하는 화면으로","textChars":29,"textLines":1,"bbox":[76,74,1030,54]}
+{"kind":"textbox","id":"sh/pg3exsvm","slide":3,"name":"slide-subtitle","text":"각 단계가 다음 API와 화면으로 연결된다","textPreview":"각 단계가 다음 API와 화면으로 연결된다","textChars":23,"textLines":1,"bbox":[78,128,1050,30]}
+{"kind":"textbox","id":"sh/2dcv2xcb","slide":3,"name":"footer","text":"FinMATE  ·  flowchart & wireframe appendix","textPreview":"FinMATE  ·  flowchart & wireframe appendix","textChars":42,"textLines":1,"bbox":[78,686,450,18]}
+{"kind":"shape","id":"sh/nelwv2dw","slide":3,"name":"learning-lane","bbox":[78,205,510,380]}
+{"kind":"shape","id":"sh/cjex87ud","slide":3,"name":"practice-lane","bbox":[652,205,550,380]}
+{"kind":"textbox","id":"sh/x4ne1cvy","slide":3,"text":"개념 학습","textPreview":"개념 학습","textChars":5,"textLines":1,"bbox":[106,225,220,30]}
+{"kind":"textbox","id":"sh/d0n6xwz2","slide":3,"text":"가상 포트폴리오 연습","textPreview":"가상 포트폴리오 연습","textChars":11,"textLines":1,"bbox":[682,225,300,30]}
+{"kind":"shape","id":"sh/szup4ryx","slide":3,"name":"1. 개념 트리","bbox":[112,278,430,58]}
+{"kind":"shape","id":"sh/rylovmhc","slide":3,"bbox":[112,278,5,58]}
+{"kind":"textbox","id":"sh/qxc72hgr","slide":3,"text":"1. 개념 트리","textPreview":"1. 개념 트리","textChars":8,"textLines":1,"bbox":[128,290,406,28]}
+{"kind":"textbox","id":"sh/14n61gze","slide":3,"text":"주식 · 채권 · 펀드 · ETF · 파생","textPreview":"주식 · 채권 · 펀드 · ETF · 파생","textChars":23,"textLines":1,"bbox":[128,322,406,8]}
+{"kind":"shape","id":"sh/03ep8byt","slide":3,"name":"2. 상품 학습 카드","bbox":[112,362,430,58]}
+{"kind":"shape","id":"sh/z25oz6h8","slide":3,"bbox":[112,362,5,58]}
+{"kind":"textbox","id":"sh/e1w761gn","slide":3,"text":"2. 상품 학습 카드","textPreview":"2. 상품 학습 카드","textChars":11,"textLines":1,"bbox":[128,374,406,28]}
+{"kind":"textbox","id":"sh/h8j6pcza","slide":3,"text":"돈의 흐름 그림 · 오해 · 공식 출처","textPreview":"돈의 흐름 그림 · 오해 · 공식 출처","textChars":21,"textLines":1,"bbox":[128,406,406,8]}
+{"kind":"shape","id":"sh/g7a5w7yp","slide":3,"name":"3. 개념별 퀴즈","bbox":[112,446,430,58]}
+{"kind":"shape","id":"sh/8nyx8buh","slide":3,"bbox":[112,446,5,58]}
+{"kind":"textbox","id":"sh/to7y1gb2","slide":3,"text":"3. 개념별 퀴즈","textPreview":"3. 개념별 퀴즈","textChars":9,"textLines":1,"bbox":[128,458,406,28]}
+{"kind":"textbox","id":"sh/61gf61cr","slide":3,"text":"선택지별 오답 해설","textPreview":"선택지별 오답 해설","textChars":10,"textLines":1,"bbox":[128,490,406,8]}
+{"kind":"shape","id":"sh/72pgz6tw","slide":3,"bbox":[327,336,0,26]}
+{"kind":"shape","id":"sh/grixcbat","slide":3,"bbox":[327,420,0,26]}
+{"kind":"shape","id":"sh/hsry5gbe","slide":3,"name":"1. 가상 상품 선택","bbox":[686,278,480,58]}
+{"kind":"shape","id":"sh/upgfalcn","slide":3,"bbox":[686,278,5,58]}
+{"kind":"textbox","id":"sh/vqpg3qt8","slide":3,"text":"1. 가상 상품 선택","textPreview":"1. 가상 상품 선택","textChars":11,"textLines":1,"bbox":[702,290,456,28]}
+{"kind":"textbox","id":"sh/4vix0vap","slide":3,"text":"주식 · 채권 · ETF · 금 · 리츠 · 선물 · 옵션","textPreview":"주식 · 채권 · ETF · 금 · 리츠 · 선물 · 옵션","textChars":32,"textLines":1,"bbox":[702,322,456,8]}
+{"kind":"shape","id":"sh/pwry90ba","slide":3,"name":"2. 충격 입력","bbox":[686,362,480,58]}
+{"kind":"shape","id":"sh/zqd0zudc","slide":3,"bbox":[686,362,5,58]}
+{"kind":"textbox","id":"sh/epkj6pc7","slide":3,"text":"2. 충격 입력","textPreview":"2. 충격 입력","textChars":8,"textLines":1,"bbox":[702,374,456,28]}
+{"kind":"textbox","id":"sh/1svi14vi","slide":3,"text":"가격 · 금리 · 환율 · 비용 · 기간","textPreview":"가격 · 금리 · 환율 · 비용 · 기간","textChars":22,"textLines":1,"bbox":[702,406,456,8]}
+{"kind":"shape","id":"sh/0rm18zux","slide":3,"name":"3. 결과 비교","bbox":[686,446,480,58]}
+{"kind":"shape","id":"sh/rmt0vadg","slide":3,"bbox":[686,446,5,58]}
+{"kind":"textbox","id":"sh/qlkj2pwv","slide":3,"text":"3. 결과 비교","textPreview":"3. 결과 비교","textChars":8,"textLines":1,"bbox":[702,458,456,28]}
+{"kind":"textbox","id":"sh/dobixkvm","slide":3,"text":"손익 · 낙폭 · 노출 · 자산별 기여도","textPreview":"손익 · 낙폭 · 노출 · 자산별 기여도","textChars":22,"textLines":1,"bbox":[702,490,456,8]}
+{"kind":"shape","id":"sh/cn214fe1","slide":3,"bbox":[926,336,0,26]}
+{"kind":"shape","id":"sh/bix07edk","slide":3,"bbox":[926,420,0,26]}
+{"kind":"textbox","id":"sh/ah4je9cz","slide":3,"text":"학습 점수는 투자 가능 여부가 아니라 다음 확인 행동을 정하는 신호다.","textPreview":"학습 점수는 투자 가능 여부가 아니라 다음 확인 행동을 정하는 신호다.","textChars":39,"textLines":1,"bbox":[78,622,1080,28]}
+{"kind":"notes","id":"nt/hj668i","slide":3,"text":"발표 포인트: 성향 제한과 지식 접근을 분리한다. 모든 실험 결과에는 입력·공식·seed·가정·한계를 함께 남긴다."}
+{"kind":"slide","id":"sl/apc679","slide":4,"title":"04. 와이어프레임","textShapes":23}
+{"kind":"shape","id":"sh/qpovml87","slide":4,"name":"background","bbox":[0,0,1280,720]}
+{"kind":"shape","id":"sh/dsfuxg7y","slide":4,"name":"accent","bbox":[52,48,8,40]}
+{"kind":"textbox","id":"sh/sr6dovqd","slide":4,"name":"section-number","text":"04. 와이어프레임","textPreview":"04. 와이어프레임","textChars":10,"textLines":1,"bbox":[76,45,100,26]}
+{"kind":"textbox","id":"sh/3mdcr6pg","slide":4,"name":"slide-title","text":"시작 화면","textPreview":"시작 화면","textChars":5,"textLines":1,"bbox":[76,74,1030,54]}
+{"kind":"textbox","id":"sh/il4bi18b","slide":4,"name":"slide-subtitle","text":"로그인 이후 진단과 학습으로 분기","textPreview":"로그인 이후 진단과 학습으로 분기","textChars":18,"textLines":1,"bbox":[78,128,1050,30]}
+{"kind":"textbox","id":"sh/5ovutg7m","slide":4,"name":"footer","text":"FinMATE  ·  flowchart & wireframe appendix","textPreview":"FinMATE  ·  flowchart & wireframe appendix","textChars":42,"textLines":1,"bbox":[78,686,450,18]}
+{"kind":"shape","id":"sh/4nmtkbq1","slide":4,"name":"wire-S1 로그인","bbox":[104,190,430,420]}
+{"kind":"shape","id":"sh/vidcn69k","slide":4,"bbox":[104,190,430,30]}
+{"kind":"shape","id":"sh/uxkbe18z","slide":4,"bbox":[116,200,8,8]}
+{"kind":"shape","id":"sh/4vid4ne1","slide":4,"bbox":[129,200,8,8]}
+{"kind":"shape","id":"sh/pwbexsfm","slide":4,"bbox":[142,200,8,8]}
+{"kind":"textbox","id":"sh/2t0v2dwb","slide":4,"text":"S1 로그인","textPreview":"S1 로그인","textChars":6,"textLines":1,"bbox":[162,197,360,18]}
+{"kind":"textbox","id":"sh/3u9wvixg","slide":4,"text":"FinMATE","textPreview":"FinMATE","textChars":7,"textLines":1,"bbox":[126,248,386,32]}
+{"kind":"textbox","id":"sh/g7id03e5","slide":4,"text":"AI 투자 성향 진단과 금융상품 학습","textPreview":"AI 투자 성향 진단과 금융상품 학습","textChars":20,"textLines":1,"bbox":[124,282,390,22]}
+{"kind":"textbox","id":"sh/hsret8fq","slide":4,"text":"이메일","textPreview":"이메일","textChars":3,"textLines":1,"bbox":[132,333,374,18]}
+{"kind":"shape","id":"sh/u50vytwz","slide":4,"bbox":[132,355,374,34]}
+{"kind":"textbox","id":"sh/f69wryxk","slide":4,"text":"learner@example.com","textPreview":"learner@example.com","textChars":19,"textLines":1,"bbox":[142,362,354,18]}
+{"kind":"textbox","id":"sh/03mxc7e9","slide":4,"text":"비밀번호","textPreview":"비밀번호","textChars":4,"textLines":1,"bbox":[132,406,374,18]}
+{"kind":"shape","id":"sh/1ove5cfu","slide":4,"bbox":[132,428,374,34]}
+{"kind":"textbox","id":"sh/9kreps7y","slide":4,"text":"••••••••","textPreview":"••••••••","textChars":8,"textLines":1,"bbox":[142,435,354,18]}
+{"kind":"shape","id":"sh/8jidg76d","slide":4,"bbox":[132,486,374,30]}
+{"kind":"textbox","id":"sh/ni9wn2ps","slide":4,"text":"로그인","textPreview":"로그인","textChars":3,"textLines":1,"bbox":[136,491,366,20]}
+{"kind":"textbox","id":"sh/mhgvexon","slide":4,"text":"계정이 없나요? 회원가입","textPreview":"계정이 없나요? 회원가입","textChars":13,"textLines":1,"bbox":[124,533,390,20]}
+{"kind":"shape","id":"sh/lg7els72","slide":4,"name":"wire-S2 진단 시작","bbox":[746,190,430,420]}
+{"kind":"shape","id":"sh/0fydcn6h","slide":4,"bbox":[746,190,430,30]}
+{"kind":"shape","id":"sh/zepwjipw","slide":4,"bbox":[758,200,8,8]}
+{"kind":"shape","id":"sh/ydgvadob","slide":4,"bbox":[771,200,8,8]}
+{"kind":"shape","id":"sh/ds7uh87q","slide":4,"bbox":[784,200,8,8]}
+{"kind":"textbox","id":"sh/cryd8365","slide":4,"text":"S2 진단 시작","textPreview":"S2 진단 시작","textChars":8,"textLines":1,"bbox":[804,197,360,18]}
+{"kind":"textbox","id":"sh/2lcj2p0r","slide":4,"text":"오늘의 학습 경로","textPreview":"오늘의 학습 경로","textChars":9,"textLines":1,"bbox":[768,242,386,28]}
+{"kind":"textbox","id":"sh/3mlkvu1c","slide":4,"text":"현재 성향과 학습 목적을 분리해 선택하세요.","textPreview":"현재 성향과 학습 목적을 분리해 선택하세요.","textChars":24,"textLines":1,"bbox":[768,274,386,22]}
+{"kind":"shape","id":"sh/4nu14zix","slide":4,"bbox":[768,312,386,72]}
+{"kind":"textbox","id":"sh/p832xkji","slide":4,"text":"진단 가능","textPreview":"진단 가능","textChars":5,"textLines":1,"bbox":[782,326,100,20]}
+{"kind":"textbox","id":"sh/uhsjy50v","slide":4,"text":"다음 진단 가능일: 2026.10.10","textPreview":"다음 진단 가능일: 2026.10.10","textChars":21,"textLines":1,"bbox":[782,352,360,18]}
+{"kind":"shape","id":"sh/fi1kra1g","slide":4,"bbox":[768,412,386,30]}
+{"kind":"textbox","id":"sh/gja10fi1","slide":4,"text":"진단 시작","textPreview":"진단 시작","textChars":5,"textLines":1,"bbox":[772,417,378,20]}
+{"kind":"shape","id":"sh/hkj2tkj6","slide":4,"bbox":[768,464,386,62]}
+{"kind":"textbox","id":"sh/6d8ju50j","slide":4,"text":"상품 학습으로 바로 이동","textPreview":"상품 학습으로 바로 이동","textChars":13,"textLines":1,"bbox":[782,478,360,22]}
+{"kind":"textbox","id":"sh/7e1kna14","slide":4,"text":"등급과 상관없이 개념을 공부할 수 있어요","textPreview":"등급과 상관없이 개념을 공부할 수 있어요","textChars":22,"textLines":1,"bbox":[782,505,360,16]}
+{"kind":"textbox","id":"sh/j61gz6l0","slide":4,"text":"S1  회원가입·로그인","textPreview":"S1  회원가입·로그인","textChars":12,"textLines":1,"bbox":[104,625,430,24]}
+{"kind":"textbox","id":"sh/y5sf614f","slide":4,"text":"S2  진단 시작 / 학습 바로가기","textPreview":"S2  진단 시작 / 학습 바로가기","textChars":19,"textLines":1,"bbox":[746,625,430,24]}
+{"kind":"notes","id":"nt/apc679","slide":4,"text":"화면 연결: S1 → S2. S2에서는 진단 가능 여부와 다음 가능일을 보여 주며, 등급과 무관하게 상품 학습으로 이동할 수 있다."}
+{"kind":"slide","id":"sl/dczdx9","slide":5,"title":"05. 와이어프레임","textShapes":22}
+{"kind":"shape","id":"sh/ul87atg3","slide":5,"name":"background","bbox":[0,0,1280,720]}
+{"kind":"shape","id":"sh/h8zq5ofu","slide":5,"name":"accent","bbox":[52,48,8,40]}
+{"kind":"textbox","id":"sh/wnqpcjy9","slide":5,"name":"section-number","text":"05. 와이어프레임","textPreview":"05. 와이어프레임","textChars":10,"textLines":1,"bbox":[76,45,100,26]}
+{"kind":"textbox","id":"sh/jah87yxk","slide":5,"name":"slide-title","text":"진단과 결과","textPreview":"진단과 결과","textChars":6,"textLines":1,"bbox":[76,74,1030,54]}
+{"kind":"textbox","id":"sh/i98retgz","slide":5,"name":"slide-subtitle","text":"입력 상태·판정 결과·AI 폴백 상태를 한 흐름으로 확인","textPreview":"입력 상태·판정 결과·AI 폴백 상태를 한 흐름으로 확인","textChars":31,"textLines":1,"bbox":[78,128,1050,30]}
+{"kind":"textbox","id":"sh/5cjq98fq","slide":5,"name":"footer","text":"FinMATE  ·  flowchart & wireframe appendix","textPreview":"FinMATE  ·  flowchart & wireframe appendix","textChars":42,"textLines":1,"bbox":[78,686,450,18]}
+{"kind":"shape","id":"sh/4bq9g3y5","slide":5,"name":"wire-S3 진단 진행","bbox":[104,190,430,420]}
+{"kind":"shape","id":"sh/re18bixw","slide":5,"bbox":[104,190,430,30]}
+{"kind":"shape","id":"sh/6dsridwb","slide":5,"bbox":[116,200,8,8]}
+{"kind":"shape","id":"sh/07idgfet","slide":5,"bbox":[129,200,8,8]}
+{"kind":"shape","id":"sh/18re9kve","slide":5,"bbox":[142,200,8,8]}
+{"kind":"textbox","id":"sh/e5gve5wn","slide":5,"text":"S3 진단 진행","textPreview":"S3 진단 진행","textChars":8,"textLines":1,"bbox":[162,197,360,18]}
+{"kind":"textbox","id":"sh/f6pw7ad8","slide":5,"text":"투자 성향 진단","textPreview":"투자 성향 진단","textChars":8,"textLines":1,"bbox":[126,242,386,28]}
+{"kind":"textbox","id":"sh/obixkfep","slide":5,"text":"3 / 5","textPreview":"3 / 5","textChars":5,"textLines":1,"bbox":[462,248,48,18]}
+{"kind":"shape","id":"sh/pcredkva","slide":5,"bbox":[126,284,386,1]}
+{"kind":"textbox","id":"sh/290vi5wz","slide":5,"text":"원금 손실 가능성을 어느 정도 감수할 수 있나요?","textPreview":"원금 손실 가능성을 어느 정도 감수할 수 있나요?","textChars":27,"textLines":1,"bbox":[126,308,386,44]}
+{"kind":"shape","id":"sh/na9wbadk","slide":5,"bbox":[126,380,386,34]}
+{"kind":"shape","id":"sh/cz2xoze1","slide":5,"bbox":[138,390,14,14]}
+{"kind":"textbox","id":"sh/x0beh4vm","slide":5,"text":"손실을 감수하기 어렵다","textPreview":"손실을 감수하기 어렵다","textChars":12,"textLines":1,"bbox":[162,388,346,18]}
+{"kind":"shape","id":"sh/lknml0je","slide":5,"bbox":[126,426,386,34]}
+{"kind":"shape","id":"sh/kje5cv2t","slide":5,"bbox":[138,436,14,14]}
+{"kind":"textbox","id":"sh/zi54jq18","slide":5,"text":"일부 손실은 이해할 수 있다","textPreview":"일부 손실은 이해할 수 있다","textChars":15,"textLines":1,"bbox":[162,434,346,18]}
+{"kind":"shape","id":"sh/yhwnalk3","slide":5,"bbox":[126,472,386,34]}
+{"kind":"shape","id":"sh/987mp0jq","slide":5,"bbox":[138,482,14,14]}
+{"kind":"textbox","id":"sh/87e5gv25","slide":5,"text":"높은 변동성도 감수할 수 있다","textPreview":"높은 변동성도 감수할 수 있다","textChars":16,"textLines":1,"bbox":[162,480,346,18]}
+{"kind":"shape","id":"sh/7m54na1k","slide":5,"bbox":[126,552,386,30]}
+{"kind":"textbox","id":"sh/mlwne5kz","slide":5,"text":"다음","textPreview":"다음","textChars":2,"textLines":1,"bbox":[130,557,378,20]}
+{"kind":"shape","id":"sh/pc3mdgj6","slide":5,"name":"wire-S4 분석 결과","bbox":[746,190,430,420]}
+{"kind":"shape","id":"sh/obu54b2l","slide":5,"bbox":[746,190,430,30]}
+{"kind":"shape","id":"sh/ehsjeh0j","slide":5,"bbox":[758,200,8,8]}
+{"kind":"shape","id":"sh/fi1knmh4","slide":5,"bbox":[771,200,8,8]}
+{"kind":"shape","id":"sh/0ja1grip","slide":5,"bbox":[784,200,8,8]}
+{"kind":"textbox","id":"sh/1kj2pcza","slide":5,"text":"S4 분석 결과","textPreview":"S4 분석 결과","textChars":8,"textLines":1,"bbox":[804,197,360,18]}
+{"kind":"textbox","id":"sh/2lsjih0v","slide":5,"text":"분석 결과","textPreview":"분석 결과","textChars":5,"textLines":1,"bbox":[768,242,386,28]}
+{"kind":"shape","id":"sh/nm1kbmh0","slide":5,"name":"label-TEMPLATE 설명","bbox":[768,284,120,28]}
+{"kind":"textbox","id":"sh/onalkril","slide":5,"text":"TEMPLATE 설명","textPreview":"TEMPLATE 설명","textChars":11,"textLines":1,"bbox":[772,287,112,22]}
+{"kind":"textbox","id":"sh/poj2dwz6","slide":5,"text":"위험중립형","textPreview":"위험중립형","textChars":5,"textLines":1,"bbox":[768,328,386,36]}
+{"kind":"textbox","id":"sh/ipoj6x0b","slide":5,"text":"점수 51 / 100","textPreview":"점수 51 / 100","textChars":11,"textLines":1,"bbox":[768,368,386,22]}
+{"kind":"shape","id":"sh/3qhkf2hw","slide":5,"bbox":[768,410,386,1]}
+{"kind":"textbox","id":"sh/jm903etk","slide":5,"text":"판정 근거","textPreview":"판정 근거","textChars":5,"textLines":1,"bbox":[768,428,386,18]}
+{"kind":"textbox","id":"sh/ylgza9sf","slide":5,"text":"위험과 손실 가능성을 이해하고 분산을 고려하는 응답이 많았습니다.","textPreview":"위험과 손실 가능성을 이해하고 분산을 고려하는 응답이 많았습니다.","textChars":36,"textLines":1,"bbox":[768,454,386,44]}
+{"kind":"shape","id":"sh/lori5obq","slide":5,"bbox":[768,552,386,30]}
+{"kind":"textbox","id":"sh/knihcja5","slide":5,"text":"탐색 카테고리 보기","textPreview":"탐색 카테고리 보기","textChars":10,"textLines":1,"bbox":[772,557,378,20]}
+{"kind":"textbox","id":"sh/7a907ytw","slide":5,"text":"S3  진단 진행","textPreview":"S3  진단 진행","textChars":9,"textLines":1,"bbox":[104,625,430,24]}
+{"kind":"textbox","id":"sh/6p0zetsb","slide":5,"text":"S4  분석 결과·근거·탐색","textPreview":"S4  분석 결과·근거·탐색","textChars":15,"textLines":1,"bbox":[746,625,430,24]}
+{"kind":"notes","id":"nt/dczdx9","slide":5,"text":"화면 연결: S3에서 POST /assessments를 호출하고, S4에서 reasoningSource와 결과 근거를 보여 준다. AI 실패도 TEMPLATE 상태로 완료한다."}
+{"kind":"slide","id":"sl/eq6kif","slide":6,"title":"06. 와이어프레임","textShapes":30}
+{"kind":"shape","id":"sh/4r6hc3mp","slide":6,"name":"background","bbox":[0,0,1280,720]}
+{"kind":"shape","id":"sh/jqxgjyl4","slide":6,"name":"accent","bbox":[52,48,8,40]}
+{"kind":"textbox","id":"sh/ipozat4j","slide":6,"name":"section-number","text":"06. 와이어프레임","textPreview":"06. 와이어프레임","textChars":10,"textLines":1,"bbox":[76,45,100,26]}
+{"kind":"textbox","id":"sh/twzyp836","slide":6,"name":"slide-title","text":"상품 탐색","textPreview":"상품 탐색","textChars":5,"textLines":1,"bbox":[76,74,1030,54]}
+{"kind":"textbox","id":"sh/svqhg3ml","slide":6,"name":"slide-subtitle","text":"상품명보다 위험 변수와 확인 문서를 먼저 보여 주는 구조","textPreview":"상품명보다 위험 변수와 확인 문서를 먼저 보여 주는 구조","textChars":31,"textLines":1,"bbox":[78,128,1050,30]}
+{"kind":"textbox","id":"sh/ruhgnyl0","slide":6,"name":"footer","text":"FinMATE  ·  flowchart & wireframe appendix","textPreview":"FinMATE  ·  flowchart & wireframe appendix","textChars":42,"textLines":1,"bbox":[78,686,450,18]}
+{"kind":"shape","id":"sh/6t8zed4f","slide":6,"name":"wire-S5 상품 탐색","bbox":[104,190,430,420]}
+{"kind":"shape","id":"sh/90fydon2","slide":6,"bbox":[104,190,430,30]}
+{"kind":"shape","id":"sh/8zmh4jmh","slide":6,"bbox":[116,200,8,8]}
+{"kind":"shape","id":"sh/ed4n2lo7","slide":6,"bbox":[129,200,8,8]}
+{"kind":"shape","id":"sh/fedovq5s","slide":6,"bbox":[142,200,8,8]}
+{"kind":"textbox","id":"sh/gfm54v6d","slide":6,"text":"S5 상품 탐색","textPreview":"S5 상품 탐색","textChars":8,"textLines":1,"bbox":[162,197,360,18]}
+{"kind":"textbox","id":"sh/1gv6x0ni","slide":6,"text":"탐색 카테고리","textPreview":"탐색 카테고리","textChars":7,"textLines":1,"bbox":[126,242,386,26]}
+{"kind":"shape","id":"sh/2h4n65o3","slide":6,"name":"label-채권","bbox":[126,286,64,28]}
+{"kind":"textbox","id":"sh/3ixoza5o","slide":6,"text":"채권","textPreview":"채권","textChars":2,"textLines":1,"bbox":[130,289,56,22]}
+{"kind":"shape","id":"sh/oj6p8f69","slide":6,"name":"label-ETF","bbox":[198,286,58,28]}
+{"kind":"textbox","id":"sh/pkf61knu","slide":6,"text":"ETF","textPreview":"ETF","textChars":3,"textLines":1,"bbox":[202,289,50,22]}
+{"kind":"shape","id":"sh/q5o7a5of","slide":6,"name":"label-금","bbox":[264,286,48,28]}
+{"kind":"textbox","id":"sh/b6xo3a50","slide":6,"text":"금","textPreview":"금","textChars":1,"textLines":1,"bbox":[268,289,40,22]}
+{"kind":"shape","id":"sh/nah4rals","slide":6,"bbox":[126,336,386,46]}
+{"kind":"textbox","id":"sh/m98nipkn","slide":6,"text":"단기 채권 예시","textPreview":"단기 채권 예시","textChars":8,"textLines":1,"bbox":[138,344,320,18]}
+{"kind":"textbox","id":"sh/9cz6tk3y","slide":6,"text":"낮은 위험 · 1~3년","textPreview":"낮은 위험 · 1~3년","textChars":12,"textLines":1,"bbox":[138,363,320,14]}
+{"kind":"textbox","id":"sh/8bq5kf2d","slide":6,"text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[480,348,24,20]}
+{"kind":"shape","id":"sh/zmx4nalw","slide":6,"bbox":[126,396,386,46]}
+{"kind":"textbox","id":"sh/ylone5kb","slide":6,"text":"채권형 펀드 예시","textPreview":"채권형 펀드 예시","textChars":9,"textLines":1,"bbox":[138,404,320,18]}
+{"kind":"textbox","id":"sh/l8fmpk32","slide":6,"text":"중간 위험 · 3년 이상","textPreview":"중간 위험 · 3년 이상","textChars":13,"textLines":1,"bbox":[138,423,320,14]}
+{"kind":"textbox","id":"sh/0765gf2h","slide":6,"text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[480,408,24,20]}
+{"kind":"shape","id":"sh/bix4jql0","slide":6,"bbox":[126,456,386,46]}
+{"kind":"textbox","id":"sh/qh4na54f","slide":6,"text":"글로벌 채권 ETF 예시","textPreview":"글로벌 채권 ETF 예시","textChars":13,"textLines":1,"bbox":[138,464,320,18]}
+{"kind":"textbox","id":"sh/gn21krix","slide":6,"text":"중간 위험 · 3년 이상","textPreview":"중간 위험 · 3년 이상","textChars":13,"textLines":1,"bbox":[138,483,320,14]}
+{"kind":"textbox","id":"sh/1ob2twji","slide":6,"text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[480,468,24,20]}
+{"kind":"textbox","id":"sh/elkji107","slide":6,"text":"내부 탐색 기준 · 투자 권유 아님","textPreview":"내부 탐색 기준 · 투자 권유 아님","textChars":19,"textLines":1,"bbox":[126,576,386,18]}
+{"kind":"shape","id":"sh/fmtkr61s","slide":6,"name":"wire-S6 상품 상세","bbox":[746,190,430,420]}
+{"kind":"shape","id":"sh/ormlobi9","slide":6,"bbox":[746,190,430,30]}
+{"kind":"shape","id":"sh/psv2xgju","slide":6,"bbox":[758,200,8,8]}
+{"kind":"shape","id":"sh/2pk3m103","slide":6,"bbox":[771,200,8,8]}
+{"kind":"shape","id":"sh/3qdkv61o","slide":6,"bbox":[784,200,8,8]}
+{"kind":"textbox","id":"sh/4vi1c725","slide":6,"text":"S6 상품 상세","textPreview":"S6 상품 상세","textChars":8,"textLines":1,"bbox":[804,197,360,18]}
+{"kind":"textbox","id":"sh/5wr2lcja","slide":6,"text":"단기 채권 예시","textPreview":"단기 채권 예시","textChars":8,"textLines":1,"bbox":[768,242,386,26]}
+{"kind":"shape","id":"sh/xc3ulcju","slide":6,"name":"label-위험등급 3","bbox":[768,284,94,28]}
+{"kind":"textbox","id":"sh/cbuts7i9","slide":6,"text":"위험등급 3","textPreview":"위험등급 3","textChars":6,"textLines":1,"bbox":[772,287,86,22]}
+{"kind":"textbox","id":"sh/balcj21o","slide":6,"text":"예상 투자기간 1~3년","textPreview":"예상 투자기간 1~3년","textChars":12,"textLines":1,"bbox":[874,289,280,18]}
+{"kind":"shape","id":"sh/a9cbqhk3","slide":6,"bbox":[768,326,386,1]}
+{"kind":"textbox","id":"sh/po3uhcji","slide":6,"text":"무엇이 결과를 바꾸나요?","textPreview":"무엇이 결과를 바꾸나요?","textChars":13,"textLines":1,"bbox":[768,344,386,18]}
+{"kind":"textbox","id":"sh/onuto72d","slide":6,"text":"시장금리 · 듀레이션 · 신용등급 · 중도매도 가격","textPreview":"시장금리 · 듀레이션 · 신용등급 · 중도매도 가격","textChars":28,"textLines":1,"bbox":[768,370,386,36]}
+{"kind":"textbox","id":"sh/nm1cf21s","slide":6,"text":"가입 전 확인","textPreview":"가입 전 확인","textChars":7,"textLines":1,"bbox":[768,428,386,18]}
+{"kind":"textbox","id":"sh/2lsbmxk7","slide":6,"text":"설명서 · 수수료 · 위험등급 · 유동성","textPreview":"설명서 · 수수료 · 위험등급 · 유동성","textChars":22,"textLines":1,"bbox":[768,454,386,36]}
+{"kind":"textbox","id":"sh/1kjadsjm","slide":6,"text":"교육용 예시이며 투자 권유나 수익을 보장하지 않습니다.","textPreview":"교육용 예시이며 투자 권유나 수익을 보장하지 않습니다.","textChars":30,"textLines":1,"bbox":[768,566,386,24]}
+{"kind":"textbox","id":"sh/0jatkn21","slide":6,"text":"S5  카테고리·상품 목록","textPreview":"S5  카테고리·상품 목록","textChars":14,"textLines":1,"bbox":[104,625,430,24]}
+{"kind":"textbox","id":"sh/6p8ret0z","slide":6,"text":"S6  상품 상세·확인 항목","textPreview":"S6  상품 상세·확인 항목","textChars":15,"textLines":1,"bbox":[746,625,430,24]}
+{"kind":"notes","id":"nt/eq6kif","slide":6,"text":"화면 연결: S4 → S5 → S6. 상품 상세는 위험도, 기간, 결과 변수를 설명하고 교육용 고지를 항상 노출한다."}
+{"kind":"slide","id":"sl/7i1viz","slide":7,"title":"07. 와이어프레임","textShapes":23}
+{"kind":"shape","id":"sh/y9076twv","slide":7,"name":"background","bbox":[0,0,1280,720]}
+{"kind":"shape","id":"sh/lcrq18vm","slide":7,"name":"accent","bbox":[52,48,8,40]}
+{"kind":"textbox","id":"sh/0bip83e1","slide":7,"name":"section-number","text":"07. 와이어프레임","textPreview":"07. 와이어프레임","textChars":10,"textLines":1,"bbox":[76,45,100,26]}
+{"kind":"textbox","id":"sh/b698vyx4","slide":7,"name":"slide-title","text":"개념 학습과 확인 문제","textPreview":"개념 학습과 확인 문제","textChars":12,"textLines":1,"bbox":[76,74,1030,54]}
+{"kind":"textbox","id":"sh/q5g72twz","slide":7,"name":"slide-subtitle","text":"개념마다 다른 문항과 구조 그림을 제공","textPreview":"개념마다 다른 문항과 구조 그림을 제공","textChars":21,"textLines":1,"bbox":[78,128,1050,30]}
+{"kind":"textbox","id":"sh/d8rqxova","slide":7,"name":"footer","text":"FinMATE  ·  flowchart & wireframe appendix","textPreview":"FinMATE  ·  flowchart & wireframe appendix","textChars":42,"textLines":1,"bbox":[78,686,450,18]}
+{"kind":"shape","id":"sh/c7ip43ep","slide":7,"name":"wire-S7 학습 트리 + S8 개념별 퀴즈","bbox":[78,190,1124,420]}
+{"kind":"shape","id":"sh/v2t87ido","slide":7,"bbox":[78,190,1124,30]}
+{"kind":"shape","id":"sh/u1kredw3","slide":7,"bbox":[90,200,8,8]}
+{"kind":"shape","id":"sh/kb2hwbi5","slide":7,"bbox":[103,200,8,8]}
+{"kind":"shape","id":"sh/lcbi5gjq","slide":7,"bbox":[116,200,8,8]}
+{"kind":"textbox","id":"sh/y9kzu10z","slide":7,"text":"S7 학습 트리 + S8 개념별 퀴즈","textPreview":"S7 학습 트리 + S8 개념별 퀴즈","textChars":20,"textLines":1,"bbox":[136,197,1054,18]}
+{"kind":"shape","id":"sh/jatg361k","slide":7,"bbox":[96,238,250,350]}
+{"kind":"textbox","id":"sh/w7ihsrit","slide":7,"text":"개념 트리","textPreview":"개념 트리","textChars":5,"textLines":1,"bbox":[114,254,200,24]}
+{"kind":"textbox","id":"sh/x8ry1wje","slide":7,"text":"투자의 기초 원리","textPreview":"투자의 기초 원리","textChars":9,"textLines":1,"bbox":[116,294,220,22]}
+{"kind":"textbox","id":"sh/a50zq103","slide":7,"text":"  위험과 수익","textPreview":"위험과 수익","textChars":8,"textLines":1,"bbox":[116,326,220,22]}
+{"kind":"textbox","id":"sh/b69gzm1o","slide":7,"text":"  변동성","textPreview":"변동성","textChars":5,"textLines":1,"bbox":[116,358,220,22]}
+{"kind":"textbox","id":"sh/ojihorix","slide":7,"text":"자산군과 상품 구조","textPreview":"자산군과 상품 구조","textChars":10,"textLines":1,"bbox":[116,390,220,22]}
+{"kind":"textbox","id":"sh/94ryxwji","slide":7,"text":"  채권","textPreview":"채권","textChars":4,"textLines":1,"bbox":[116,422,220,22]}
+{"kind":"textbox","id":"sh/5oz65o7u","slide":7,"text":"  ETF","textPreview":"ETF","textChars":5,"textLines":1,"bbox":[116,454,220,22]}
+{"kind":"textbox","id":"sh/4nq5cjqp","slide":7,"text":"파생상품과 레버리지","textPreview":"파생상품과 레버리지","textChars":10,"textLines":1,"bbox":[116,486,220,22]}
+{"kind":"textbox","id":"sh/3mho3ep4","slide":7,"text":"개념 상세","textPreview":"개념 상세","textChars":5,"textLines":1,"bbox":[378,256,360,24]}
+{"kind":"textbox","id":"sh/i18na98j","slide":7,"text":"금리가 오르면 채권 가격은 왜 내려갈까?","textPreview":"금리가 오르면 채권 가격은 왜 내려갈까?","textChars":22,"textLines":1,"bbox":[378,294,380,40]}
+{"kind":"shape","id":"sh/h0f6147y","slide":7,"bbox":[378,354,360,98]}
+{"kind":"textbox","id":"sh/gz658zqd","slide":7,"text":"구조 그림\n채권 현금흐름 → 할인율 → 현재가격","textPreview":"구조 그림 | 채권 현금흐름 → 할인율 → 현재가격","textChars":26,"textLines":2,"bbox":[398,378,320,48]}
+{"kind":"textbox","id":"sh/vyxozeps","slide":7,"text":"공식 출처 · 자주 하는 오해 · 가입 전 확인","textPreview":"공식 출처 · 자주 하는 오해 · 가입 전 확인","textChars":26,"textLines":1,"bbox":[378,476,360,24]}
+{"kind":"shape","id":"sh/uxon6987","slide":7,"bbox":[778,238,1,350]}
+{"kind":"textbox","id":"sh/1wj6d872","slide":7,"text":"확인 문제","textPreview":"확인 문제","textChars":5,"textLines":1,"bbox":[822,256,320,24]}
+{"kind":"textbox","id":"sh/0vapk36h","slide":7,"text":"금리 상승 시 채권 가격은 어떻게 변하나요?","textPreview":"금리 상승 시 채권 가격은 어떻게 변하나요?","textChars":24,"textLines":1,"bbox":[822,300,350,42]}
+{"kind":"shape","id":"sh/y143e5oz","slide":7,"bbox":[822,370,340,34]}
+{"kind":"textbox","id":"sh/j2dk7a5k","slide":7,"text":"상승한다","textPreview":"상승한다","textChars":4,"textLines":1,"bbox":[840,377,300,20]}
+{"kind":"shape","id":"sh/k3mlgf65","slide":7,"bbox":[822,418,340,34]}
+{"kind":"textbox","id":"sh/l4v290nq","slide":7,"text":"하락한다","textPreview":"하락한다","textChars":4,"textLines":1,"bbox":[840,425,300,20]}
+{"kind":"shape","id":"sh/axk3alo3","slide":7,"bbox":[822,466,340,34]}
+{"kind":"textbox","id":"sh/bytk3q5o","slide":7,"text":"항상 같다","textPreview":"항상 같다","textChars":5,"textLines":1,"bbox":[840,473,300,20]}
+{"kind":"shape","id":"sh/wz2lcv69","slide":7,"bbox":[822,530,340,30]}
+{"kind":"textbox","id":"sh/x0b250nu","slide":7,"text":"채점하고 오답 이유 보기","textPreview":"채점하고 오답 이유 보기","textChars":13,"textLines":1,"bbox":[826,535,332,20]}
+{"kind":"notes","id":"nt/7i1viz","slide":7,"text":"화면 연결: /learn. 개념마다 quiz를 분리하고, 정답은 서버에서 채점한다. 화면에는 그림·오해·출처·다음 학습 행동을 함께 둔다."}
+{"kind":"slide","id":"sl/njd1og","slide":8,"title":"08. 와이어프레임","textShapes":26}
+{"kind":"shape","id":"sh/dcbqp8be","slide":8,"name":"background","bbox":[0,0,1280,720]}
+{"kind":"shape","id":"sh/q9k7edsn","slide":8,"name":"accent","bbox":[52,48,8,40]}
+{"kind":"textbox","id":"sh/bat8nyt8","slide":8,"name":"section-number","text":"08. 와이어프레임","textPreview":"08. 와이어프레임","textChars":10,"textLines":1,"bbox":[76,45,100,26]}
+{"kind":"textbox","id":"sh/kfmpkna5","slide":8,"name":"slide-title","text":"교육용 포트폴리오 연습기","textPreview":"교육용 포트폴리오 연습기","textChars":13,"textLines":1,"bbox":[76,74,1030,54]}
+{"kind":"textbox","id":"sh/lgvqtsba","slide":8,"name":"slide-subtitle","text":"상품을 사는 화면이 아니라 변수를 바꾸고 의미를 확인하는 화면","textPreview":"상품을 사는 화면이 아니라 변수를 바꾸고 의미를 확인하는 화면","textChars":34,"textLines":1,"bbox":[78,128,1050,30]}
+{"kind":"textbox","id":"sh/ydk7idsz","slide":8,"name":"footer","text":"FinMATE  ·  flowchart & wireframe appendix","textPreview":"FinMATE  ·  flowchart & wireframe appendix","textChars":42,"textLines":1,"bbox":[78,686,450,18]}
+{"kind":"shape","id":"sh/zet8ritk","slide":8,"name":"wire-S9 모의 포트폴리오","bbox":[78,184,1124,420]}
+{"kind":"shape","id":"sh/gjip8jul","slide":8,"bbox":[78,184,1124,30]}
+{"kind":"shape","id":"sh/1kr6hob6","slide":8,"bbox":[90,194,8,8]}
+{"kind":"shape","id":"sh/lk3mhonq","slide":8,"bbox":[103,194,8,8]}
+{"kind":"shape","id":"sh/kzulojm5","slide":8,"bbox":[116,194,8,8]}
+{"kind":"textbox","id":"sh/zylkfe5k","slide":8,"text":"S9 모의 포트폴리오","textPreview":"S9 모의 포트폴리오","textChars":11,"textLines":1,"bbox":[136,191,1054,18]}
+{"kind":"textbox","id":"sh/yxc3m94f","slide":8,"text":"가상 예산","textPreview":"가상 예산","textChars":5,"textLines":1,"bbox":[102,236,120,20]}
+{"kind":"shape","id":"sh/9onmlon2","slide":8,"bbox":[102,262,172,34]}
+{"kind":"textbox","id":"sh/8nulsjmh","slide":8,"text":"₩10,000,000","textPreview":"₩10,000,000","textChars":11,"textLines":1,"bbox":[116,270,144,18]}
+{"kind":"textbox","id":"sh/7ml4je5w","slide":8,"text":"가상 상품 바구니","textPreview":"가상 상품 바구니","textChars":9,"textLines":1,"bbox":[102,326,250,20]}
+{"kind":"shape","id":"sh/mlc3qt4b","slide":8,"bbox":[102,354,278,32]}
+{"kind":"textbox","id":"sh/hsnmp8ny","slide":8,"text":"장기 채권","textPreview":"장기 채권","textChars":5,"textLines":1,"bbox":[116,361,140,18]}
+{"kind":"textbox","id":"sh/wrelw3md","slide":8,"text":"₩4,000,000","textPreview":"₩4,000,000","textChars":10,"textLines":1,"bbox":[260,361,100,18]}
+{"kind":"shape","id":"sh/gvm5s7up","slide":8,"bbox":[102,396,278,32]}
+{"kind":"textbox","id":"sh/hwv6lcba","slide":8,"text":"주식형 ETF","textPreview":"주식형 ETF","textChars":7,"textLines":1,"bbox":[116,403,140,18]}
+{"kind":"textbox","id":"sh/ut4nqxcj","slide":8,"text":"₩3,000,000","textPreview":"₩3,000,000","textChars":10,"textLines":1,"bbox":[260,403,100,18]}
+{"kind":"shape","id":"sh/fudoj2t4","slide":8,"bbox":[102,438,278,32]}
+{"kind":"textbox","id":"sh/4z65wrul","slide":8,"text":"금","textPreview":"금","textChars":1,"textLines":1,"bbox":[116,445,140,18]}
+{"kind":"textbox","id":"sh/p0f6pcb6","slide":8,"text":"₩2,000,000","textPreview":"₩2,000,000","textChars":10,"textLines":1,"bbox":[260,445,100,18]}
+{"kind":"textbox","id":"sh/2x4nuhcv","slide":8,"text":"충격 시나리오","textPreview":"충격 시나리오","textChars":7,"textLines":1,"bbox":[422,236,180,20]}
+{"kind":"shape","id":"sh/3ydonmt0","slide":8,"name":"label-금리 +1%p","bbox":[422,264,100,28]}
+{"kind":"textbox","id":"sh/k325knuh","slide":8,"text":"금리 +1%p","textPreview":"금리 +1%p","textChars":7,"textLines":1,"bbox":[426,267,92,22]}
+{"kind":"shape","id":"sh/54bmdsb2","slide":8,"name":"label-주가 -10%","bbox":[530,264,98,28]}
+{"kind":"textbox","id":"sh/ni18zqdk","slide":8,"text":"주가 -10%","textPreview":"주가 -10%","textChars":7,"textLines":1,"bbox":[534,267,90,22]}
+{"kind":"shape","id":"sh/mh8rqlwz","slide":8,"name":"label-환율 +3%","bbox":[636,264,98,28]}
+{"kind":"textbox","id":"sh/9kjq10vq","slide":8,"text":"환율 +3%","textPreview":"환율 +3%","textChars":6,"textLines":1,"bbox":[640,267,90,22]}
+{"kind":"textbox","id":"sh/8ja9sve5","slide":8,"text":"분석 결과","textPreview":"분석 결과","textChars":5,"textLines":1,"bbox":[422,326,180,20]}
+{"kind":"textbox","id":"sh/zuh8vqd8","slide":8,"text":"-₩350,000","textPreview":"-₩350,000","textChars":9,"textLines":1,"bbox":[422,358,220,36]}
+{"kind":"textbox","id":"sh/yt87mlw3","slide":8,"text":"수익률 -3.5%  ·  선형 노출 1.2배","textPreview":"수익률 -3.5%  ·  선형 노출 1.2배","textChars":24,"textLines":1,"bbox":[422,398,280,20]}
+{"kind":"shape","id":"sh/lgzqxgve","slide":8,"bbox":[422,444,312,106]}
+{"kind":"textbox","id":"sh/0vq9obet","slide":8,"text":"자산별 기여도\n채권  -₩320,000\nETF   -₩210,000\n금    +₩100,000","textPreview":"자산별 기여도 | 채권  -₩320,000 | ETF   -₩210,000 | 금    +₩100,000","textChars":52,"textLines":4,"bbox":[442,460,280,76]}
+{"kind":"shape","id":"sh/rqx8r6dc","slide":8,"bbox":[790,232,1,350]}
+{"kind":"textbox","id":"sh/qpo7i1wr","slide":8,"text":"결과의 의미","textPreview":"결과의 의미","textChars":6,"textLines":1,"bbox":[834,248,300,24]}
+{"kind":"textbox","id":"sh/6xsbm9sb","slide":8,"text":"금리 충격이 듀레이션이 긴 채권에 더 크게 반영되었습니다.\n\n이는 실제 수익률 예측이 아니라 입력한 가정을 계산한 교육용 결과입니다.","textPreview":"금리 충격이 듀레이션이 긴 채권에 더 크게 반영되었습니다. |  | 이는 실제 수익률 예측이 아니라 입력한 가정을 계산한 교육용 결과입니다.","textChars":74,"textLines":3,"bbox":[834,294,350,110]}
+{"kind":"shape","id":"sh/ry1cve9w","slide":8,"bbox":[834,474,250,30]}
+{"kind":"textbox","id":"sh/szadojah","slide":8,"text":"변경 전후 비교","textPreview":"변경 전후 비교","textChars":8,"textLines":1,"bbox":[838,479,242,20]}
+{"kind":"textbox","id":"sh/t0jux4r2","slide":8,"text":"API: POST /practice/analyze · POST /practice/compare","textPreview":"API: POST /practice/analyze · POST /practice/compare","textChars":52,"textLines":1,"bbox":[834,538,350,26]}
+{"kind":"notes","id":"nt/njd1og","slide":8,"text":"화면 연결: /practice. 실제 주문이나 특정 종목 추천 없이 가상 상품·충격·계산 결과·의미·한계를 한 화면에 보여 준다."}

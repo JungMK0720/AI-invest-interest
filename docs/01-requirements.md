@@ -2,6 +2,7 @@
 
 > 기준 문서: [00-project-brief.md](00-project-brief.md)
 > 상태: 확정(Fixed) — MVP(1차) 기준. 확장 항목은 [changelog.md](changelog.md)의 backlog 참고.
+> 고도화 기준: 최종 배포형 기능/비기능 요구사항과 Use Case 추적은 [13-functional-nonfunctional-usecases.md](13-functional-nonfunctional-usecases.md)를 함께 본다. 이 문서는 발표용 P0의 상세 기준을 보존한다.
 
 ## 1. 시스템 액터 정의
 

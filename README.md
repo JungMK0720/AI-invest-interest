@@ -18,6 +18,8 @@ docs/
 ├── 09-product-learning-and-reassessment.md # 월 1회 진단 정책, 결과 재현성
 ├── 10-data-platform-and-learning-expansion.md # 실데이터 수집·학습 플랫폼 설계
 ├── 11-learning-tree-quiz-simulation.md # 개념 트리·확인 문제·모의투자 설계
+├── 12-product-strategy-and-user-journeys.md # 문제·사용자·제품 전략과 학습 여정
+├── 13-functional-nonfunctional-usecases.md # 기능/비기능 요구사항·Use Case·추적표
 └── changelog.md          # 요구사항/설계 변경 이력 + backlog
 ```
 
@@ -55,3 +57,8 @@ docs/
 | DB 다이어그램 (DBML) | `{반}_{이름}_FinMATE-DB.dbml` | dbdiagram.io, 03 문서 기반 |
 
 > UI 흐름도(화면 캡처)는 반드시 PDF 안에 포함되어야 함 (평가 기준 필수 사항).
+
+발표용 API 자료는 `presentation/FinMATE-발표용-API.yml`(상세 OAS)과 `presentation/FinMATE-API-발표요약.md`(슬라이드용 요약)으로 분리해 관리한다.
+캡처·다이어그램·슬라이드 연결 절차는 `presentation/FinMATE-발표-시각화-SOP.md`를 따른다.
+Enterprise Architect에서 직접 모델을 작성할 때는 `presentation/FinMATE-Enterprise-Architect-UseCase-SOP.md`를 따른다.
+플로우차트와 와이어프레임 부록은 `presentation/FinMATE-플로우차트-와이어프레임.pptx`와 `presentation/FinMATE-플로우차트-와이어프레임-명세.md`에 있다.

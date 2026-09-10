@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
+import com.finmate.common.ApiException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -55,6 +56,40 @@ class QuizGraderTest {
                 new LearningDtos.QuizGradeRequest(List.of(new LearningDtos.QuizAnswer("risk-return-q1", 99))));
         assertThat(outOfRange.items().get(0).correct()).isFalse();
         assertThat(outOfRange.items().get(0).correctIndex()).isNotNegative();
+    }
+
+    @Test
+    void ID기반_시도는_버전과_선택지_소속을_검증하고_선택지별_해설을_돌려준다() {
+        LearningContent.Node node = catalog.node("risk-return");
+        LearningContent.QuizItem first = node.quiz().get(0);
+        int correct = correctIndex(first);
+        LearningDtos.QuizAttemptResponse response = grader.attempt("risk-return",
+                new LearningDtos.QuizAttemptRequest(catalog.version(), List.of(
+                        new LearningDtos.QuizAttemptAnswer(first.id(), first.id() + "-choice-" + correct))));
+        assertThat(response.answered()).isEqualTo(1);
+        assertThat(response.items()).hasSize(node.quiz().size());
+        assertThat(response.items().get(0).choices()).allSatisfy(choice -> assertThat(choice.rationale()).isNotBlank());
+        assertThat(response.items().get(0).correctChoiceId()).isEqualTo(first.id() + "-choice-" + correct);
+    }
+
+    @Test
+    void ID기반_시도는_오답문항과_다른_개념의_ID를_400으로_거부한다() {
+        LearningContent.Node node = catalog.node("risk-return");
+        String valid = node.quiz().get(0).id() + "-choice-0";
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> grader.attempt("risk-return",
+                new LearningDtos.QuizAttemptRequest(catalog.version(), List.of(
+                        new LearningDtos.QuizAttemptAnswer("unknown", valid)))))
+                .isInstanceOf(ApiException.class)
+                .extracting("status").isEqualTo(org.springframework.http.HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void 정답_위치는_한쪽에_고정되지_않는다() {
+        long[] counts = new long[3];
+        for (LearningContent.Node node : catalog.nodes()) for (LearningContent.QuizItem item : node.quiz()) counts[correctIndex(item)]++;
+        assertThat(counts[0]).isGreaterThan(10);
+        assertThat(counts[1]).isGreaterThan(10);
+        assertThat(counts[2]).isGreaterThan(10);
     }
 
     private static int correctIndex(LearningContent.QuizItem item) {
