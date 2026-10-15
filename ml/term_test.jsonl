@@ -1,0 +1,47 @@
+{"slug":"market-cap","question":"기업의 시가총액은 어떻게 계산하나요?"}
+{"slug":"kospi","question":"코스피 지수는 무엇을 뜻하나요?"}
+{"slug":"kosdaq","question":"코스닥 시장에는 어떤 기업이 있나요?"}
+{"slug":"circuit-breaker","question":"주가 급락하면 모든 거래를 잠시 멈추는 서킷브레이커가 뭔가요?"}
+{"slug":"short-selling","question":"주식을 빌려 먼저 팔고 나중에 갚는 공매도는 어떻게 작동하나요?"}
+{"slug":"limit-order","question":"원하는 가격을 지정해서 내는 주문은 무엇인가요?"}
+{"slug":"market-order","question":"가격을 정하지 않고 바로 체결되는 시장가 주문이 궁금해요"}
+{"slug":"bid-ask-spread","question":"매수 호가와 매도 호가의 차이를 뭐라고 하나요?"}
+{"slug":"forced-liquidation","question":"미수금을 못 갚으면 증권사가 주식을 강제로 파는 반대매매를 설명해 주세요"}
+{"slug":"per","question":"주가를 주당순이익으로 나눈 PER은 어떻게 해석하나요?"}
+{"slug":"pbr","question":"PBR이 1보다 낮으면 무슨 의미인가요?"}
+{"slug":"roe","question":"자기자본으로 얼마나 이익을 냈는지 보는 ROE 지표가 뭐죠?"}
+{"slug":"dcf","question":"미래 현금흐름을 현재 가치로 할인하는 DCF는 어떻게 하나요?"}
+{"slug":"cash-flow-statement","question":"현금이 들어오고 나간 내역을 보여 주는 재무제표는 무엇인가요?"}
+{"slug":"operating-income","question":"영업이익과 순이익은 어떻게 다른가요?"}
+{"slug":"debt-ratio","question":"부채를 자기자본으로 나눈 부채비율은 높으면 위험한가요?"}
+{"slug":"audit-opinion","question":"감사의견 거절이면 상장폐지될 수 있나요?"}
+{"slug":"dart","question":"기업 공시를 찾아보는 DART 사이트는 무엇인가요?"}
+{"slug":"rights-offering","question":"회사가 새 주식을 발행해 돈을 받는 유상증자가 뭔가요?"}
+{"slug":"stock-split","question":"주식 1주를 여러 주로 쪼개는 액면분할은 어떤 효과가 있나요?"}
+{"slug":"share-buyback","question":"회사가 시장에서 자기 주식을 다시 사들이는 이유는 뭔가요?"}
+{"slug":"ipo","question":"비상장 회사가 처음 거래소에 상장하는 IPO 절차를 알려 주세요"}
+{"slug":"dividend-yield","question":"주가 대비 배당금 비율인 배당수익률을 계산하고 싶어요"}
+{"slug":"ex-dividend","question":"배당락일에 주가가 떨어지는 이유가 무엇인가요?"}
+{"slug":"etf","question":"여러 주식을 묶어 거래소에서 사고파는 ETF가 뭔가요?"}
+{"slug":"nav","question":"펀드가 가진 자산에서 부채를 뺀 순자산가치는 무엇인가요?"}
+{"slug":"tracking-error","question":"ETF 수익률이 추종 지수와 달라지는 추적오차를 설명해 주세요"}
+{"slug":"reits","question":"빌딩 임대료를 배당하는 리츠에 대해 알려 주세요"}
+{"slug":"futures","question":"미래의 정해진 날짜에 특정 가격으로 사고파는 선물 계약은 뭔가요?"}
+{"slug":"call-option","question":"정해진 가격에 살 수 있는 권리인 콜옵션이 궁금해요"}
+{"slug":"put-option","question":"정해진 가격에 팔 수 있는 권리인 풋옵션이 뭔가요?"}
+{"slug":"margin-call","question":"증거금이 부족할 때 추가 납입을 요구하는 마진콜은 무엇인가요?"}
+{"slug":"moving-average","question":"최근 주가 평균을 이어 그린 이동평균선은 어떻게 쓰나요?"}
+{"slug":"rsi","question":"과매수와 과매도를 판단하는 RSI는 무엇인가요?"}
+{"slug":"base-rate","question":"한국은행이 정하는 기준금리가 오르면 어떤 일이 생기나요?"}
+{"slug":"cpi","question":"소비자물가지수 CPI가 높아졌다는 뜻은 무엇인가요?"}
+{"slug":"exchange-rate","question":"원 달러 환율이 오르면 해외 주식에는 어떤 영향이 있나요?"}
+{"slug":"duration","question":"채권 금리 변화에 대한 가격 민감도인 듀레이션을 설명해 주세요"}
+{"slug":"diversification","question":"여러 자산에 나누어 투자하는 분산투자는 왜 필요한가요?"}
+{"slug":"rebalancing","question":"목표 비중으로 다시 맞추는 리밸런싱은 언제 하나요?"}
+{"slug":"mdd","question":"고점에서 저점까지 최대로 떨어진 비율인 MDD가 뭔가요?"}
+{"slug":"sharpe-ratio","question":"위험 한 단위에 대한 초과 수익을 보는 샤프지수가 뭔가요?"}
+{"slug":"fomo","question":"남들만 돈 버는 것 같아 충동 매수하는 포모는 무엇인가요?"}
+{"slug":"suitability-principle","question":"고객 성향에 맞는 상품만 권해야 하는 적합성 원칙이 궁금해요"}
+{"slug":"deposit-insurance","question":"은행이 망하면 예금자보호제도가 내 돈을 지켜 주나요?"}
+{"slug":"securities-transaction-tax","question":"주식 매도할 때 내는 증권거래세는 무엇인가요?"}
+{"slug":"isa","question":"절세할 수 있는 ISA 계좌는 어떤 계좌인가요?"}

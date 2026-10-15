@@ -1,0 +1,40 @@
+{"label":"AGGRESSIVE","text":"원금이 크게 줄어도 높은 수익을 위해 공격적인 종목에 투자하고 싶어요"}
+{"label":"AGGRESSIVE","text":"손실을 감수하고 레버리지와 고위험 성장주로 수익을 극대화하겠습니다"}
+{"label":"AGGRESSIVE","text":"변동성이 아주 커도 고수익 기회를 우선하며 원금 손실을 받아들입니다"}
+{"label":"AGGRESSIVE","text":"단기간 큰 수익을 노리고 위험한 투자도 적극 감수할 수 있습니다"}
+{"label":"AGGRESSIVE","text":"자산 가치가 절반으로 떨어질 수도 있지만 높은 기대수익을 추구해요"}
+{"label":"AGGRESSIVE","text":"파생상품이나 레버리지 ETF 같은 고위험 상품에도 투자할 생각입니다"}
+{"label":"AGGRESSIVE","text":"원금을 잃을 수 있어도 최대 수익을 목표로 합니다"}
+{"label":"AGGRESSIVE","text":"큰 손실 가능성을 알고도 공격적인 투자 전략을 선택합니다"}
+{"label":"ACTIVE","text":"원금 손실 위험을 어느 정도 감수하고 주식 중심으로 투자하고 싶어요"}
+{"label":"ACTIVE","text":"수익을 위해 적당한 변동성과 손실은 받아들일 수 있습니다"}
+{"label":"ACTIVE","text":"예금보다는 위험이 있지만 주식형 펀드로 성장을 기대합니다"}
+{"label":"ACTIVE","text":"높은 수익을 바라지만 자산 전체를 고위험 상품에 넣지는 않겠습니다"}
+{"label":"ACTIVE","text":"일부 손실은 괜찮으니 성장주 비중을 높이고 싶습니다"}
+{"label":"ACTIVE","text":"투자 기간이 길어서 주식 시장의 등락을 감내하며 수익을 추구합니다"}
+{"label":"ACTIVE","text":"위험을 감수할 수 있지만 레버리지보다는 일반 주식 투자가 좋아요"}
+{"label":"ACTIVE","text":"원금이 조금 줄어들 수 있어도 적극적인 자산 증식을 원합니다"}
+{"label":"NEUTRAL","text":"안정성과 수익성 사이에서 균형을 잡고 싶습니다"}
+{"label":"NEUTRAL","text":"주식과 채권을 비슷하게 나누어 투자하고 손실도 제한하고 싶어요"}
+{"label":"NEUTRAL","text":"적절한 수익을 원하지만 위험을 지나치게 감수하고 싶지는 않습니다"}
+{"label":"NEUTRAL","text":"보통 수준의 변동성은 견디되 포트폴리오를 균형 있게 구성합니다"}
+{"label":"NEUTRAL","text":"원금 보전과 수익 추구를 함께 고려하는 중립적인 투자 성향입니다"}
+{"label":"NEUTRAL","text":"채권과 주식을 분산해서 중간 정도의 위험만 감수하겠습니다"}
+{"label":"NEUTRAL","text":"큰 손실이나 낮은 수익 모두 원하지 않아 균형 투자를 선호합니다"}
+{"label":"NEUTRAL","text":"적당한 수익과 적당한 위험의 혼합형 상품이 좋습니다"}
+{"label":"CONSERVATIVE","text":"큰 손실은 피하면서 예금보다 조금 높은 수익을 얻고 싶어요"}
+{"label":"CONSERVATIVE","text":"안정적인 채권 위주로 투자하고 주식 비중은 작게 유지합니다"}
+{"label":"CONSERVATIVE","text":"소폭의 원금 손실은 감수해도 큰 가격 변동은 부담스럽습니다"}
+{"label":"CONSERVATIVE","text":"안정성을 우선하면서 약간의 투자 수익을 기대합니다"}
+{"label":"CONSERVATIVE","text":"위험이 낮은 상품을 주로 선택하고 자산 손실을 최소화하겠습니다"}
+{"label":"CONSERVATIVE","text":"채권형 펀드 중심으로 천천히 자산을 늘리고 싶습니다"}
+{"label":"CONSERVATIVE","text":"큰 수익보다 낮은 변동성과 제한적인 손실이 중요합니다"}
+{"label":"CONSERVATIVE","text":"주식은 조금만 보유하고 대부분을 안정적인 상품에 두겠습니다"}
+{"label":"STABLE","text":"원금 손실은 절대 원하지 않고 예금처럼 안전한 상품만 원합니다"}
+{"label":"STABLE","text":"수익이 낮아도 괜찮으니 원금을 보전하는 것이 가장 중요합니다"}
+{"label":"STABLE","text":"돈을 잃는 위험은 받아들일 수 없어 예금 위주로 보관하고 싶어요"}
+{"label":"STABLE","text":"투자 손실이 두려워서 안전하고 확정적인 이자만 받겠습니다"}
+{"label":"STABLE","text":"원금이 조금이라도 줄어드는 상품은 선택하지 않겠습니다"}
+{"label":"STABLE","text":"높은 수익보다 원금 보장이 우선이고 손실은 피하고 싶습니다"}
+{"label":"STABLE","text":"변동성 있는 주식은 싫고 예적금 같은 안전 자산만 보유하겠습니다"}
+{"label":"STABLE","text":"원금 보호가 꼭 필요하여 위험한 투자에는 관심이 없습니다"}
