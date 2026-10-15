@@ -79,10 +79,10 @@ Content-Type: application/json
 
 구현 파일:
 
-- [LearningAiService.java](/Users/minkyu/Lecture/August/week9/backend/src/main/java/com/finmate/learning/LearningAiService.java): 질문 길이 제한, 원문 조합, 생성기 선택, 금칙어 검사, 템플릿 대체
-- [ClaudeLearningTutor.java](/Users/minkyu/Lecture/August/week9/backend/src/main/java/com/finmate/learning/ClaudeLearningTutor.java): Anthropic Messages API 호출
-- [LearningController.java](/Users/minkyu/Lecture/August/week9/backend/src/main/java/com/finmate/learning/LearningController.java): 학습 설명 API
-- [LearnPage.tsx](/Users/minkyu/Lecture/August/week9/frontend/src/pages/LearnPage.tsx): 질문 입력과 답변·출처 표시
+- [LearningAiService.java](../backend/src/main/java/com/finmate/learning/LearningAiService.java): 질문 길이 제한, 원문 조합, 생성기 선택, 금칙어 검사, 템플릿 대체
+- [ClaudeLearningTutor.java](../backend/src/main/java/com/finmate/learning/ClaudeLearningTutor.java): Anthropic Messages API 호출
+- [LearningController.java](../backend/src/main/java/com/finmate/learning/LearningController.java): 학습 설명 API
+- [LearnPage.tsx](../frontend/src/pages/LearnPage.tsx): 질문 입력과 답변·출처 표시
 
 ## 3. 실행 환경 연결
 
@@ -93,7 +93,7 @@ export ANTHROPIC_API_KEY="발급받은-키"
 export VITE_API_BASE_URL="http://localhost:8080/api"
 ```
 
-모델과 제한값은 [application.yml](/Users/minkyu/Lecture/August/week9/backend/src/main/resources/application.yml)에서 관리한다.
+모델과 제한값은 [application.yml](../backend/src/main/resources/application.yml)에서 관리한다.
 
 ```yaml
 anthropic:

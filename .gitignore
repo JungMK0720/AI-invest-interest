@@ -7,6 +7,13 @@ backend/target/
 frontend/node_modules/
 frontend/dist/
 frontend/.vite/
+frontend/*.tsbuildinfo
+
+# Python / ML
+ml/.venv/
+ml/**/__pycache__/
+ml/.pytest_cache/
+*.pyc
 
 # Env / secrets (실제 키가 들어갈 수 있는 파일은 커밋하지 않는다)
 .env
@@ -21,4 +28,5 @@ frontend/.vite/
 
 # 산출물 생성 중간물 (스크립트/렌더 캐시)
 .build/
+.codex-build/
 output/
