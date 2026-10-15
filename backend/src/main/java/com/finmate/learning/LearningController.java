@@ -1,11 +1,13 @@
 package com.finmate.learning;
 
+import com.finmate.auth.AuthTokenStore;
 import com.finmate.common.ApiException;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,16 +27,21 @@ public class LearningController {
     private final SimulationCatalog simulations;
     private final SimulationEngine engine;
     private final LearningAiService learningAiService;
+    private final AuthTokenStore tokenStore;
+    private final QuizProgressService progressService;
 
     public LearningController(LearningCatalog catalog, LearningService service, QuizGrader grader,
                               SimulationCatalog simulations, SimulationEngine engine,
-                              LearningAiService learningAiService) {
+                              LearningAiService learningAiService, AuthTokenStore tokenStore,
+                              QuizProgressService progressService) {
         this.catalog = catalog;
         this.service = service;
         this.grader = grader;
         this.simulations = simulations;
         this.engine = engine;
         this.learningAiService = learningAiService;
+        this.tokenStore = tokenStore;
+        this.progressService = progressService;
     }
 
     /** 좌측 개념 트리 전체. 한 번 받아 두고 클라이언트에서 펼치고 접는다. */
@@ -78,9 +85,17 @@ public class LearningController {
     /** 운영 제출 계약: 콘텐츠 버전과 choice ID를 검증하고, 문항별 의미를 남긴다. */
     @PostMapping("/concepts/{slug}/quiz/attempts")
     public LearningDtos.QuizAttemptResponse attempt(@PathVariable String slug,
-                                                     @RequestBody(required = false) LearningDtos.QuizAttemptRequest request) {
+                                                     @RequestBody(required = false) LearningDtos.QuizAttemptRequest request,
+                                                     @RequestHeader(value = "Authorization", required = false)
+                                                     String authorization) {
         service.require(slug);
-        return grader.attempt(slug, request);
+        // 먼저 인증을 검사해 만료된 토큰이 조용히 비로그인 제출로 처리되지 않도록 한다.
+        String userId = tokenStore.resolveOptionalBearerUserId(authorization).orElse(null);
+        LearningDtos.QuizAttemptResponse result = grader.attempt(slug, request);
+        if (userId != null) {
+            progressService.record(userId, result);
+        }
+        return result;
     }
 
     @GetMapping("/concepts/{slug}/simulations")
