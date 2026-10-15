@@ -166,6 +166,138 @@ input {
 .quiz-options input { width: 18px; height: 18px; }
 @media (max-width: 650px) { .header-name { display: none; } header { padding: 0 12px !important; } header .btn { padding: 7px 9px !important; font-size: 11px !important; } .journey-main { padding-top: 30px; } }
 
+/* 모델 결과를 설명하고 학습 콘텐츠로 돌려보내는 실험 화면 */
+.model-main { width: min(100% - 36px, 1120px); margin: 0 auto; padding: 48px 0 76px; }
+.model-hero { margin-bottom: 30px; }
+.model-hero h1 { margin: 10px 0 14px; font-size: clamp(28px, 4vw, 42px); letter-spacing: -.04em; }
+.model-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
+.model-panel { padding: 28px; min-width: 0; }
+.model-panel-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 28px; }
+.model-panel-head h2 { margin: 0 0 8px; font-size: 20px; }
+.model-panel-head p { margin: 0; font-size: 13px; line-height: 1.7; color: var(--text-muted); }
+.model-index { display: grid; place-items: center; flex: 0 0 34px; height: 34px; border-radius: 9px; background: var(--primary-tint); color: var(--primary); font-size: 13px; font-weight: 900; }
+.model-form { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+.model-form .btn { align-self: flex-start; margin-top: 6px; }
+.model-textarea { min-height: 130px; resize: vertical; line-height: 1.7; font-family: inherit; }
+.model-result { margin-top: 24px; padding: 19px; border: 1px solid #bdc9ed; border-radius: 12px; background: #f4f7ff; display: flex; flex-direction: column; gap: 10px; line-height: 1.65; }
+.model-result-label { color: var(--text-muted); font-size: 11px; font-weight: 700; }
+.model-result strong { font-size: 19px; }
+.model-result p { margin: 0; font-size: 13px; }
+.model-result small { color: var(--text-muted); line-height: 1.6; }
+.model-term-results { margin: 0; padding-left: 22px; display: grid; gap: 12px; }
+.model-term-results li { padding-left: 2px; }
+.model-term-results li a { font-weight: 700; }
+.model-term-results li span { float: right; color: var(--text-muted); font-size: 12px; }
+.model-footnote { color: var(--text-muted); font-size: 12px; line-height: 1.7; margin: 24px 0 0; }
+@media (max-width: 800px) { .model-grid { grid-template-columns: 1fr; } .model-panel { padding: 22px; } }
+
+/* 주식 용어 탐색과 확인 문제 */
+.glossary-main,.glossary-detail-main { width:min(100% - 36px,1120px); margin:0 auto; padding:48px 0 76px; }
+.glossary-head h1 { margin:10px 0 14px; font-size:clamp(28px,4vw,42px); letter-spacing:-.04em; }
+.glossary-head .subtle { display:block; margin-top:14px; }
+.glossary-tabs { display:flex; gap:6px; border-bottom:1px solid var(--border); margin:30px 0 22px; overflow-x:auto; }
+.glossary-tabs button { flex-shrink:0; border:0; border-bottom:3px solid transparent; background:none; color:var(--text-muted); padding:13px 16px; font-weight:700; }
+.glossary-tabs button.is-active { border-bottom-color:var(--primary); color:var(--primary); }
+.glossary-filters { padding:23px; display:grid; grid-template-columns:minmax(0,1fr) 330px; gap:18px; }
+.glossary-search > div { display:flex; gap:8px; }
+.glossary-search .field-input { min-width:0; flex:1; }
+.glossary-filters .btn { padding:10px 20px; }
+.glossary-filter-row { display:flex; align-items:end; gap:10px; }
+.glossary-filter-row label { flex:1; min-width:0; color:var(--text-muted); font-size:12px; }
+.glossary-filter-row select { margin-top:6px; padding:11px; }
+.glossary-list-head { display:flex; align-items:baseline; justify-content:space-between; margin:28px 0 14px; }
+.glossary-list-head h2 { margin:0; font-size:19px; }
+.glossary-list-head span { color:var(--text-muted); font-size:13px; }
+.glossary-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.glossary-term-card { display:flex; flex-direction:column; gap:8px; min-width:0; padding:20px; color:var(--text); transition:border-color .15s,transform .15s; }
+.glossary-term-card:hover { border-color:var(--primary); transform:translateY(-2px); color:var(--text); }
+.glossary-term-top { display:flex; align-items:center; gap:8px; justify-content:space-between; }
+.glossary-term-top strong { font-size:17px; }
+.glossary-term-card small { color:var(--text-faint); }
+.glossary-term-card p { color:var(--text-muted); font-size:13px; line-height:1.7; margin:2px 0; flex:1; }
+.glossary-term-action { color:var(--primary); font-size:12px; font-weight:700; }
+.glossary-message { padding:24px; color:var(--text-muted); line-height:1.7; }
+.glossary-message .btn { margin-left:10px; }
+.glossary-quiz { display:grid; gap:14px; }
+.glossary-quiz-intro { padding:20px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.glossary-quiz-intro h2 { margin:0 0 5px; font-size:20px; }
+.glossary-quiz-intro p { margin:0; color:var(--text-muted); font-size:13px; }
+.glossary-quiz-intro select { width:220px; }
+.glossary-quiz-question { padding:22px; margin:0; min-width:0; }
+.glossary-quiz-question legend { font-weight:700; padding:0 8px; font-size:15px; }
+.glossary-choice { display:flex; align-items:center; gap:10px; padding:11px 13px; margin:8px 0; border:1px solid var(--border); border-radius:9px; font-size:13px; cursor:pointer; }
+.glossary-choice input { accent-color:var(--primary); }
+.glossary-choice.is-correct { border-color:#4da678; background:#f0faf4; }
+.glossary-choice.is-incorrect { border-color:var(--danger); background:var(--danger-bg); }
+.glossary-feedback { font-size:13px; color:var(--text-muted); margin:13px 0 0; line-height:1.7; }
+.glossary-quiz-actions { display:flex; align-items:center; flex-wrap:wrap; gap:14px; }
+.glossary-quiz-actions small { flex-basis:100%; color:var(--text-muted); }
+.glossary-back { font-size:13px; font-weight:700; }
+.glossary-detail-head { display:flex; justify-content:space-between; align-items:center; gap:20px; margin:30px 0 24px; }
+.glossary-detail-head h1 { font-size:clamp(30px,5vw,46px); margin:12px 0 6px; }
+.glossary-detail-meta { display:flex; align-items:center; flex-wrap:wrap; gap:10px; color:var(--text-muted); font-size:12px; }
+.glossary-english { margin:0; color:var(--text-muted); }
+.glossary-detail-layout { display:grid; grid-template-columns:minmax(0,1fr) 270px; gap:18px; align-items:start; }
+.glossary-article { padding:30px; line-height:1.85; }
+.glossary-article section + section { border-top:1px solid var(--border); padding-top:22px; margin-top:22px; }
+.glossary-article h2,.glossary-detail-aside h2 { font-size:15px; margin:0 0 12px; }
+.glossary-article p { margin:0; font-size:14px; }
+.glossary-article .glossary-definition { font-size:18px; font-weight:700; line-height:1.65; }
+.glossary-formula { margin:0; white-space:pre-wrap; font-family:inherit; background:var(--bg); border-radius:9px; padding:13px; font-size:13px; }
+.glossary-caution { background:var(--warn-bg); border-radius:10px; padding:18px !important; }
+.glossary-detail-aside { display:grid; gap:14px; }
+.glossary-detail-aside .card { padding:20px; }
+.glossary-related { display:flex; flex-wrap:wrap; gap:8px; }
+.glossary-related a { border:1px solid var(--border); border-radius:7px; padding:7px 9px; font-size:12px; }
+.glossary-concept-link { display:block; font-size:12px; margin-top:18px; font-weight:700; }
+@media (max-width:900px) { .glossary-filters { grid-template-columns:1fr; } .glossary-list { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:650px) { .glossary-list,.glossary-detail-layout { grid-template-columns:1fr; } .glossary-detail-head,.glossary-quiz-intro { align-items:flex-start; flex-direction:column; } .glossary-quiz-intro select { width:100%; } .glossary-article { padding:22px; } }
+
+/* 사용자 복습 기록 */
+.my-main { width:min(100% - 36px,1000px); margin:0 auto; padding:48px 0 76px; }
+.my-main h1 { margin:10px 0 14px; font-size:clamp(28px,4vw,40px); letter-spacing:-.04em; }
+.my-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:30px 0; }
+.my-stats .card { padding:21px; display:flex; align-items:baseline; gap:5px; }
+.my-stats .card span { display:block; flex:1; color:var(--text-muted); font-size:13px; }
+.my-stats .card strong { font-size:28px; }
+.my-stats .card small { color:var(--text-muted); }
+.my-list { display:grid; gap:12px; }
+.my-item { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:22px; }
+.my-item h2 { margin:8px 0; font-size:17px; }
+.my-item p { margin:0; color:var(--text-muted); font-size:13px; line-height:1.7; }
+.my-item > strong { font-size:24px; color:var(--primary); }
+.my-answer-note { display:flex; flex-direction:column; gap:7px; margin-top:16px; font-size:12px; color:var(--text-muted); }
+.my-wrong { align-items:flex-start; }
+.my-next-links { display:flex; gap:20px; margin-top:24px; font-size:13px; font-weight:700; }
+@media (max-width:650px) { .my-stats { grid-template-columns:1fr; } .my-item { align-items:flex-start; flex-direction:column; } }
+.result-style-card { padding:24px 28px; }
+.result-style-card h2 { font-size:18px; margin:8px 0 6px; }
+.result-style-card form { display:flex; flex-direction:column; gap:10px; margin-top:18px; }
+.result-style-card form .btn { align-self:flex-start; }
+
+/* 관리자 초안 편집 */
+.admin-main { width:min(100% - 32px,1320px); margin:0 auto; padding:44px 0 76px; }
+.admin-main h1 { margin:9px 0 14px; font-size:clamp(28px,4vw,40px); }
+.admin-layout { display:grid; grid-template-columns:270px minmax(0,1fr); gap:18px; align-items:start; margin-top:28px; }
+.admin-list { position:sticky; top:16px; padding:18px; }
+.admin-list-items { max-height:calc(100vh - 170px); overflow:auto; margin-top:14px; display:flex; flex-direction:column; gap:4px; }
+.admin-list-items button { border:0; border-radius:8px; background:transparent; padding:10px; text-align:left; display:flex; flex-direction:column; gap:3px; }
+.admin-list-items button.is-selected { background:var(--primary-tint); color:var(--primary); }
+.admin-list-items small { color:var(--text-muted); font-size:11px; }
+.admin-editor { padding:26px; }
+.admin-editor-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; border-bottom:1px solid var(--border); padding-bottom:20px; }
+.admin-editor-head h2 { margin:5px 0; font-size:23px; }
+.admin-editor-head small { color:var(--text-muted); }
+.admin-editor-head a { font-size:12px; }
+.admin-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin:24px 0; }
+.admin-fields label { display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--text-muted); }
+.admin-fields textarea { min-height:88px; resize:vertical; font-family:inherit; line-height:1.65; }
+.admin-fields .admin-wide { grid-column:1/-1; }
+.admin-actions { display:flex; justify-content:flex-end; gap:10px; }
+.admin-notice { color:#22764c; font-size:13px; }
+@media (max-width:850px) { .admin-layout { grid-template-columns:1fr; } .admin-list { position:static; } .admin-list-items { max-height:210px; } }
+@media (max-width:600px) { .admin-fields { grid-template-columns:1fr; } .admin-actions { justify-content:stretch; } .admin-actions .btn { flex:1; } }
+
 /* 상품을 직접 조합해 변수의 의미를 확인하는 모의투자 연습기 */
 .practice-main { width: min(100% - 32px, 1320px); margin: 0 auto; padding: 38px 0 72px; }
 .practice-head { display:flex; justify-content:space-between; gap:28px; align-items:flex-end; margin-bottom:26px; }
@@ -366,4 +498,10 @@ input {
   .learn-main { padding-top: 26px; }
   .concept-card { padding: 20px; }
   .sim-form { padding: 16px; }
+}
+
+.header-nav { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; padding: 8px 0; }
+@media (max-width: 900px) {
+  .header-nav { justify-content: flex-start; width: 100%; }
+  .header-nav .btn { padding: 7px 10px; font-size: 12px; }
 }

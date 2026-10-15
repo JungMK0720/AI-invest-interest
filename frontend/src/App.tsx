@@ -10,6 +10,11 @@ import QuestionPage from "./pages/QuestionPage";
 import ResultPage from "./pages/ResultPage";
 import ExplorePage from "./pages/ExplorePage";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import ModelLabPage from "./pages/ModelLabPage";
+import GlossaryPage from "./pages/GlossaryPage";
+import GlossaryDetailPage from "./pages/GlossaryDetailPage";
+import MyPage from "./pages/MyPage";
+import AdminGlossaryPage from "./pages/AdminGlossaryPage";
 
 export default function App() {
   return (
@@ -18,6 +23,11 @@ export default function App() {
         <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
         <Route path="/learn" element={<ProtectedRoute><LearnPage /></ProtectedRoute>} />
         <Route path="/practice" element={<ProtectedRoute><PracticePage /></ProtectedRoute>} />
+        <Route path="/models" element={<ProtectedRoute><ModelLabPage /></ProtectedRoute>} />
+        <Route path="/glossary" element={<GlossaryPage />} />
+        <Route path="/glossary/:slug" element={<GlossaryDetailPage />} />
+        <Route path="/me" element={<ProtectedRoute><MyPage /></ProtectedRoute>} />
+        <Route path="/admin/glossary" element={<ProtectedRoute><AdminGlossaryPage /></ProtectedRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route
           path="/start"

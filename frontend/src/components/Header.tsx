@@ -12,7 +12,9 @@ export default function Header() {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "0 40px",
-        height: 64,
+        minHeight: 64,
+        flexWrap: "wrap",
+        gap: 12,
         borderBottom: "1px solid var(--border)",
         background: "var(--surface)",
         flexShrink: 0,
@@ -48,11 +50,16 @@ export default function Header() {
         </span>
       </div>
 
-      {user && (
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+      <nav className="header-nav" aria-label="주요 메뉴">
+          <button className="btn btn-secondary" onClick={() => navigate("/glossary")}>주식 용어</button>
+          {!user && <button className="btn btn-secondary" onClick={() => navigate("/login")}>로그인</button>}
+      {user && <>
           <button className="btn btn-secondary" onClick={() => navigate("/learn")}>상품 학습</button>
           <button className="btn btn-secondary" onClick={() => navigate("/history")}>진단 이력</button>
           <button className="btn btn-secondary" onClick={() => navigate("/practice")}>모의투자</button>
+          <button className="btn btn-secondary" onClick={() => navigate("/models")}>모델 실험실</button>
+          <button className="btn btn-secondary" onClick={() => navigate("/me")}>내 학습</button>
+          {user.role === "ADMIN" && <button className="btn btn-secondary" onClick={() => navigate("/admin/glossary")}>콘텐츠 관리</button>}
           <span className="header-name" style={{ fontSize: 13, color: "var(--text-muted)" }}>{user.name} 님</span>
           <div
             style={{
@@ -73,15 +80,15 @@ export default function Header() {
           <button
             className="btn btn-secondary"
             style={{ padding: "8px 14px", fontSize: 12.5 }}
-            onClick={() => {
-              logout();
+            onClick={async () => {
+              try { await logout(); } catch { /* 로컬 세션은 이미 정리됨 */ }
               navigate("/login");
             }}
           >
             로그아웃
           </button>
-        </div>
-      )}
+      </>}
+      </nav>
     </header>
   );
 }

@@ -5,6 +5,7 @@ export interface UserResponse {
   id: string;
   email: string;
   name: string;
+  role?: "USER" | "ADMIN";
 }
 
 export interface LoginResponse {
@@ -297,3 +298,133 @@ export interface PracticeEffect { label: string; amount: number; formula: string
 export interface PracticePosition { rowId: string; productId: string; label: string; assetClass: string; conceptSlug: string; invested: number; weightPercent: number; economicExposure: number; endingValue: number; profitLoss: number; returnPercent: number; effects: PracticeEffect[]; observations: string[]; }
 export interface PracticeAnalysis { modelVersion: string; budget: number; unallocatedCash: number; endingValue: number; profitLoss: number; returnPercent: number; linearExposureRatio: number; optionPremium: number; allocation: { assetClass: string; amount: number; weightPercent: number }[]; positions: PracticePosition[]; lessons: string[]; limitations: string[]; }
 export interface PracticeComparison { before: PracticeAnalysis; after: PracticeAnalysis; profitLossDifference: number; interpretation: string; }
+
+export interface StyleCheckResponse {
+  status: "ESTIMATED" | "INSUFFICIENT";
+  estimatedProfileType: string | null;
+  estimatedProfileLabel: string | null;
+  estimatedGrade: number | null;
+  confidence: number | null;
+  questionnaireGrade: number;
+  mismatch: boolean;
+  modelVersion: string;
+  notice: string;
+}
+
+export interface TermSearchResponse {
+  results: { slug: string; term: string; score: number }[];
+  modelVersion: string;
+}
+
+export interface GlossaryCategory {
+  id: string;
+  order: number;
+  name: string;
+  description: string;
+  termCount: number;
+}
+
+export interface GlossaryTermSummary {
+  slug: string;
+  term: string;
+  english: string | null;
+  categoryId: string;
+  level: "BASIC" | "INTERMEDIATE" | "ADVANCED";
+  definition: string;
+}
+
+export interface GlossaryTerm extends GlossaryTermSummary {
+  fullName: string | null;
+  aliases: string[];
+  explanation: string;
+  formula: string | null;
+  example: string | null;
+  caution: string | null;
+  related: string[];
+  conceptSlug: string | null;
+  sourceName: string;
+  sourceUrl: string;
+  contentVersion: string;
+  notice: string;
+}
+
+export interface GlossaryQuizQuestion {
+  id: string;
+  prompt: string;
+  choices: { id: string; text: string }[];
+}
+
+export interface GlossaryQuiz {
+  contentVersion: string;
+  questions: GlossaryQuizQuestion[];
+  notice: string;
+}
+
+export interface GlossaryQuizResult {
+  total: number;
+  answered: number;
+  correctCount: number;
+  scorePercent: number;
+  items: { questionId: string; selectedChoiceId: string; correctChoiceId: string; correct: boolean; explanation: string }[];
+  contentVersion: string;
+  notice: string;
+}
+
+export interface QuizAttemptSummary {
+  id: string;
+  slug: string;
+  attemptedAt: string;
+  contentVersion: string;
+  total: number;
+  answered: number;
+  correctCount: number;
+  scorePercent: number;
+}
+
+export interface WrongAnswerSummary {
+  slug: string;
+  questionId: string;
+  prompt: string;
+  selectedChoiceId: string;
+  correctChoiceId: string;
+  selectedRationale: string;
+  correctRationale: string;
+  takeaway: string;
+  lastAttemptedAt: string;
+  dueAt: string;
+  streak: number;
+}
+
+export interface ReviewScheduleSummary {
+  slug: string;
+  title: string;
+  dueAt: string;
+  dueNow: boolean;
+  questionCount: number;
+  incorrectCount: number;
+}
+
+export interface AdminGlossaryTerm {
+  slug: string;
+  categoryId: string;
+  term: string;
+  fullName: string | null;
+  english: string | null;
+  aliases: string[];
+  level: "BASIC" | "INTERMEDIATE" | "ADVANCED";
+  definition: string;
+  explanation: string;
+  formula: string | null;
+  example: string | null;
+  caution: string | null;
+  related: string[];
+  conceptSlug: string | null;
+  sourceName: string;
+  sourceUrl: string;
+  status: string;
+  contentVersion: string;
+  updatedAt: string;
+  hasDraft: boolean;
+}
+
+export type AdminGlossaryDraft = Pick<AdminGlossaryTerm, "categoryId" | "term" | "fullName" | "english" | "aliases" | "level" | "definition" | "explanation" | "formula" | "example" | "caution" | "related" | "conceptSlug" | "sourceName" | "sourceUrl">;

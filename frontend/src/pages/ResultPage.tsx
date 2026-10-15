@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Stepper from "../components/Stepper";
 import { api } from "../api/client";
-import type { AssessmentResultResponse } from "../api/types";
+import type { AssessmentResultResponse, StyleCheckResponse } from "../api/types";
 
 const GRADE_LABELS = ["공격투자형", "적극투자형", "위험중립형", "안정추구형", "안정형"];
 const GRADE_COLORS = ["#E5484D", "#ED7D4C", "#F0B429", "#8FBF3F", "#3FAE64"];
@@ -13,6 +13,10 @@ export default function ResultPage() {
   const navigate = useNavigate();
   const [data, setData] = useState<AssessmentResultResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [styleText, setStyleText] = useState("");
+  const [styleResult, setStyleResult] = useState<StyleCheckResponse | null>(null);
+  const [styleError, setStyleError] = useState<string | null>(null);
+  const [checkingStyle, setCheckingStyle] = useState(false);
 
   useEffect(() => {
     if (!assessmentId) return;
@@ -42,6 +46,21 @@ export default function ResultPage() {
 
   const { profile } = data;
   const isFallback = profile.reasoningSource === "TEMPLATE";
+
+  async function checkWrittenStyle(event: React.FormEvent) {
+    event.preventDefault();
+    if (!data?.profile) return;
+    setCheckingStyle(true);
+    setStyleError(null);
+    setStyleResult(null);
+    try {
+      setStyleResult(await api.checkStyle(styleText.trim(), data.profile.profileGrade));
+    } catch {
+      setStyleError("문장 분석을 완료하지 못했습니다. 잠시 후 다시 시도해 주세요.");
+    } finally {
+      setCheckingStyle(false);
+    }
+  }
 
   return (
     <Shell>
@@ -123,6 +142,21 @@ export default function ResultPage() {
           <dl>{data.evidence.answers.map(answer => <div key={answer.questionId}><dt>{answer.question}</dt><dd>{answer.answer}</dd></div>)}</dl>
           {data.evidence.reviewFlags.length > 0 && <div className="policy-card"><strong>상품을 살펴보기 전에 확인해 주세요</strong>{data.evidence.reviewFlags.map(flag => <p key={flag.code}>{flag.message}</p>)}</div>}
         </section> : <p className="subtle">이전 버전의 진단은 답변 근거 기록을 제공하지 않습니다.</p>}
+        <section className="card result-style-card">
+          <span className="eyebrow">선택 · 자유 서술</span>
+          <h2>내가 쓴 말도 결과와 비교해 볼까요?</h2>
+          <p className="subtle">자유롭게 적은 문장을 모델이 읽고 설문과 다른 신호가 있는지 표시합니다. 위의 진단 등급은 바뀌지 않습니다.</p>
+          <form onSubmit={checkWrittenStyle}>
+            <label className="field-label" htmlFor="result-style-text">투자에 대한 생각</label>
+            <textarea id="result-style-text" className="field-input model-textarea" value={styleText} onChange={event => setStyleText(event.target.value)} minLength={12} maxLength={1000} placeholder="손실을 어느 정도 감수할 수 있는지, 언제 자금이 필요한지 적어 보세요." required />
+            <button type="submit" className="btn btn-secondary" disabled={checkingStyle || styleText.trim().length < 12}>{checkingStyle ? "분석 중…" : "설문과 비교하기"}</button>
+          </form>
+          {styleError && <p className="error-text" role="alert">{styleError}</p>}
+          {styleResult && <div className="model-result" role="status">
+            {styleResult.status === "INSUFFICIENT" ? <p>판단하기에 표현이 부족합니다. 손실 수용 정도와 투자 기간을 좀 더 적어 주세요.</p> : <><strong>{styleResult.mismatch ? "설문과 다른 신호가 있습니다" : "설문과 큰 차이가 감지되지 않았습니다"}</strong><p>문장 기준 추정: {styleResult.estimatedProfileLabel ?? "추정 불가"} · {styleResult.estimatedGrade ?? "–"}등급</p></>}
+            <small>{styleResult.notice}</small>
+          </div>}
+        </section>
         <button className="btn btn-secondary btn-block" onClick={() => navigate("/history")}>지난 진단과 비교하기</button>
         <button className="btn btn-secondary btn-block" onClick={() => navigate("/learn")}>안내 범위 밖 상품도 기초 개념 배우기</button>
         <button className="btn btn-primary btn-block" onClick={() => navigate(`/explore/${data.id}`)}>

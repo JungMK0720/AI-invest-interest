@@ -17,6 +17,18 @@ import type {
   ProductResponse,
   QuestionResponse,
   UserResponse,
+  StyleCheckResponse,
+  TermSearchResponse,
+  GlossaryCategory,
+  GlossaryTermSummary,
+  GlossaryTerm,
+  GlossaryQuiz,
+  GlossaryQuizResult,
+  QuizAttemptSummary,
+  WrongAnswerSummary,
+  ReviewScheduleSummary,
+  AdminGlossaryTerm,
+  AdminGlossaryDraft,
 } from "./types";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080/api";
@@ -76,6 +88,9 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ email, password }),
     }),
+
+  getMe: () => request<UserResponse>("/auth/me"),
+  logout: () => request<void>("/auth/logout", { method: "POST" }),
 
   getQuestions: () => request<QuestionResponse[]>("/questions"),
 
@@ -138,4 +153,52 @@ export const api = {
   getPracticeMethodology: () => request<unknown>("/practice/methodology"),
   analyzePractice: (payload: unknown) => request<import("./types").PracticeAnalysis>("/practice/analyze", { method: "POST", body: JSON.stringify(payload) }),
   comparePractice: (payload: unknown) => request<import("./types").PracticeComparison>("/practice/compare", { method: "POST", body: JSON.stringify(payload) }),
+
+  checkStyle: (text: string, questionnaireGrade: number) =>
+    request<StyleCheckResponse>("/ml/style-check", {
+      method: "POST",
+      body: JSON.stringify({ text, questionnaireGrade }),
+    }),
+
+  searchTermsByQuestion: (question: string, limit = 8) =>
+    request<TermSearchResponse>("/ml/term-search", {
+      method: "POST",
+      body: JSON.stringify({ question, limit }),
+    }),
+
+  getGlossaryCategories: () =>
+    request<{ contentVersion: string; categories: GlossaryCategory[] }>("/glossary/categories"),
+  getGlossaryTerms: (filters: { q?: string; category?: string; level?: string } = {}) => {
+    const params = new URLSearchParams();
+    if (filters.q) params.set("q", filters.q);
+    if (filters.category) params.set("category", filters.category);
+    if (filters.level) params.set("level", filters.level);
+    const query = params.toString();
+    return request<{ contentVersion: string; total: number; terms: GlossaryTermSummary[] }>(`/glossary/terms${query ? `?${query}` : ""}`);
+  },
+  getGlossaryTerm: (slug: string) => request<GlossaryTerm>(`/glossary/terms/${encodeURIComponent(slug)}`),
+  getGlossaryQuiz: (category?: string, count = 5) => {
+    const params = new URLSearchParams({ count: String(count) });
+    if (category) params.set("category", category);
+    return request<GlossaryQuiz>(`/glossary/quiz?${params}`);
+  },
+  gradeGlossaryQuiz: (quiz: GlossaryQuiz, answers: { questionId: string; choiceId: string }[]) =>
+    request<GlossaryQuizResult>("/glossary/quiz/grade", {
+      method: "POST",
+      body: JSON.stringify({ contentVersion: quiz.contentVersion, answers }),
+    }),
+  getGlossaryBookmarks: () => request<{ terms: GlossaryTermSummary[] }>("/glossary/bookmarks"),
+  addGlossaryBookmark: (slug: string) => request<void>(`/glossary/bookmarks/${encodeURIComponent(slug)}`, { method: "PUT" }),
+  removeGlossaryBookmark: (slug: string) => request<void>(`/glossary/bookmarks/${encodeURIComponent(slug)}`, { method: "DELETE" }),
+  getQuizAttempts: () => request<{ items: QuizAttemptSummary[] }>("/me/quiz-attempts"),
+  getWrongAnswers: () => request<{ items: WrongAnswerSummary[] }>("/me/wrong-answers"),
+  getReviewSchedule: () => request<{ items: ReviewScheduleSummary[] }>("/me/review-schedule"),
+  getAdminGlossaryTerms: () => request<{ items: AdminGlossaryTerm[] }>("/admin/glossary/terms"),
+  saveAdminGlossaryTerm: (slug: string, draft: AdminGlossaryDraft) =>
+    request<AdminGlossaryTerm>(`/admin/glossary/terms/${encodeURIComponent(slug)}`, {
+      method: "PUT",
+      body: JSON.stringify(draft),
+    }),
+  publishAdminGlossaryTerm: (slug: string) =>
+    request<AdminGlossaryTerm>(`/admin/glossary/terms/${encodeURIComponent(slug)}/publish`, { method: "POST" }),
 };
