@@ -3,6 +3,7 @@ package com.finmate.auth;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.time.Instant;
 
 public final class AuthDtos {
 
@@ -21,9 +22,9 @@ public final class AuthDtos {
     }
 
     /** 응답에는 비밀번호 관련 필드를 절대 포함하지 않는다. */
-    public record UserResponse(String id, String email, String name) {
+    public record UserResponse(String id, String email, String name, String role) {
     }
 
-    public record LoginResponse(String accessToken, UserResponse user) {
+    public record LoginResponse(String accessToken, Instant expiresAt, UserResponse user) {
     }
 }

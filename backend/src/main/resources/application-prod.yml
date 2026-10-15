@@ -27,6 +27,11 @@ anthropic:
   api-key: ${ANTHROPIC_API_KEY:}
 
 finmate:
+  auth:
+    session-days: ${FINMATE_SESSION_DAYS:30}
+  admin:
+    bootstrap-email: ${FINMATE_ADMIN_EMAIL:}
+    bootstrap-password: ${FINMATE_ADMIN_PASSWORD:}
   cors:
     # 배포된 프론트엔드(Netlify) 도메인. 쉼표로 여러 개 지정 가능.
     allowed-origins: ${FRONTEND_ORIGIN:http://localhost:5173}

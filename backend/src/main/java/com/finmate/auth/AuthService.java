@@ -36,16 +36,30 @@ public class AuthService {
         return toResponse(user);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public AuthDtos.LoginResponse login(AuthDtos.LoginRequest request) {
         User user = userRepository.findByEmail(request.email())
                 .filter(found -> passwordEncoder.matches(request.password(), found.getPasswordHash()))
                 // 계정 존재 여부를 노출하지 않도록 두 경우 모두 같은 메시지를 쓴다.
                 .orElseThrow(() -> ApiException.unauthorized("이메일 또는 비밀번호가 올바르지 않습니다."));
-        return new AuthDtos.LoginResponse(tokenStore.issue(user.getId()), toResponse(user));
+        AuthTokenStore.IssuedToken issued = tokenStore.issue(user.getId());
+        return new AuthDtos.LoginResponse(issued.value(), issued.expiresAt(), toResponse(user));
+    }
+
+    @Transactional(readOnly = true)
+    public AuthDtos.UserResponse me(String userId) {
+        return toResponse(userRepository.findById(userId)
+                .orElseThrow(() -> ApiException.unauthorized("로그인이 필요합니다.")));
+    }
+
+    public void logout(String authorization) {
+        if (authorization == null || !authorization.startsWith("Bearer ")
+                || !tokenStore.revoke(authorization.substring("Bearer ".length()).trim())) {
+            throw ApiException.unauthorized("로그인이 필요합니다.");
+        }
     }
 
     private AuthDtos.UserResponse toResponse(User user) {
-        return new AuthDtos.UserResponse(user.getId(), user.getEmail(), user.getName());
+        return new AuthDtos.UserResponse(user.getId(), user.getEmail(), user.getName(), user.getRole().name());
     }
 }

@@ -29,6 +29,11 @@ anthropic:
   api-key: ${ANTHROPIC_API_KEY:}
 
 finmate:
+  auth:
+    session-days: 30
+  admin:
+    bootstrap-email: ${FINMATE_ADMIN_EMAIL:}
+    bootstrap-password: ${FINMATE_ADMIN_PASSWORD:}
   analysis:
     claude:
       model: claude-opus-5
