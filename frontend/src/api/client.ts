@@ -29,6 +29,10 @@ import type {
   ReviewScheduleSummary,
   AdminGlossaryTerm,
   AdminGlossaryDraft,
+  AdminOverview,
+  AdminRevision,
+  LearningPathResponse,
+  ModelsResponse,
 } from "./types";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080/api";
@@ -126,10 +130,11 @@ export const api = {
       body: JSON.stringify({ inputs, seed: seed ?? null }),
     }),
 
-  submitAssessment: (answers: AnswerItem[]) =>
+  // narrative는 선택 입력이다. 서버는 모델 추정 결과만 저장하고 원문은 버린다.
+  submitAssessment: (answers: AnswerItem[], narrative?: string) =>
     request<AssessmentResultResponse>("/assessments", {
       method: "POST",
-      body: JSON.stringify({ answers }),
+      body: JSON.stringify({ answers, narrative: narrative?.trim() ? narrative.trim() : null }),
     }),
 
   getHistory: (page = 0) => request<HistoryResponse>(`/assessments?page=${page}`),
@@ -177,8 +182,9 @@ export const api = {
     return request<{ contentVersion: string; total: number; terms: GlossaryTermSummary[] }>(`/glossary/terms${query ? `?${query}` : ""}`);
   },
   getGlossaryTerm: (slug: string) => request<GlossaryTerm>(`/glossary/terms/${encodeURIComponent(slug)}`),
-  getGlossaryQuiz: (category?: string, count = 5) => {
-    const params = new URLSearchParams({ count: String(count) });
+  // seed가 같으면 같은 문제가 나온다. "새 문제"마다 seed를 바꿔 다른 용어를 뽑는다.
+  getGlossaryQuiz: (category?: string, count = 5, seed = Math.floor(Math.random() * 2_147_483_647)) => {
+    const params = new URLSearchParams({ count: String(count), seed: String(seed) });
     if (category) params.set("category", category);
     return request<GlossaryQuiz>(`/glossary/quiz?${params}`);
   },
@@ -201,4 +207,19 @@ export const api = {
     }),
   publishAdminGlossaryTerm: (slug: string) =>
     request<AdminGlossaryTerm>(`/admin/glossary/terms/${encodeURIComponent(slug)}/publish`, { method: "POST" }),
+  unpublishAdminGlossaryTerm: (slug: string) =>
+    request<AdminGlossaryTerm>(`/admin/glossary/terms/${encodeURIComponent(slug)}/unpublish`, { method: "POST" }),
+  discardAdminGlossaryDraft: (slug: string) =>
+    request<void>(`/admin/glossary/terms/${encodeURIComponent(slug)}/draft`, { method: "DELETE" }),
+  createAdminGlossaryTerm: (slug: string, content: AdminGlossaryDraft) =>
+    request<AdminGlossaryTerm>("/admin/glossary/terms", {
+      method: "POST",
+      body: JSON.stringify({ slug, content }),
+    }),
+  getAdminGlossaryRevisions: (slug: string) =>
+    request<{ slug: string; items: AdminRevision[] }>(`/admin/glossary/terms/${encodeURIComponent(slug)}/revisions`),
+  getAdminOverview: () => request<AdminOverview>("/admin/overview"),
+
+  getModels: () => request<ModelsResponse>("/ml/models"),
+  getLearningPath: () => request<LearningPathResponse>("/me/learning-path"),
 };

@@ -19,6 +19,7 @@ export default function QuestionPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showUnanswered, setShowUnanswered] = useState(false);
+  const [narrative, setNarrative] = useState("");
 
   const load = () => {
     setLoadState("loading");
@@ -56,6 +57,22 @@ export default function QuestionPage() {
     return <Shell><div style={{ maxWidth: 640 }}><AssessmentAvailability value={availability} /></div></Shell>;
   }
 
+  // 문항 다음의 마지막 단계는 선택형 자유 서술이다. 건너뛰어도 진단 결과는 같다.
+  if (step === questions.length) {
+    return (
+      <Shell>
+        <NarrativeStep
+          value={narrative}
+          onChange={setNarrative}
+          submitting={submitting}
+          error={submitError}
+          onBack={() => setStep(questions.length - 1)}
+          onSubmit={(text) => submit(text)}
+        />
+      </Shell>
+    );
+  }
+
   const current = questions[step];
   const answeredCount = Object.keys(answers).length;
   const isLast = step === questions.length - 1;
@@ -74,8 +91,9 @@ export default function QuestionPage() {
     setStep((s) => s + 1);
   };
 
-  const submit = async () => {
-    if (!currentAnswered) {
+  async function submit(narrativeText?: string) {
+    if (questions.some((q) => !answers[q.id])) {
+      setStep(questions.findIndex((q) => !answers[q.id]));
       setShowUnanswered(true);
       return;
     }
@@ -83,7 +101,7 @@ export default function QuestionPage() {
     setSubmitError(null);
     try {
       const payload = questions.map((q) => ({ questionId: q.id, choiceId: answers[q.id] }));
-      const result = await api.submitAssessment(payload);
+      const result = await api.submitAssessment(payload, narrativeText);
       navigate(`/result/${result.id}`);
     } catch (err) {
       if (err instanceof ApiError && err.code === "ASSESSMENT_MONTHLY_LIMIT") {
@@ -98,11 +116,11 @@ export default function QuestionPage() {
     } finally {
       setSubmitting(false);
     }
-  };
+  }
 
   return (
     <Shell>
-      <div style={{ width: 620, display: "flex", flexDirection: "column", gap: 20 }}>
+      <div style={{ width: 620, maxWidth: "100%", display: "flex", flexDirection: "column", gap: 20 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span style={{ fontSize: 13, fontWeight: 700, color: "var(--primary)" }}>
@@ -125,7 +143,7 @@ export default function QuestionPage() {
 
         <div className="card" style={{ padding: 32, display: "flex", flexDirection: "column", gap: 22 }}>
           <div style={{ fontWeight: 700, fontSize: 18, lineHeight: 1.5 }}>{current.content}</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
+          <div role="radiogroup" aria-label={current.content} style={{ display: "flex", flexDirection: "column", gap: 11 }}>
             {current.choices
               .slice()
               .sort((a, b) => a.orderNo - b.orderNo)
@@ -137,6 +155,7 @@ export default function QuestionPage() {
                     type="button"
                     role="radio"
                     aria-checked={selected}
+                    aria-label={choice.label}
                     onClick={() => selectChoice(choice.id)}
                     style={{
                       display: "flex",
@@ -202,15 +221,9 @@ export default function QuestionPage() {
                 />
               ))}
             </div>
-            {isLast ? (
-              <button className="btn btn-primary" disabled={!currentAnswered || submitting} onClick={submit}>
-                {submitting ? "처리 중..." : "제출하기"}
-              </button>
-            ) : (
-              <button className="btn btn-primary" disabled={!currentAnswered} onClick={goNext}>
-                다음
-              </button>
-            )}
+            <button className="btn btn-primary" disabled={!currentAnswered} onClick={goNext}>
+              {isLast ? "마지막 단계로" : "다음"}
+            </button>
           </div>
           {showUnanswered && <div className="error-text" style={{ textAlign: "right" }}>모든 문항에 답변해야 진행할 수 있습니다.</div>}
           {submitError && <div className="error-text" style={{ textAlign: "right" }}>{submitError}</div>}
@@ -220,12 +233,65 @@ export default function QuestionPage() {
   );
 }
 
+const NARRATIVE_LIMIT = 1000;
+
+/**
+ * 선택형 자유 서술 단계. 원문은 서버에서 모델 추정에만 쓰고 저장하지 않는다.
+ * 설문과 다른 신호가 나오면 결과 화면에 "다시 확인해 보세요" 플래그가 붙을 뿐 등급은 바뀌지 않는다.
+ */
+function NarrativeStep({ value, onChange, submitting, error, onBack, onSubmit }: {
+  value: string;
+  onChange: (value: string) => void;
+  submitting: boolean;
+  error: string | null;
+  onBack: () => void;
+  onSubmit: (text?: string) => void;
+}) {
+  const trimmed = value.trim();
+  return (
+    <div style={{ width: 620, maxWidth: "100%", display: "flex", flexDirection: "column", gap: 20 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: "var(--primary)" }}>마지막 단계 · 선택</span>
+        <span style={{ fontSize: 12, color: "var(--text-faint)" }}>모든 문항 답변 완료</span>
+      </div>
+      <section className="card narrative-step">
+        <h2>투자에 대한 생각을 자유롭게 적어 주세요</h2>
+        <p className="subtle" style={{ margin: 0 }}>
+          손실을 어느 정도 견딜 수 있는지, 언제 돈이 필요한지, 무엇이 걱정되는지 편하게 써 주세요.
+          학습된 모델이 문장을 읽고 설문 답변과 다른 신호가 있는지, 어떤 개념부터 배우면 좋을지 알려 드립니다.
+        </p>
+        <label className="field-label" htmlFor="narrative">나의 투자 생각 (선택)</label>
+        <textarea
+          id="narrative"
+          className="field-input"
+          value={value}
+          maxLength={NARRATIVE_LIMIT}
+          onChange={(event) => onChange(event.target.value)}
+          placeholder="예: 작년에 펀드로 손해를 본 뒤로 겁이 많아졌어요. 3년 안에 집 계약금으로 쓸 돈이라 크게 잃고 싶지 않아요."
+        />
+        <div className="narrative-meta"><span>성향 등급은 위 5개 문항으로만 정해집니다.</span><span>{value.length} / {NARRATIVE_LIMIT}</span></div>
+        <p className="privacy-note">입력한 문장은 저장하지 않습니다. 모델이 추정한 성향·관심사 태그·확신도만 이번 진단 기록에 남습니다.</p>
+      </section>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+        <button className="btn btn-secondary" onClick={onBack} disabled={submitting}>이전</button>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+          <button className="btn btn-secondary" disabled={submitting} onClick={() => onSubmit(undefined)}>건너뛰고 제출</button>
+          <button className="btn btn-primary" disabled={submitting || trimmed.length < 8} onClick={() => onSubmit(trimmed)}>
+            {submitting ? "처리 중..." : "함께 제출하기"}
+          </button>
+        </div>
+      </div>
+      {error && <div className="error-text" role="alert" style={{ textAlign: "right" }}>{error}</div>}
+    </div>
+  );
+}
+
 function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", flexDirection: "column" }}>
       <Header />
       <Stepper activeIndex={1} />
-      <div style={{ flex: 1, display: "flex", justifyContent: "center", padding: "26px 40px 40px" }}>{children}</div>
+      <div style={{ flex: 1, display: "flex", justifyContent: "center", padding: "26px 16px 40px" }}>{children}</div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
 import ConceptTree from "../components/ConceptTree";
 import ConceptDiagram from "../components/ConceptDiagram";
@@ -26,7 +26,15 @@ const DEEP_KEY = "finmate.learn.showDeep";
 export default function LearnPage() {
   const [tree, setTree] = useState<LearningTreeResponse | null>(null);
   const [treeError, setTreeError] = useState(false);
-  const [slug, setSlug] = useState(START_SLUG);
+  // 용어 사전·내 학습에서 /learn?concept=slug로 들어오면 그 개념을 바로 연다.
+  const [searchParams] = useSearchParams();
+  const requestedSlug = searchParams.get("concept");
+  const [slug, setSlug] = useState(requestedSlug ?? START_SLUG);
+  const [lastRequested, setLastRequested] = useState(requestedSlug);
+  if (requestedSlug !== lastRequested) {
+    setLastRequested(requestedSlug);
+    if (requestedSlug) setSlug(requestedSlug);
+  }
   const [detail, setDetail] = useState<LearningConceptDetail | null>(null);
   const [detailError, setDetailError] = useState(false);
   const [tab, setTab] = useState<Tab>("concept");

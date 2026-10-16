@@ -30,3 +30,6 @@ ml/.pytest_cache/
 .build/
 .codex-build/
 output/
+
+# 로컬 도구 설정
+.claude/

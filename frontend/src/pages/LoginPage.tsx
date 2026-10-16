@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { ApiError } from "../api/client";
 
@@ -12,6 +12,10 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const { login, signup } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  // 보호된 화면에서 넘어왔다면 로그인 후 그 화면으로 돌려보낸다. 외부 주소로는 보내지 않는다.
+  const from = (location.state as { from?: string } | null)?.from;
+  const next = from && from.startsWith("/") && !from.startsWith("//") ? from : "/start";
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +27,7 @@ export default function LoginPage() {
       } else {
         await signup(email, password, name);
       }
-      navigate("/start");
+      navigate(next, { replace: true });
     } catch (err) {
       if (err instanceof ApiError) setError(err.message);
       else setError("요청을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.");

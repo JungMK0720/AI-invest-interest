@@ -55,7 +55,20 @@ export interface AssessmentResultResponse {
     questionnaireVersion: string;
     answers: { questionId: string; question: string; answer: string }[];
     reviewFlags: { code: string; message: string }[];
+    narrative: NarrativeSignal | null;
   } | null;
+}
+
+/** 진단 제출 시 함께 쓴 자유 서술의 모델 추정. 원문은 서버에 저장되지 않는다. */
+export interface NarrativeSignal {
+  status: "ESTIMATED" | "INSUFFICIENT";
+  profileType: string | null;
+  profileLabel: string | null;
+  grade: number | null;
+  confidence: number;
+  mismatch: boolean;
+  tags: { code: string; label: string; score: number }[];
+  modelVersion: string;
 }
 
 export interface CategoryRecommendationResponse {
@@ -299,6 +312,14 @@ export interface PracticePosition { rowId: string; productId: string; label: str
 export interface PracticeAnalysis { modelVersion: string; budget: number; unallocatedCash: number; endingValue: number; profitLoss: number; returnPercent: number; linearExposureRatio: number; optionPremium: number; allocation: { assetClass: string; amount: number; weightPercent: number }[]; positions: PracticePosition[]; lessons: string[]; limitations: string[]; }
 export interface PracticeComparison { before: PracticeAnalysis; after: PracticeAnalysis; profitLossDifference: number; interpretation: string; }
 
+export interface LearningLink {
+  code: string;
+  label: string;
+  message: string;
+  concepts: { slug: string; title: string }[];
+  terms: { slug: string; title: string }[];
+}
+
 export interface StyleCheckResponse {
   status: "ESTIMATED" | "INSUFFICIENT";
   estimatedProfileType: string | null;
@@ -307,13 +328,96 @@ export interface StyleCheckResponse {
   confidence: number | null;
   questionnaireGrade: number;
   mismatch: boolean;
+  probabilities: Record<string, number>;
+  tags: { code: string; label: string; score: number }[];
+  learningLinks: LearningLink[];
   modelVersion: string;
   notice: string;
 }
 
+export interface TermHit {
+  slug: string;
+  term: string;
+  categoryId: string;
+  definition: string;
+  score: number;
+  nameMatched: boolean;
+}
+
 export interface TermSearchResponse {
-  results: { slug: string; term: string; score: number }[];
+  results: TermHit[];
   modelVersion: string;
+  indexedTerms: number;
+}
+
+export interface ModelCard {
+  id: string;
+  name: string;
+  version: string;
+  task: string;
+  algorithm: string;
+  trainingData: string;
+  evaluationData: string;
+  metrics: Record<string, number>;
+  baselines: Record<string, number>;
+  intendedUse: string;
+  notIntendedUse: string;
+  limitations: string[];
+}
+
+export interface ModelsResponse {
+  card: { generatedBy: string; models: ModelCard[] };
+  runtime: Record<string, string | number | null>;
+}
+
+export interface LearningPathStep {
+  kind: "REVIEW" | "CONCEPT" | "TERM";
+  target: "CONCEPT" | "TERM";
+  slug: string;
+  title: string;
+  reasonCode: string;
+  reason: string;
+}
+
+export interface LearningPathResponse {
+  basis: {
+    assessmentId: string;
+    profileType: string | null;
+    profileLabel: string | null;
+    assessedAt: string | null;
+    reviewFlags: string[];
+    narrativeTags: { code: string; label: string }[];
+    narrativeMismatch: boolean;
+  } | null;
+  reviews: LearningPathStep[];
+  concepts: LearningPathStep[];
+  terms: LearningPathStep[];
+  rulesVersion: string;
+  generatedAt: string;
+  notice: string;
+}
+
+export interface AdminOverview {
+  users: number;
+  admins: number;
+  completedAssessments: number;
+  quizAttempts: number;
+  publishedTerms: number;
+  hiddenTerms: number;
+  pendingDrafts: number;
+  glossaryContentVersion: string;
+  learningContentVersion: string;
+  styleModelVersion: string;
+  termModelVersion: string;
+  generatedAt: string;
+}
+
+export interface AdminRevision {
+  id: string;
+  action: "CREATED" | "PUBLISHED" | "UNPUBLISHED";
+  contentVersion: string;
+  editorEmail: string;
+  createdAt: string;
 }
 
 export interface GlossaryCategory {
@@ -383,6 +487,8 @@ export interface QuizAttemptSummary {
 
 export interface WrongAnswerSummary {
   slug: string;
+  target: "CONCEPT" | "TERM";
+  title: string;
   questionId: string;
   prompt: string;
   selectedChoiceId: string;
@@ -397,6 +503,7 @@ export interface WrongAnswerSummary {
 
 export interface ReviewScheduleSummary {
   slug: string;
+  target: "CONCEPT" | "TERM";
   title: string;
   dueAt: string;
   dueNow: boolean;

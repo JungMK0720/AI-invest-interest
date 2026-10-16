@@ -79,7 +79,7 @@ export default function GlossaryDetailPage() {
                 <div className="card">
                   <h2>이어 읽기</h2>
                   {term.related.length > 0 ? <div className="glossary-related">{term.related.map(related => <Link key={related} to={`/glossary/${related}`}>{related} →</Link>)}</div> : <p className="subtle">연결된 용어가 없습니다.</p>}
-                  {term.conceptSlug && <Link className="glossary-concept-link" to="/learn">관련 학습 개념 보기 →</Link>}
+                  {term.conceptSlug && <Link className="glossary-concept-link" to={`/learn?concept=${encodeURIComponent(term.conceptSlug)}`}>관련 학습 개념 보기 →</Link>}
                 </div>
                 <div className="card">
                   <h2>출처</h2>

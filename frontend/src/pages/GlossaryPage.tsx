@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { useAuth } from "../context/AuthContext";
 import { api, ApiError } from "../api/client";
-import type { GlossaryCategory, GlossaryQuiz, GlossaryQuizResult, GlossaryTermSummary } from "../api/types";
+import type { GlossaryCategory, GlossaryQuiz, GlossaryQuizResult, GlossaryTermSummary, TermSearchResponse } from "../api/types";
 
 type Tab = "browse" | "bookmarks" | "quiz";
 const levelName: Record<string, string> = { BASIC: "기초", INTERMEDIATE: "중급", ADVANCED: "심화" };
@@ -26,6 +26,7 @@ export default function GlossaryPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [retry, setRetry] = useState(0);
+  const [semantic, setSemantic] = useState<TermSearchResponse | null>(null);
 
   useEffect(() => {
     api.getGlossaryCategories().then(data => {
@@ -59,6 +60,20 @@ export default function GlossaryPage() {
     return () => { current = false; };
   }, [tab, query, category, level, retry, isAuthenticated]);
 
+  // 글자 검색과 별도로, 학습된 질문형 검색 모델로 뜻이 가까운 용어를 찾는다.
+  // "회사가 버는 돈에 비해 주가가 몇 배인지"처럼 용어 이름을 모르는 질문을 위해서다.
+  useEffect(() => {
+    if (tab !== "browse" || query.length < 2) {
+      setSemantic(null);
+      return;
+    }
+    let current = true;
+    api.searchTermsByQuestion(query, 5)
+      .then(data => { if (current) setSemantic(data); })
+      .catch(() => { if (current) setSemantic(null); });
+    return () => { current = false; };
+  }, [tab, query]);
+
   return (
     <div className="app-page">
       <Header />
@@ -87,7 +102,7 @@ export default function GlossaryPage() {
                 <div className="glossary-search">
                   <label className="field-label" htmlFor="glossary-search">용어 검색</label>
                   <div>
-                    <input id="glossary-search" className="field-input" type="search" value={draft} onChange={event => setDraft(event.target.value)} placeholder="용어·영어 이름·설명으로 찾기" />
+                    <input id="glossary-search" className="field-input" type="search" value={draft} onChange={event => setDraft(event.target.value)} placeholder="용어 이름 또는 궁금한 내용을 문장으로 (예: 빌린 돈으로 주식을 사는 것)" />
                     <button className="btn btn-primary" type="submit">찾기</button>
                   </div>
                 </div>
@@ -110,15 +125,32 @@ export default function GlossaryPage() {
               </form>
             )}
 
+            {tab === "browse" && semantic && semantic.results.length > 0 && (
+              <section className="card glossary-semantic" aria-label="질문 의미로 찾은 용어">
+                <div className="glossary-list-head">
+                  <h2>질문 의미로 찾은 용어</h2>
+                  <span>질문형 검색 모델 {semantic.modelVersion}</span>
+                </div>
+                <div className="glossary-semantic-list">
+                  {semantic.results.map(hit => (
+                    <Link key={hit.slug} to={`/glossary/${hit.slug}`} className="search-hit">
+                      <header><strong>{hit.term}</strong>{hit.nameMatched && <span className="badge badge-primary">이름 일치</span>}</header>
+                      <p>{hit.definition}</p>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+
             <div className="glossary-list-head">
-              <h2>{tab === "bookmarks" ? "저장한 용어" : "검색 결과"}</h2>
+              <h2>{tab === "bookmarks" ? "저장한 용어" : query ? "글자가 일치하는 용어" : "전체 용어"}</h2>
               {!loading && !error && <span>{total}개</span>}
             </div>
             {tab === "bookmarks" && !isAuthenticated && <div className="card glossary-message"><Link to="/login">로그인</Link>하면 저장한 용어를 볼 수 있습니다.</div>}
             {error && <div className="card glossary-message" role="alert">{error} <button className="btn btn-secondary" onClick={() => setRetry(value => value + 1)}>다시 시도</button></div>}
             {loading && <p role="status" className="subtle">용어를 불러오는 중…</p>}
             {!loading && !error && (tab === "bookmarks" && !isAuthenticated ? null : terms.length === 0 ? (
-              <div className="card glossary-message">{tab === "bookmarks" ? "아직 저장한 용어가 없습니다. 탐색에서 용어를 열고 저장해 보세요." : "조건에 맞는 용어가 없습니다. 검색어 또는 필터를 바꿔 보세요."}</div>
+              <div className="card glossary-message">{tab === "bookmarks" ? "아직 저장한 용어가 없습니다. 탐색에서 용어를 열고 저장해 보세요." : semantic && semantic.results.length > 0 ? "글자가 그대로 일치하는 용어는 없습니다. 위의 질문 의미 검색 결과를 확인해 보세요." : "조건에 맞는 용어가 없습니다. 검색어 또는 필터를 바꿔 보세요."}</div>
             ) : (
               <div className="glossary-list">
                 {terms.map(term => (
