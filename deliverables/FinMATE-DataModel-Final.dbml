@@ -5,7 +5,7 @@
 //
 // 각 테이블 Note의 접두어로 구현 상태를 구분한다.
 //   [구현됨]      실제 JPA 엔터티/영속 데이터로 존재한다 (deliverables/FinMATE-DB.dbml과 1:1 일치)
-//   [구현: JSON]  현재는 classpath JSON(concepts.json)·정적 카탈로그로 존재하고, 배포 시 이 테이블로 대체한다
+//   [구현: JSON]  현재는 classpath JSON·정적 카탈로그로 존재하고, 배포 시 이 테이블로 대체한다
 //   [설계 제안]   아직 코드/DB에 없다. 최종 배포 고도화(P1~P2)를 위해 이번에 새로 설계한 테이블이다
 //
 // 근거 코드(현재 저장소 기준):
@@ -14,7 +14,7 @@
 //   backend/src/main/java/com/finmate/learning/{LearningCatalog,LearningAiService,ClaudeLearningTutor,QuizGrader}.java
 //   backend/src/main/java/com/finmate/practice/{PracticeCatalog,PracticeEngine,PracticeDtos}.java
 //   backend/src/main/java/com/finmate/integration/{MarketDataProvider,OpenDartProvider}.java
-//   backend/src/main/resources/learning/concepts.json (version: learning-content-v3-2026-09-10, 59개 개념)
+//   backend/src/main/resources/learning/concepts.json (version: learning-content-v3-2026-09-10, 59개 개념 시드 → learning_* 테이블)
 //   backend/src/main/java/com/finmate/{auth,glossary,admin,ml}/*.java (2026-10 2차 고도화)
 //   backend/src/main/resources/glossary/**/*.json (version: glossary-v1-2026-10-15, 14개 분류 247개 용어)
 // =============================================================================
@@ -172,8 +172,9 @@ Table category_recommendations {
 
 // -----------------------------------------------------------------------------
 // SECTION 3. 학습 개념 트리·확인 문제·AI 개념 설명
-//   현재는 concepts.json(version learning-content-v3-2026-09-10, 59개 개념, 75개 문항)이
-//   아래 concepts~quiz_options 구조를 그대로 대신하고 있다. 배포 단계에서 이 테이블이 JSON을 대체한다.
+//   개념·확인 문제는 learning_concepts / learning_quiz_items(SECTION 6, [구현됨])에 저장한다.
+//   concepts.json(59개 개념, 75개 문항)은 없는 개념만 넣는 시드이고, 운영 수정은 초안 → 검증 게시로 한다(ADR-019).
+//   아래 concepts~quiz_options는 개정 번호·유효 기간·선택지 행 분리까지 갖춘 확장 설계로 남겨 둔다.
 // -----------------------------------------------------------------------------
 
 Table concepts {
@@ -191,7 +192,7 @@ Table concepts {
 
   indexes { (parent_id, sort_order) }
 
-  Note: '[구현: JSON] 3단계 개념 트리. concepts.json의 slug/parent/level/order/title/summary/oneLiner/diagramKey/simulationId와 1:1'
+  Note: '[설계 제안] 3단계 개념 트리의 확장형(REVIEW/RETIRED 상태). 현재 구현은 learning_concepts(slug PK, status PUBLISHED/DRAFT)'
 }
 
 Table content_revisions {
@@ -214,7 +215,7 @@ Table content_revisions {
 
   indexes { (concept_id, revision_no) [unique] }
 
-  Note: '[구현: JSON] concepts.json 필드가 대신함. 개정 이력을 버전으로 분리해 "과거 자료" 탭을 만들 때 이 테이블이 필요하다'
+  Note: '[설계 제안] 개정 번호·유효 기간을 분리한 확장형. 현재는 learning_concepts.content_version과 learning_concept_revisions(불변 스냅샷)가 대신한다. "과거 자료" 탭을 만들 때 이 테이블이 필요하다'
 }
 
 Table quiz_items {
@@ -226,7 +227,7 @@ Table quiz_items {
   takeaway             text    [not null, note: '정오답과 무관하게 남기는 한 줄 결론']
   sort_order           integer [not null]
 
-  Note: '[구현: JSON] 확인 문제. concepts.json의 quiz[]. 정답·해설은 서버에만 두고 조회 응답에서 제외(QuizGrader)'
+  Note: '[설계 제안] 개정에 묶인 확인 문제 확장형. 현재 구현은 learning_quiz_items. 정답·해설은 서버에만 두고 조회 응답에서 제외(QuizGrader)'
 }
 
 Table quiz_options {
@@ -239,7 +240,7 @@ Table quiz_options {
 
   indexes { (quiz_item_id, option_index) [unique] }
 
-  Note: '[구현: JSON] concepts.json quiz[].options[]'
+  Note: '[설계 제안] 선택지를 행으로 분리한 확장형. 현재는 learning_quiz_items.options_json이 순서대로 담는다'
 }
 
 Table quiz_attempts {
@@ -566,6 +567,72 @@ Table glossary_bookmarks {
   Note: '[구현됨] 사용자가 저장한 용어'
 }
 
+Table learning_concepts {
+  slug            varchar   [pk]
+  parent_slug     varchar   [ref: > learning_concepts.slug, note: 'null이면 최상위(level 1). 상위 개념 level = 이 개념 level - 1']
+  level           integer   [not null, note: '1=대분류, 2=상품군/핵심 개념, 3=세부 개념']
+  sort_order      integer   [not null]
+  title           varchar   [not null]
+  summary         varchar   [not null]
+  one_liner       varchar   [not null]
+  explanation     text      [not null, note: 'JSON 배열(문단)']
+  key_points      text      [not null, note: 'JSON 배열']
+  checklist       text      [not null, note: 'JSON 배열: 상품에서 확인할 문서·항목']
+  misconception   text
+  diagram_key     varchar   [not null]
+  source_name     varchar   [not null]
+  source_url      varchar   [not null, note: 'http/https만 허용. 출처 없는 개념은 적재·게시 불가']
+  simulation_id   varchar   [note: '모의투자 시나리오 id(정적 카탈로그)']
+  status          varchar   [not null, note: 'PUBLISHED(학습 화면 노출) | DRAFT(관리자가 공개 내림)']
+  content_version varchar   [not null, note: '시드 버전 또는 admin-{epochMillis}-{uuid8}. 학습 콘텐츠 버전 해시의 재료']
+  updated_at      timestamp [not null]
+
+  indexes {
+    parent_slug
+    status
+  }
+
+  Note: '[구현됨] 59개 시드 개념. 기동 시 없는 slug만 넣고 관리자 수정본은 덮어쓰지 않는다. 게시 직전 공개 트리 전체를 다시 검증한다(ADR-019)'
+}
+
+Table learning_quiz_items {
+  id            varchar [pk, note: '복습 기록(quiz_review_state.question_id)의 키. 전체 개념에서 유일']
+  concept_slug  varchar [ref: > learning_concepts.slug, not null]
+  sort_order    integer [not null]
+  prompt        text    [not null]
+  difficulty    varchar [not null, note: 'BASIC | INTERMEDIATE | ADVANCED']
+  options_json  text    [not null, note: '[{label, correct, rationale}] 순서 = choice ID. 정답 정확히 1개, 3개 이상, 해설 필수']
+  takeaway      text    [not null]
+
+  indexes { (concept_slug, sort_order) }
+
+  Note: '[구현됨] 75개 시드 문항. 개념이 이미 있으면 그 문항도 시드로 되살리지 않는다. 게시할 때 개념과 한 단위로 교체'
+}
+
+Table learning_concept_drafts {
+  slug            varchar   [pk, ref: - learning_concepts.slug]
+  base_version    varchar   [not null, note: '초안을 시작한 개념 content_version. 게시 시 다르면 409']
+  editor_user_id  varchar   [ref: > users.id, not null]
+  draft_json      text      [not null, note: '개념 본문 + 확인 문제 전체']
+  updated_at      timestamp [not null]
+
+  Note: '[구현됨] 공개본을 유지한 채 편집하는 개념당 1건의 초안'
+}
+
+Table learning_concept_revisions {
+  id               varchar   [pk]
+  slug             varchar   [ref: > learning_concepts.slug, not null]
+  action           varchar   [not null, note: 'PUBLISHED | UNPUBLISHED']
+  content_version  varchar   [not null]
+  editor_user_id   varchar   [ref: > users.id, not null]
+  snapshot_json    text      [not null, note: '당시 개념 본문과 확인 문제 전체']
+  created_at       timestamp [not null]
+
+  indexes { (slug, created_at) }
+
+  Note: '[구현됨] 개념 공개 상태 변경의 불변 감사 기록. 추가만 하고 수정·삭제하지 않는다'
+}
+
 // 보조 모델 산출물(style-model.json, term-model.json, model-card.json)은 DB가 아니라 classpath에 둔다.
 // 모델은 ml/train.py로 재현하고, 문서 벡터만 공개 용어(glossary_terms)로 서버가 만든다.
 
@@ -578,6 +645,7 @@ Table glossary_bookmarks {
 //   users 1─N quiz_attempts / simulation_runs / practice_runs / concept_ai_explanations / learning_progress
 //   users 1─N auth_sessions, quiz_review_state, glossary_bookmarks, glossary_term_revisions(편집자)
 //   glossary_categories 1─N glossary_terms 1─0..1 glossary_term_drafts, 1─N glossary_term_revisions
+//   learning_concepts 1─N learning_concepts(하위), 1─N learning_quiz_items, 1─0..1 learning_concept_drafts, 1─N learning_concept_revisions
 //   source_registry 1─N source_documents 1─N instrument_snapshots
 //   practice_runs 1─N practice_run_comparisons (before/after 두 건씩)
 // =============================================================================

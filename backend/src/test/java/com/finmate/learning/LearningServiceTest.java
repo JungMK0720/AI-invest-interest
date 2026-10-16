@@ -14,8 +14,7 @@ class LearningServiceTest {
 
     @BeforeAll
     static void setUp() {
-        LearningCatalog catalog = new LearningCatalog(new ObjectMapper());
-        catalog.load();
+        LearningCatalog catalog = new LearningCatalog(new LearningSeedData(new ObjectMapper())::tree);
         simulations = new SimulationCatalog();
         service = new LearningService(catalog, simulations);
     }

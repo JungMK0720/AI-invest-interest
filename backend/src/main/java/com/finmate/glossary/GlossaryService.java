@@ -1,6 +1,7 @@
 package com.finmate.glossary;
 
 import com.finmate.common.ApiException;
+import com.finmate.learning.LearningCatalog;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -20,13 +21,15 @@ public class GlossaryService {
     private final GlossaryCategoryRepository categories;
     private final GlossaryBookmarkRepository bookmarks;
     private final GlossarySeedData source;
+    private final LearningCatalog concepts;
 
     public GlossaryService(GlossaryTermRepository terms, GlossaryCategoryRepository categories,
-                           GlossaryBookmarkRepository bookmarks, GlossarySeedData source) {
+                           GlossaryBookmarkRepository bookmarks, GlossarySeedData source, LearningCatalog concepts) {
         this.terms = terms;
         this.categories = categories;
         this.bookmarks = bookmarks;
         this.source = source;
+        this.concepts = concepts;
     }
 
     /** 시드 버전 + 공개 용어 집합의 해시. 관리자가 게시하거나 공개를 내리면 바뀌어 퀴즈 버전 충돌을 잡는다. */
@@ -105,7 +108,9 @@ public class GlossaryService {
                 term.getAliases(), term.getCategoryId(), term.getLevel(), term.getDefinition(),
                 term.getExplanation(), term.getFormula(), term.getExample(), term.getCaution(),
                 term.getRelated().stream().filter(publishedSlugs::contains).toList(),
-                term.getConceptSlug(), term.getSourceName(), term.getSourceUrl(), term.getContentVersion(),
+                // 관리자가 개념의 공개를 내렸다면 깨진 링크 대신 연결 개념을 비워 둔다.
+                concepts.contains(term.getConceptSlug()) ? term.getConceptSlug() : null,
+                term.getSourceName(), term.getSourceUrl(), term.getContentVersion(),
                 GlossaryDtos.EDUCATION_NOTICE);
     }
 

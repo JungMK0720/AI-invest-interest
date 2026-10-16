@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import AdminTabs from "../components/AdminTabs";
 import { api, ApiError } from "../api/client";
 import type { AdminGlossaryDraft, AdminGlossaryTerm, AdminOverview, AdminRevision, GlossaryCategory } from "../api/types";
 
@@ -158,6 +159,7 @@ export default function AdminGlossaryPage() {
     <div className="app-page">
       <Header />
       <main className="admin-main">
+        <AdminTabs />
         <span className="eyebrow">CONTENT OPERATIONS</span>
         <h1>용어 편집과 게시</h1>
         <p className="intro-copy">공개 중인 용어의 수정은 초안으로 저장되고, 검증 후 게시해야 학습 화면과 검색에 반영됩니다. 새 용어는 비공개로 만들어집니다.</p>

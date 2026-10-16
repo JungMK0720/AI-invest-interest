@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
 /**
- * 학습 콘텐츠의 원본 스키마. classpath의 learning/concepts.json을 그대로 바인딩한다.
+ * 학습 콘텐츠의 스키마. 시드 파일 learning/concepts.json을 그대로 바인딩하고, DB의 공개 개념
+ * (learning_concepts, learning_quiz_items)도 같은 노드로 옮겨 화면·채점에 쓴다.
  *
- * <p>운영 단계에서는 docs/10의 {@code concepts} / {@code content_revisions} 테이블이 이 구조를
- * 그대로 대체한다. 지금 JSON으로 두는 이유는 콘텐츠 개정 이력을 코드 변경과 분리하기 위해서다.
- * 개념 하나가 곧 하나의 개정 단위이므로 출처(sourceName/sourceUrl)를 필수로 유지한다.
+ * <p>개념 하나와 그 확인 문제가 곧 하나의 개정 단위다. 관리자는 이 단위로 초안을 저장하고 게시하며(ADR-019),
+ * 출처(sourceName/sourceUrl)는 시드와 운영 수정 모두에서 필수로 유지한다.
  */
 public final class LearningContent {
 

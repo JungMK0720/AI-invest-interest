@@ -23,7 +23,8 @@ public class QuizGrader {
     }
 
     public LearningDtos.QuizResponse questions(String slug) {
-        LearningContent.Node node = catalog.node(slug);
+        LearningTree tree = catalog.current();
+        LearningContent.Node node = require(tree, slug);
         List<LearningDtos.QuizQuestion> questions = node.quiz().stream()
                 .map(item -> new LearningDtos.QuizQuestion(
                         item.id(),
@@ -32,19 +33,21 @@ public class QuizGrader {
                         item.options().stream().map(LearningContent.Option::label).toList()))
                 .toList();
         return new LearningDtos.QuizResponse(
-                node.slug(), node.title(), catalog.version(), questions, LearningDtos.EDUCATION_NOTICE);
+                node.slug(), node.title(), tree.version(), questions, LearningDtos.EDUCATION_NOTICE);
     }
 
     /**
      * ID 기반 제출 계약. 화면 인덱스가 아니라 콘텐츠 버전과 고정 choice ID를 검증하므로
      * 선택지 순서 변경이나 다른 개념의 문항을 섞어 보내는 실수를 숨기지 않는다.
+     * 버전 비교와 채점은 같은 트리 한 벌로 해, 그사이 게시가 끼어도 옛 문항을 새 버전으로 채점하지 않는다.
      */
     public LearningDtos.QuizAttemptResponse attempt(String slug, LearningDtos.QuizAttemptRequest request) {
-        LearningContent.Node node = catalog.node(slug);
+        LearningTree tree = catalog.current();
+        LearningContent.Node node = require(tree, slug);
         if (request == null || request.contentVersion() == null || request.contentVersion().isBlank()) {
             throw ApiException.badRequest("contentVersion은 필수입니다.");
         }
-        if (!catalog.version().equals(request.contentVersion())) {
+        if (!tree.version().equals(request.contentVersion())) {
             throw ApiException.conflict("콘텐츠 버전이 변경되었습니다. 문제를 다시 불러오세요.");
         }
         if (request.answers() == null || request.answers().isEmpty()) {
@@ -92,7 +95,7 @@ public class QuizGrader {
         int total = items.size();
         int score = total == 0 ? 0 : (int) Math.round(correctCount * 100.0 / total);
         return new LearningDtos.QuizAttemptResponse(node.slug(), total, answered, correctCount, score,
-                catalog.version(), List.copyOf(items), summary(node, correctCount, total), LearningDtos.EDUCATION_NOTICE);
+                tree.version(), List.copyOf(items), summary(node, correctCount, total), LearningDtos.EDUCATION_NOTICE);
     }
 
     private static List<String> choiceIds(LearningContent.QuizItem item) {
@@ -106,7 +109,8 @@ public class QuizGrader {
     }
 
     public LearningDtos.QuizGradeResponse grade(String slug, LearningDtos.QuizGradeRequest request) {
-        LearningContent.Node node = catalog.node(slug);
+        LearningTree tree = catalog.current();
+        LearningContent.Node node = require(tree, slug);
         Map<String, Integer> selectedByQuestion = new LinkedHashMap<>();
         if (request != null && request.answers() != null) {
             for (LearningDtos.QuizAnswer answer : request.answers()) {
@@ -132,7 +136,12 @@ public class QuizGrader {
         int total = items.size();
         int scorePercent = total == 0 ? 0 : (int) Math.round(correctCount * 100.0 / total);
         return new LearningDtos.QuizGradeResponse(
-                node.slug(), total, correctCount, scorePercent, catalog.version(), items, summary(node, correctCount, total));
+                node.slug(), total, correctCount, scorePercent, tree.version(), items, summary(node, correctCount, total));
+    }
+
+    private static LearningContent.Node require(LearningTree tree, String slug) {
+        return tree.lookup(slug)
+                .orElseThrow(() -> ApiException.notFound("학습 개념을 찾을 수 없습니다: " + slug));
     }
 
     private static List<LearningDtos.OptionFeedback> feedback(LearningContent.QuizItem item) {
@@ -152,7 +161,7 @@ public class QuizGrader {
                 return i;
             }
         }
-        // 로드 시점 검증을 통과했다면 도달하지 않는다.
+        // 트리 검증(LearningTree)을 통과했다면 도달하지 않는다.
         throw new IllegalStateException("정답이 없는 확인 문제입니다: " + item.id());
     }
 

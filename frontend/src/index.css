@@ -299,6 +299,29 @@ input {
 .admin-fields .admin-wide { grid-column:1/-1; }
 .admin-actions { display:flex; justify-content:flex-end; gap:10px; }
 .admin-notice { color:#22764c; font-size:13px; }
+.admin-tabs { margin:0 0 22px; overflow-x:auto; }
+.admin-tabs .tab-button { flex-shrink:0; text-decoration:none; }
+.admin-overview .admin-version strong { font-size:13px; overflow-wrap:anywhere; line-height:1.4; }
+.admin-fields textarea.admin-tall { min-height:180px; }
+.admin-diagram-preview { align-self:end; min-width:0; }
+.admin-diagram-preview .concept-diagram { margin:0; }
+.admin-quiz { border-top:1px solid var(--border); padding-top:20px; margin-bottom:20px; }
+.admin-quiz-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; }
+.admin-quiz-head h3 { margin:0; font-size:16px; }
+.admin-quiz-item { border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin:0 0 14px; min-width:0; }
+.admin-quiz-item legend { padding:0 6px; font-size:12px; font-weight:700; color:var(--text-muted); }
+.admin-quiz-item .admin-fields { margin:6px 0 14px; }
+.admin-options { display:flex; flex-direction:column; gap:10px; }
+.admin-option { display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:start; padding:10px; border-radius:10px; background:var(--surface-soft); }
+.admin-option.is-correct { background:var(--good-bg); }
+.admin-option-correct { display:flex; align-items:center; gap:5px; font-size:12px; color:var(--text-muted); padding-top:10px; white-space:nowrap; }
+.admin-option-body { display:flex; flex-direction:column; gap:6px; min-width:0; }
+.admin-option-body textarea { min-height:60px; resize:vertical; font-family:inherit; line-height:1.6; }
+.admin-quiz-tools { display:flex; justify-content:space-between; gap:10px; margin:12px 0; }
+.admin-takeaway { display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--text-muted); }
+.admin-takeaway textarea { min-height:60px; resize:vertical; font-family:inherit; line-height:1.6; }
+.admin-hint { text-align:right; font-size:12px; margin:0 0 8px; }
+@media (max-width:600px) { .admin-option { grid-template-columns:1fr; } .admin-option-correct { padding-top:0; } }
 @media (max-width:850px) { .admin-layout { grid-template-columns:1fr; } .admin-list { position:static; } .admin-list-items { max-height:210px; } }
 @media (max-width:600px) { .admin-fields { grid-template-columns:1fr; } .admin-actions { justify-content:stretch; } .admin-actions .btn { flex:1; } }
 

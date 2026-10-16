@@ -184,7 +184,7 @@ P1 관리자 API는 현재 발표용 구현 대상이 아니며, 위 경로는 �
 | FR-10~14 | ✅ | 개념 트리·확인 문제·시뮬레이션·포트폴리오·방법론(로그인 불필요, ADR-018) |
 | FR-15 | ✅ | `quiz_attempts`, `quiz_review_state`, `/me/*` |
 | FR-16·17 | ⏸ 설계 | 데이터 이용 계약 필요. `MarketDataProvider`/`OpenDartProvider` 경계와 DBML만 존재 |
-| FR-18 | ✅ (용어) | `AdminGlossaryService` — 개념·상품 콘텐츠 운영은 다음 단계 |
+| FR-18 | ✅ (용어·학습 개념) | 용어 `AdminGlossaryService`, 개념·확인 문제 `AdminLearningService`(초안·검증 게시·공개 내림·불변 이력, 게시 즉시 학습 화면 반영, ADR-019) — `AdminLearningLifecycleIntegrationTest`. 상품 콘텐츠 운영과 만료(유효 기간)는 다음 단계 |
 | FR-19 | ⏸ 부분 | 모델·콘텐츠 버전 노출(`/admin/overview`, `/ml/models`), 실데이터 신선도는 FR-16 이후 |
 | FR-20 | ⛔ 제외 | 범위 밖 |
 | FR-21 | ✅ | `glossary/*`, `GlossaryIntegrationTest` |
@@ -201,12 +201,12 @@ P1 관리자 API는 현재 발표용 구현 대상이 아니며, 위 경로는 �
 | NFR-01 보안·권한 | 본인 진단·진도만 조회, 관리자 API 403 테스트, 토큰 해시 저장 |
 | NFR-02 재현성 | 진단 스냅샷(규칙·문항·모델 버전), seed 고정 생성·학습·시뮬레이션, Python↔Java 일치 테스트 |
 | NFR-03 안전한 표현 | 모든 학습·모델 응답 고지, LLM 금칙어 검사, "하는 일/하지 않는 일" 화면 |
-| NFR-04 데이터 정확성 | 용어·개념 JSON 출처·링크 검증 실패 시 기동 중단, 관리자 입력도 같은 검증 |
+| NFR-04 데이터 정확성 | 용어·개념 JSON 출처·링크 검증 실패 시 기동 중단, 관리자 입력도 같은 검증, 개념 게시 직전 트리 전체 재검증(`LearningTree`) |
 | NFR-07 가용성·폴백 | AI 실패 시 템플릿, 모델 근거 부족 시 보류, 모델 산출물 누락 시 기동 중단 |
 | NFR-09 개인정보 최소화 | 자유 서술 원문 미저장(통합 테스트), 로그에 답변·토큰 미기록 |
 | NFR-11 접근성·반응형 | 375px 가로 스크롤 0(6개 화면), 모바일 메뉴, 선택지 `aria-label`·`radiogroup` |
-| NFR-12 유지보수성 | 콘텐츠·규칙·모델을 코드와 분리한 JSON, ADR 018건 |
-| NFR-13 테스트 가능성 | `make test`: Python 11 + Java 64 테스트 + 프론트 빌드 |
+| NFR-12 유지보수성 | 콘텐츠·규칙·모델을 코드와 분리한 JSON 시드, 운영 수정은 DB 초안·게시, ADR 019건 |
+| NFR-13 테스트 가능성 | `make test`: Python 11 + Java 70 테스트 + 프론트 빌드 |
 
 ### 10.4 추가 유스케이스
 
@@ -217,5 +217,6 @@ P1 관리자 API는 현재 발표용 구현 대상이 아니며, 위 경로는 �
 | UC-23 | 개인화 학습 경로를 따라간다 | 사용자 | FR-24, FR-15 |
 | UC-24 | 모델 카드로 모델의 한계를 확인한다 | 사용자 | FR-25 |
 | UC-25 | 용어를 등록·게시·공개 내림하고 이력을 본다 | 운영자 | FR-26, FR-18 |
+| UC-26 | 개념 본문·확인 문제 해설을 고쳐 게시하고 이력을 본다 | 운영자 | FR-18, FR-15 |
 
 상세 흐름과 대안·예외는 [17-user-scenarios.md](17-user-scenarios.md), 사용자 요구와의 추적은 [16-user-requirements-analysis.md](16-user-requirements-analysis.md)를 본다.

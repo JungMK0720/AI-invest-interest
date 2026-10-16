@@ -23,14 +23,15 @@ public class LearningService {
     }
 
     public LearningDtos.TreeResponse tree() {
-        List<LearningDtos.TreeNode> roots = catalog.rootSlugs().stream().map(this::treeNode).toList();
+        LearningTree tree = catalog.current();
+        List<LearningDtos.TreeNode> roots = tree.rootSlugs().stream().map(slug -> treeNode(tree, slug)).toList();
         return new LearningDtos.TreeResponse(
-                catalog.version(), catalog.nodes().size(), roots, LearningDtos.EDUCATION_NOTICE);
+                tree.version(), tree.nodes().size(), roots, LearningDtos.EDUCATION_NOTICE);
     }
 
-    private LearningDtos.TreeNode treeNode(String slug) {
-        LearningContent.Node node = catalog.node(slug);
-        List<LearningDtos.TreeNode> children = catalog.childSlugs(slug).stream().map(this::treeNode).toList();
+    private LearningDtos.TreeNode treeNode(LearningTree tree, String slug) {
+        LearningContent.Node node = tree.node(slug);
+        List<LearningDtos.TreeNode> children = tree.childSlugs(slug).stream().map(child -> treeNode(tree, child)).toList();
         return new LearningDtos.TreeNode(
                 node.slug(),
                 node.title(),
@@ -38,7 +39,7 @@ public class LearningService {
                 node.level(),
                 !directScenarios(node).isEmpty(),
                 node.quiz().size(),
-                catalog.descendants(slug).size() - 1,
+                tree.descendants(slug).size() - 1,
                 children);
     }
 
@@ -60,11 +61,12 @@ public class LearningService {
     }
 
     public LearningDtos.ConceptDetail detail(String slug) {
-        LearningContent.Node node = require(slug);
-        List<LearningDtos.Crumb> breadcrumb = catalog.path(slug).stream()
+        LearningTree tree = catalog.current();
+        LearningContent.Node node = require(tree, slug);
+        List<LearningDtos.Crumb> breadcrumb = tree.path(slug).stream()
                 .map(item -> new LearningDtos.Crumb(item.slug(), item.title(), item.level()))
                 .toList();
-        List<LearningDtos.TreeNode> children = catalog.childSlugs(slug).stream().map(this::treeNode).toList();
+        List<LearningDtos.TreeNode> children = tree.childSlugs(slug).stream().map(child -> treeNode(tree, child)).toList();
         return new LearningDtos.ConceptDetail(
                 node.slug(),
                 node.title(),
@@ -82,8 +84,8 @@ public class LearningService {
                 node.quiz().size(),
                 breadcrumb,
                 children,
-                related(node),
-                catalog.version(),
+                related(tree, node),
+                tree.version(),
                 LearningDtos.EDUCATION_NOTICE);
     }
 
@@ -91,16 +93,16 @@ public class LearningService {
      * 관련 개념. 같은 모의투자 시나리오를 공유하는 개념을 우선 연결한다.
      * 시나리오는 "같은 메커니즘을 쓰는 개념"의 묶음이므로 별도 관계 테이블 없이도 의미 있는 연결이 된다.
      */
-    private List<String> related(LearningContent.Node node) {
+    private List<String> related(LearningTree tree, LearningContent.Node node) {
         List<String> slugs = new ArrayList<>();
         for (SimulationDtos.ScenarioSpec spec : simulations.forConcept(node.slug())) {
             for (String candidate : spec.conceptSlugs()) {
-                if (!candidate.equals(node.slug()) && catalog.contains(candidate) && !slugs.contains(candidate)) {
+                if (!candidate.equals(node.slug()) && tree.contains(candidate) && !slugs.contains(candidate)) {
                     slugs.add(candidate);
                 }
             }
         }
-        for (String sibling : siblings(node)) {
+        for (String sibling : siblings(tree, node)) {
             if (!slugs.contains(sibling)) {
                 slugs.add(sibling);
             }
@@ -108,21 +110,22 @@ public class LearningService {
         return slugs.size() > 6 ? List.copyOf(slugs.subList(0, 6)) : List.copyOf(slugs);
     }
 
-    private List<String> siblings(LearningContent.Node node) {
+    private List<String> siblings(LearningTree tree, LearningContent.Node node) {
         if (node.parent() == null) {
             return List.of();
         }
-        return catalog.childSlugs(node.parent()).stream().filter(slug -> !slug.equals(node.slug())).toList();
+        return tree.childSlugs(node.parent()).stream().filter(slug -> !slug.equals(node.slug())).toList();
     }
 
     /** 개념 화면의 모의투자 탭. 직접 연결된 시나리오가 없으면 상위 개념의 시나리오를 물려준다. */
     public List<SimulationDtos.ScenarioSpec> scenariosFor(String slug) {
-        LearningContent.Node node = require(slug);
+        LearningTree tree = catalog.current();
+        LearningContent.Node node = require(tree, slug);
         List<SimulationDtos.ScenarioSpec> direct = directScenarios(node);
         if (!direct.isEmpty()) {
             return direct;
         }
-        List<LearningContent.Node> path = catalog.path(slug);
+        List<LearningContent.Node> path = tree.path(slug);
         for (int i = path.size() - 2; i >= 0; i--) {
             List<SimulationDtos.ScenarioSpec> inherited = directScenarios(path.get(i));
             if (!inherited.isEmpty()) {
@@ -133,9 +136,11 @@ public class LearningService {
     }
 
     public LearningContent.Node require(String slug) {
-        if (!catalog.contains(slug)) {
-            throw ApiException.notFound("학습 개념을 찾을 수 없습니다: " + slug);
-        }
-        return catalog.node(slug);
+        return require(catalog.current(), slug);
+    }
+
+    private static LearningContent.Node require(LearningTree tree, String slug) {
+        return tree.lookup(slug)
+                .orElseThrow(() -> ApiException.notFound("학습 개념을 찾을 수 없습니다: " + slug));
     }
 }

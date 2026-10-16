@@ -48,9 +48,10 @@ public final class AdminGlossaryDtos {
 
     public record Revisions(String slug, List<Revision> items) { }
 
-    /** 운영 현황. 개인 정보 없이 개수와 버전만 보여 준다. */
+    /** 운영 현황. 개인 정보 없이 개수와 버전만 보여 준다. pendingDrafts는 용어 초안, pendingConceptDrafts는 개념 초안 수다. */
     public record Overview(long users, long admins, long completedAssessments, long quizAttempts,
                            long publishedTerms, long hiddenTerms, long pendingDrafts,
+                           long publishedConcepts, long hiddenConcepts, long pendingConceptDrafts,
                            String glossaryContentVersion, String learningContentVersion,
                            String styleModelVersion, String termModelVersion, Instant generatedAt) { }
 }

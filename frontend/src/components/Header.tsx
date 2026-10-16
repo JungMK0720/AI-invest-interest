@@ -21,7 +21,8 @@ export default function Header() {
   const links = [
     ...PUBLIC_LINKS,
     ...(user ? [{ to: "/start", label: "성향 진단" }, { to: "/me", label: "내 학습" }] : []),
-    ...(user?.role === "ADMIN" ? [{ to: "/admin/glossary", label: "콘텐츠 관리" }] : []),
+    // /admin은 용어 탭으로 보내고, 용어·학습 개념 탭 어디에 있든 메뉴가 활성으로 보이게 한다.
+    ...(user?.role === "ADMIN" ? [{ to: "/admin", label: "콘텐츠 관리" }] : []),
   ];
 
   return (

@@ -160,7 +160,7 @@ Table category_recommendations {
 
 ## 8. 2차 고도화에서 구현된 테이블 (2026-10)
 
-전체 스키마는 [FinMATE-DataModel-Final.dbml](../deliverables/FinMATE-DataModel-Final.dbml)(36 tables)에 있다. 1차 제출용 [FinMATE-DB.dbml](../deliverables/FinMATE-DB.dbml)은 MVP 기록으로 유지한다.
+전체 스키마는 [FinMATE-DataModel-Final.dbml](../deliverables/FinMATE-DataModel-Final.dbml)(40 tables)에 있다. 1차 제출용 [FinMATE-DB.dbml](../deliverables/FinMATE-DB.dbml)은 MVP 기록으로 유지한다.
 
 | 테이블 | 역할 | 핵심 제약 |
 |---|---|---|
@@ -170,6 +170,9 @@ Table category_recommendations {
 | `glossary_term_drafts` | 게시 전 초안 | 용어당 1건, `base_version`으로 게시 충돌 검사 |
 | `glossary_term_revisions` | 게시 이력 | 생성·게시·공개 내림을 당시 내용과 함께 추가만 함 |
 | `glossary_bookmarks` | 저장한 용어 | (user_id, term_slug) PK |
+| `learning_concepts`, `learning_quiz_items` | 학습 개념 트리·확인 문제 | `concepts.json`에서 없는 개념만 시드, 상위 개념 레벨 = 레벨 − 1, 문항당 정답 1개·선택지 3개 이상·모든 선택지 해설(선택지는 순서대로 JSON 배열), `status`, `content_version` |
+| `learning_concept_drafts` | 개념·문항 게시 전 초안 | 개념당 1건, `base_version`으로 게시 충돌 검사 |
+| `learning_concept_revisions` | 개념 게시 이력 | 게시·공개 내림을 당시 본문·문항 전체와 함께 추가만 함 |
 | `quiz_attempts`, `quiz_attempt_answers` | 확인 문제 시도 | 당시 문항·해설 스냅샷, 불변 |
 | `quiz_review_state` | 문항별 최신 상태·복습일 | (user_id, question_id) unique, 1·3·7·14·30일 간격 |
 | `assessments.decision_snapshot` | 진단 스냅샷 | 자유 서술 추정(`narrative`) 추가, **원문 미저장** |

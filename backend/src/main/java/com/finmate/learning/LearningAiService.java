@@ -56,10 +56,8 @@ public class LearningAiService {
     }
 
     private LearningContent.Node require(String slug) {
-        if (!catalog.contains(slug)) {
-            throw ApiException.notFound("학습 개념을 찾을 수 없습니다: " + slug);
-        }
-        return catalog.node(slug);
+        return catalog.lookup(slug)
+                .orElseThrow(() -> ApiException.notFound("학습 개념을 찾을 수 없습니다: " + slug));
     }
 
     private String buildPrompt(LearningContent.Node node, String question) {

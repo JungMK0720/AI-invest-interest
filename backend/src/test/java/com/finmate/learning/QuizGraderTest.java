@@ -15,8 +15,7 @@ class QuizGraderTest {
 
     @BeforeAll
     static void setUp() {
-        catalog = new LearningCatalog(new ObjectMapper());
-        catalog.load();
+        catalog = new LearningCatalog(new LearningSeedData(new ObjectMapper())::tree);
         grader = new QuizGrader(catalog);
     }
 

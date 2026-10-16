@@ -16,6 +16,7 @@ import GlossaryPage from "./pages/GlossaryPage";
 import GlossaryDetailPage from "./pages/GlossaryDetailPage";
 import MyPage from "./pages/MyPage";
 import AdminGlossaryPage from "./pages/AdminGlossaryPage";
+import AdminLearningPage from "./pages/AdminLearningPage";
 
 /**
  * 학습·용어·모의투자·모델 실험실은 진단 등급이나 로그인과 무관하게 열어 둔다(docs/09).
@@ -40,7 +41,9 @@ export default function App() {
         <Route path="/product/:productId" element={<ProtectedRoute><ProductDetailPage /></ProtectedRoute>} />
         <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
         <Route path="/me" element={<ProtectedRoute><MyPage /></ProtectedRoute>} />
+        <Route path="/admin" element={<Navigate to="/admin/glossary" replace />} />
         <Route path="/admin/glossary" element={<ProtectedRoute><AdminGlossaryPage /></ProtectedRoute>} />
+        <Route path="/admin/learning" element={<ProtectedRoute><AdminLearningPage /></ProtectedRoute>} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -7,7 +7,7 @@ info:
     과제용 내부 탐색 기준에 따라 안내 카테고리와 예시 상품을 제공하는 API.
 
     1차 Agile(P0) 진단·탐색 흐름에 2차 고도화(학습 개념·확인 문제·모의투자, 주식 용어 사전,
-    보조 텍스트 모델, 개인화 학습 경로, 관리자 용어 운영, 세션 관리)를 더한 최종 범위다.
+    보조 텍스트 모델, 개인화 학습 경로, 관리자 용어·학습 개념 운영, 세션 관리)를 더한 최종 범위다.
     상품 비교·가상 포트폴리오 저장·실데이터 수집은 다음 범위다.
 
     등급 체계
@@ -21,7 +21,7 @@ info:
       - 인증이 필요한 오퍼레이션은 `Authorization: Bearer {accessToken}` 헤더를 요구하며,
         누락되거나 유효하지 않으면 401 을 반환한다.
       - 사용자 식별자는 인증 컨텍스트에서 얻으므로 요청 본문으로 받지 않는다.
-  version: 2.0.0
+  version: 2.1.0
 
 servers:
   - url: http://localhost:8080/api
@@ -45,7 +45,7 @@ tags:
   - name: me
     description: 개인화 학습 경로, 확인 문제 이력, 오답노트, 복습 일정 (인증 필요)
   - name: admin
-    description: 용어 등록·초안·게시·공개 내리기·이력, 운영 현황 (ADMIN 역할 필요)
+    description: 용어·학습 개념(확인 문제 포함)의 초안·게시·공개 내리기·이력, 운영 현황 (ADMIN 역할 필요)
 
 paths:
   /learning/tree:
@@ -550,7 +550,7 @@ paths:
         '400': { $ref: '#/components/responses/BadRequest' }
         '401': { $ref: '#/components/responses/Unauthorized' }
         '409':
-          description: 콘텐츠 버전이 바뀜. 문제를 다시 불러와야 한다.
+          description: 콘텐츠 버전이 바뀜(관리자가 개념을 게시·공개 내림). 문제를 다시 불러와야 한다.
           content:
             application/json:
               schema: { $ref: '#/components/schemas/Error' }
@@ -847,6 +847,102 @@ paths:
           content:
             application/json:
               schema: { $ref: '#/components/schemas/AdminRevisions' }
+  /admin/learning/concepts:
+    get:
+      tags: [admin]
+      summary: 전체 학습 개념(공개·비공개·초안 포함, 트리 순서)
+      responses:
+        '200':
+          description: 개념 요약 목록과 현재 학습 콘텐츠 버전
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminConceptList' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /admin/learning/concepts/{slug}:
+    get:
+      tags: [admin]
+      summary: 편집용 개념(초안이 있으면 초안 내용, 확인 문제 정답·해설 포함)
+      parameters: [ { $ref: '#/components/parameters/ConceptSlug' } ]
+      responses:
+        '200':
+          description: 편집용 개념
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminConcept' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [admin]
+      summary: 초안 저장(개념 본문과 확인 문제 전체를 교체, 공개본은 게시 전까지 유지)
+      parameters: [ { $ref: '#/components/parameters/ConceptSlug' } ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AdminConceptEdit' }
+      responses:
+        '200':
+          description: 초안이 반영된 편집용 개념
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminConcept' }
+        '400': { description: '정답 수(정확히 1개)·선택지 해설·출처 URL·상위 개념/레벨·난이도·시나리오·문항 id 중복 검증 실패' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /admin/learning/concepts/{slug}/publish:
+    post:
+      tags: [admin]
+      summary: 검증 후 게시
+      description: >
+        초안이 있으면 반영해 공개하고, 초안 없는 비공개 개념은 저장된 내용 그대로 다시 공개한다.
+        게시하면 공개될 트리 전체를 시드와 같은 규칙으로 다시 검증한다. 게시 이력을 남기고 학습 콘텐츠 버전이 바뀌며,
+        재시작 없이 개념 학습 화면과 채점에 반영된다.
+      parameters: [ { $ref: '#/components/parameters/ConceptSlug' } ]
+      responses:
+        '200':
+          description: 공개된 개념
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminConcept' }
+        '400': { description: 저장된 초안이 개념 단위 검증을 통과하지 못함 }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { description: 게시할 초안이 없음, 공개본이 그사이 바뀜, 또는 게시하면 트리 규칙(상위 개념 공개·레벨 일치 등)이 깨짐 }
+  /admin/learning/concepts/{slug}/unpublish:
+    post:
+      tags: [admin]
+      summary: 공개 내리기(내용은 유지)
+      parameters: [ { $ref: '#/components/parameters/ConceptSlug' } ]
+      responses:
+        '200':
+          description: 비공개(DRAFT)가 된 개념
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminConcept' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { description: 이미 비공개이거나 공개 중인 하위 개념이 있음 }
+  /admin/learning/concepts/{slug}/draft:
+    delete:
+      tags: [admin]
+      summary: 개념 초안 버리기
+      parameters: [ { $ref: '#/components/parameters/ConceptSlug' } ]
+      responses:
+        '204': { description: 삭제됨 }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /admin/learning/concepts/{slug}/revisions:
+    get:
+      tags: [admin]
+      summary: 개념 게시 이력(게시·공개 내림)
+      parameters: [ { $ref: '#/components/parameters/ConceptSlug' } ]
+      responses:
+        '200':
+          description: 최신순 이력
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminRevisions' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
 
 components:
 
@@ -1834,7 +1930,10 @@ components:
         quizAttempts: { type: integer }
         publishedTerms: { type: integer }
         hiddenTerms: { type: integer }
-        pendingDrafts: { type: integer }
+        pendingDrafts: { type: integer, description: 게시 대기 용어 초안 수 }
+        publishedConcepts: { type: integer }
+        hiddenConcepts: { type: integer }
+        pendingConceptDrafts: { type: integer, description: 게시 대기 개념 초안 수 }
         glossaryContentVersion: { type: string }
         learningContentVersion: { type: string }
         styleModelVersion: { type: string }
@@ -1889,6 +1988,73 @@ components:
               contentVersion: { type: string }
               editorEmail: { type: string }
               createdAt: { type: string, format: date-time }
+    AdminQuizOption:
+      type: object
+      required: [label, correct, rationale]
+      properties:
+        label: { type: string, maxLength: 300 }
+        correct: { type: boolean, description: 문항마다 정확히 1개만 true }
+        rationale: { type: string, maxLength: 1000, description: 정답·오답 모두 필수 }
+    AdminQuizItem:
+      type: object
+      required: [id, prompt, difficulty, options, takeaway]
+      properties:
+        id: { type: string, pattern: '^[a-z0-9]+(-[a-z0-9]+)*$', description: '복습 기록의 키. 전체 개념에서 유일해야 한다', example: volatility-q1 }
+        prompt: { type: string, maxLength: 500 }
+        difficulty: { type: string, enum: [BASIC, INTERMEDIATE, ADVANCED] }
+        options:
+          type: array
+          minItems: 3
+          maxItems: 6
+          description: '순서가 choice ID({id}-choice-{순번})가 된다'
+          items: { $ref: '#/components/schemas/AdminQuizOption' }
+        takeaway: { type: string, maxLength: 1000 }
+    AdminConceptEdit:
+      type: object
+      required: [level, order, title, summary, oneLiner, explanation, keyPoints, checklist, misconception, diagramKey, sourceName, sourceUrl, quiz]
+      properties:
+        parent: { type: string, nullable: true, description: '레벨 1이면 null. 상위 개념 레벨 = 이 개념 레벨 - 1' }
+        level: { type: integer, minimum: 1, maximum: 3 }
+        order: { type: integer, minimum: 0, maximum: 999 }
+        title: { type: string, maxLength: 160 }
+        summary: { type: string, maxLength: 300 }
+        oneLiner: { type: string, maxLength: 500 }
+        explanation: { type: array, minItems: 1, maxItems: 8, items: { type: string, maxLength: 2000 } }
+        keyPoints: { type: array, minItems: 1, maxItems: 8, items: { type: string, maxLength: 300 } }
+        checklist: { type: array, minItems: 1, maxItems: 8, items: { type: string, maxLength: 300 } }
+        misconception: { type: string, maxLength: 1000 }
+        diagramKey: { type: string, pattern: '^[A-Z][A-Z_]*$', example: VOLATILITY }
+        sourceName: { type: string, maxLength: 200 }
+        sourceUrl: { type: string, format: uri, description: http/https만 허용 }
+        simulationId: { type: string, nullable: true, description: 존재하는 모의투자 시나리오만 허용 }
+        quiz: { type: array, maxItems: 10, items: { $ref: '#/components/schemas/AdminQuizItem' } }
+    AdminConcept:
+      type: object
+      properties:
+        slug: { type: string }
+        content: { $ref: '#/components/schemas/AdminConceptEdit' }
+        status: { type: string, enum: [DRAFT, PUBLISHED] }
+        contentVersion: { type: string, description: '개념 버전. 시드 버전 또는 admin-{epochMillis}-{uuid8}' }
+        updatedAt: { type: string, format: date-time }
+        hasDraft: { type: boolean }
+    AdminConceptList:
+      type: object
+      properties:
+        learningContentVersion: { type: string, description: '시드 버전 + 공개 개념 해시. 게시·공개 내림마다 바뀐다' }
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              slug: { type: string }
+              parent: { type: string, nullable: true }
+              level: { type: integer }
+              title: { type: string }
+              quizCount: { type: integer }
+              status: { type: string, enum: [DRAFT, PUBLISHED] }
+              contentVersion: { type: string }
+              updatedAt: { type: string, format: date-time }
+              hasDraft: { type: boolean }
 
 # 고도화 API 메모
 # - GET /assessments/availability: monthly-kst-v1 정책 상태와 다음 진단일
@@ -1898,6 +2064,7 @@ components:
 # - POST /learning/concepts/{slug}/quiz/grade: 서버 채점. 정답은 클라이언트로 내려가지 않는다.
 # - POST /learning/simulations/{scenarioId}/run: 11개 모의투자 시나리오. seed 고정 시 결과 재현.
 # - 학습 API는 로그인 없이 접근 가능하다 (docs/09: 재진단 제한과 무관하게 학습은 열려 있어야 한다).
+# - 개념·확인 문제는 DB(learning_concepts, learning_quiz_items)의 공개본을 내려준다. 관리자 게시 즉시 반영(ADR-019).
 # 2차 고도화(2026-10)
 # - 주식 용어 사전 247개: /glossary/*, 관리자 운영 /admin/glossary/terms/*
 # - 보조 모델: /ml/style-check, /ml/term-search, /ml/models (Python 학습, Java 추론, 정답 일치 테스트)

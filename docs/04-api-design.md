@@ -166,6 +166,12 @@ LLM 설명 실패는 별도 오류가 아니라 템플릿 폴백으로 처리한
 | admin | POST | `/admin/glossary/terms/{slug}/unpublish` | 관리자 | 공개 내리기 |
 | admin | DELETE | `/admin/glossary/terms/{slug}/draft` | 관리자 | 초안 버리기 |
 | admin | GET | `/admin/glossary/terms/{slug}/revisions` | 관리자 | 게시 이력 |
+| admin | GET | `/admin/learning/concepts` | 관리자 | 전체 개념(트리 순서, 공개·비공개·초안) |
+| admin | GET/PUT | `/admin/learning/concepts/{slug}` | 관리자 | 편집용 조회 / 개념·확인 문제 초안 저장 |
+| admin | POST | `/admin/learning/concepts/{slug}/publish` | 관리자 | 트리 재검증 후 게시(학습 콘텐츠 버전 변경) |
+| admin | POST | `/admin/learning/concepts/{slug}/unpublish` | 관리자 | 공개 내리기(공개 하위 개념이 있으면 409) |
+| admin | DELETE | `/admin/learning/concepts/{slug}/draft` | 관리자 | 초안 버리기 |
+| admin | GET | `/admin/learning/concepts/{slug}/revisions` | 관리자 | 게시 이력 |
 
 변경된 기존 계약
 

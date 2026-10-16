@@ -31,6 +31,9 @@ import type {
   AdminGlossaryDraft,
   AdminOverview,
   AdminRevision,
+  AdminConcept,
+  AdminConceptContent,
+  AdminConceptSummary,
   LearningPathResponse,
   ModelsResponse,
 } from "./types";
@@ -219,6 +222,22 @@ export const api = {
   getAdminGlossaryRevisions: (slug: string) =>
     request<{ slug: string; items: AdminRevision[] }>(`/admin/glossary/terms/${encodeURIComponent(slug)}/revisions`),
   getAdminOverview: () => request<AdminOverview>("/admin/overview"),
+  getAdminConcepts: () =>
+    request<{ learningContentVersion: string; items: AdminConceptSummary[] }>("/admin/learning/concepts"),
+  getAdminConcept: (slug: string) => request<AdminConcept>(`/admin/learning/concepts/${encodeURIComponent(slug)}`),
+  saveAdminConcept: (slug: string, content: AdminConceptContent) =>
+    request<AdminConcept>(`/admin/learning/concepts/${encodeURIComponent(slug)}`, {
+      method: "PUT",
+      body: JSON.stringify(content),
+    }),
+  publishAdminConcept: (slug: string) =>
+    request<AdminConcept>(`/admin/learning/concepts/${encodeURIComponent(slug)}/publish`, { method: "POST" }),
+  unpublishAdminConcept: (slug: string) =>
+    request<AdminConcept>(`/admin/learning/concepts/${encodeURIComponent(slug)}/unpublish`, { method: "POST" }),
+  discardAdminConceptDraft: (slug: string) =>
+    request<void>(`/admin/learning/concepts/${encodeURIComponent(slug)}/draft`, { method: "DELETE" }),
+  getAdminConceptRevisions: (slug: string) =>
+    request<{ slug: string; items: AdminRevision[] }>(`/admin/learning/concepts/${encodeURIComponent(slug)}/revisions`),
 
   getModels: () => request<ModelsResponse>("/ml/models"),
   getLearningPath: () => request<LearningPathResponse>("/me/learning-path"),

@@ -405,6 +405,9 @@ export interface AdminOverview {
   publishedTerms: number;
   hiddenTerms: number;
   pendingDrafts: number;
+  publishedConcepts: number;
+  hiddenConcepts: number;
+  pendingConceptDrafts: number;
   glossaryContentVersion: string;
   learningContentVersion: string;
   styleModelVersion: string;
@@ -535,3 +538,57 @@ export interface AdminGlossaryTerm {
 }
 
 export type AdminGlossaryDraft = Pick<AdminGlossaryTerm, "categoryId" | "term" | "fullName" | "english" | "aliases" | "level" | "definition" | "explanation" | "formula" | "example" | "caution" | "related" | "conceptSlug" | "sourceName" | "sourceUrl">;
+
+export interface AdminQuizOption {
+  label: string;
+  correct: boolean;
+  rationale: string;
+}
+
+export interface AdminQuizItem {
+  id: string;
+  prompt: string;
+  difficulty: "BASIC" | "INTERMEDIATE" | "ADVANCED";
+  options: AdminQuizOption[];
+  takeaway: string;
+}
+
+/** PUT /admin/learning/concepts/{slug} 본문. 개념 본문과 확인 문제 전체가 한 개정 단위다. */
+export interface AdminConceptContent {
+  parent: string | null;
+  level: number;
+  order: number;
+  title: string;
+  summary: string;
+  oneLiner: string;
+  explanation: string[];
+  keyPoints: string[];
+  checklist: string[];
+  misconception: string;
+  diagramKey: string;
+  sourceName: string;
+  sourceUrl: string;
+  simulationId: string | null;
+  quiz: AdminQuizItem[];
+}
+
+export interface AdminConcept {
+  slug: string;
+  content: AdminConceptContent;
+  status: "PUBLISHED" | "DRAFT";
+  contentVersion: string;
+  updatedAt: string;
+  hasDraft: boolean;
+}
+
+export interface AdminConceptSummary {
+  slug: string;
+  parent: string | null;
+  level: number;
+  title: string;
+  quizCount: number;
+  status: "PUBLISHED" | "DRAFT";
+  contentVersion: string;
+  updatedAt: string;
+  hasDraft: boolean;
+}

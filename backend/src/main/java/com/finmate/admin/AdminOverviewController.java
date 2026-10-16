@@ -7,6 +7,8 @@ import com.finmate.glossary.GlossaryService;
 import com.finmate.glossary.GlossaryStatus;
 import com.finmate.glossary.GlossaryTermRepository;
 import com.finmate.learning.LearningCatalog;
+import com.finmate.learning.LearningConceptRepository;
+import com.finmate.learning.LearningConceptStatus;
 import com.finmate.learning.QuizAttemptRecordRepository;
 import com.finmate.ml.MlModelCatalog;
 import com.finmate.user.UserRepository;
@@ -27,13 +29,16 @@ public class AdminOverviewController {
     private final GlossaryTermRepository terms;
     private final GlossaryTermDraftRepository drafts;
     private final GlossaryService glossary;
-    private final LearningCatalog concepts;
+    private final LearningCatalog catalog;
+    private final LearningConceptRepository concepts;
+    private final LearningConceptDraftRepository conceptDrafts;
     private final MlModelCatalog models;
 
     public AdminOverviewController(AdminAuthorizer authorizer, UserRepository users, AssessmentRepository assessments,
                                    QuizAttemptRecordRepository attempts, GlossaryTermRepository terms,
                                    GlossaryTermDraftRepository drafts, GlossaryService glossary,
-                                   LearningCatalog concepts, MlModelCatalog models) {
+                                   LearningCatalog catalog, LearningConceptRepository concepts,
+                                   LearningConceptDraftRepository conceptDrafts, MlModelCatalog models) {
         this.authorizer = authorizer;
         this.users = users;
         this.assessments = assessments;
@@ -41,7 +46,9 @@ public class AdminOverviewController {
         this.terms = terms;
         this.drafts = drafts;
         this.glossary = glossary;
+        this.catalog = catalog;
         this.concepts = concepts;
+        this.conceptDrafts = conceptDrafts;
         this.models = models;
     }
 
@@ -52,7 +59,9 @@ public class AdminOverviewController {
         return new AdminGlossaryDtos.Overview(users.count(), users.countByRole(UserRole.ADMIN),
                 assessments.countByStatus(AssessmentStatus.COMPLETED), attempts.count(),
                 terms.countByStatus(GlossaryStatus.PUBLISHED), terms.countByStatus(GlossaryStatus.DRAFT),
-                drafts.count(), glossary.contentVersion(), concepts.version(),
+                drafts.count(), concepts.countByStatus(LearningConceptStatus.PUBLISHED),
+                concepts.countByStatus(LearningConceptStatus.DRAFT), conceptDrafts.count(),
+                glossary.contentVersion(), catalog.version(),
                 models.style().version(), models.terms().version(), Instant.now());
     }
 }

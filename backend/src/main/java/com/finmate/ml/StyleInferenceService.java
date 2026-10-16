@@ -128,7 +128,8 @@ public class StyleInferenceService {
         for (TagScore tag : tags) {
             signals.tag(tag.code()).ifPresent(path -> links.add(new MlDtos.LearningLink(
                     tag.code(), path.label(), path.message(),
-                    path.concepts().stream().map(slug -> new MlDtos.LinkItem(slug, signals.conceptTitle(slug))).toList(),
+                    path.concepts().stream().filter(signals::conceptPublished)
+                            .map(slug -> new MlDtos.LinkItem(slug, signals.conceptTitle(slug))).toList(),
                     path.terms().stream().map(slug -> new MlDtos.LinkItem(slug, signals.termTitle(slug))).toList())));
         }
         return List.copyOf(links);

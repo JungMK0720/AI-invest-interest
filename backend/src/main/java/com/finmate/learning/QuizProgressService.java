@@ -33,7 +33,7 @@ public class QuizProgressService {
         Instant now = Instant.now();
         String attemptId = UUID.randomUUID().toString();
         attempts.save(new QuizAttemptRecord(attemptId, userId, result, now));
-        String title = catalog.contains(result.slug()) ? catalog.node(result.slug()).title() : result.slug();
+        String title = catalog.lookup(result.slug()).map(LearningContent.Node::title).orElse(result.slug());
         for (LearningDtos.QuizAttemptItem item : result.items()) {
             QuizAttemptAnswerRecord answer = new QuizAttemptAnswerRecord(
                     UUID.randomUUID().toString(), attemptId, item);

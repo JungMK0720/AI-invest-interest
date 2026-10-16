@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -137,6 +138,7 @@ public class LearningPathService {
     }
 
     private List<LearningPathDtos.Step> conceptSteps(List<Signal> ordered, Set<String> mastered) {
+        LearningTree tree = concepts.current();
         List<LearningPathDtos.Step> steps = new ArrayList<>();
         Set<String> seen = new HashSet<>();
         for (Signal signal : ordered) {
@@ -144,8 +146,10 @@ public class LearningPathService {
             for (String slug : signal.path().concepts()) {
                 if (steps.size() >= MAX_CONCEPTS) return List.copyOf(steps);
                 if (taken >= PER_SIGNAL) break;
-                if (mastered.contains(slug) || !concepts.contains(slug) || !seen.add(slug)) continue;
-                steps.add(new LearningPathDtos.Step("CONCEPT", "CONCEPT", slug, concepts.node(slug).title(),
+                if (mastered.contains(slug) || !seen.add(slug)) continue;
+                Optional<LearningContent.Node> node = tree.lookup(slug);
+                if (node.isEmpty()) continue;
+                steps.add(new LearningPathDtos.Step("CONCEPT", "CONCEPT", slug, node.get().title(),
                         signal.code(), signal.reason()));
                 taken++;
             }

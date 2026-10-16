@@ -56,7 +56,7 @@ FinMATE는 이 세 가지를 하나의 흐름(진단 → 근거 → 용어·개�
 | `/explore/:id`, `/product/:id` | 탐색 카테고리·예시 상품 | 필요 |
 | `/history` | 진단 이력·답변 변화 비교 | 필요 |
 | `/me` | 내 학습 — 개인화 학습 경로, 복습 일정, 오답노트, 풀이 기록 | 필요 |
-| `/admin/glossary` | 콘텐츠 운영 — 현황, 새 용어, 초안·게시·공개 내리기, 이력 | 관리자 |
+| `/admin/glossary`, `/admin/learning` | 콘텐츠 운영 — 현황, 용어 등록, 용어·개념·확인 문제 초안·게시·공개 내리기, 이력 | 관리자 |
 
 ## 아키텍처
 
@@ -70,6 +70,7 @@ flowchart LR
       L[learning<br/>개념·퀴즈·시뮬레이션·학습 경로] --- G[glossary<br/>용어 사전·퀴즈·북마크]
       G --> T[ml.TermRetrieval<br/>DB 공개 용어 인덱스]
       M[admin<br/>초안·게시·이력] -->|GlossaryContentChangedEvent<br/>커밋 후| T
+      M -->|LearningContentChangedEvent<br/>커밋 후| L
     end
     C --> DB[(H2 로컬 / PostgreSQL 운영)]
     R -.선택.-> LLM[Claude API]
@@ -145,7 +146,7 @@ make test
 | 단계 | 내용 | 개수 |
 |---|---|---:|
 | Python | 데이터 분리·누수, 생성기 결정성, 기준선 대비 성능, 내보낸 모델의 정답 재현 | 11 |
-| Java | 규칙 엔진, 시뮬레이션 불변식, 퀴즈 채점, 세션·권한, 용어 적재, 관리자 운영 흐름, 자유 서술·학습 경로 통합, Python↔Java 일치 | 64 |
+| Java | 규칙 엔진, 시뮬레이션 불변식, 퀴즈 채점, 개념 트리 규칙, 세션·권한, 용어 적재, 용어·개념 운영 흐름, 자유 서술·학습 경로 통합, Python↔Java 일치 | 70 |
 | 프런트 | TypeScript 타입 검사 + 프로덕션 빌드 | — |
 
 ### 모델 재학습
@@ -170,11 +171,11 @@ FinMATE/
 │   │   ├── learning/                개념 트리, 퀴즈, 시뮬레이션, 진도·복습, 학습 경로
 │   │   ├── glossary/                용어 사전, 용어 퀴즈, 북마크, 시드 적재
 │   │   ├── ml/                      자유 서술 신호·질문형 검색 추론, 모델 카드
-│   │   ├── admin/                   용어 초안·게시·공개 내리기·이력, 운영 현황
+│   │   ├── admin/                   용어·개념 초안·게시·공개 내리기·이력, 운영 현황
 │   │   └── practice/ product/       포트폴리오 실험, 카테고리·예시 상품
 │   └── src/main/resources/
 │       ├── glossary/                categories.json + terms/01~14-*.json (247개)
-│       ├── learning/                concepts.json(59개 개념), signal-paths.json(신호→학습 규칙)
+│       ├── learning/                concepts.json(59개 개념 시드), signal-paths.json(신호→학습 규칙)
 │       └── ml/                      style-model.json, term-model.json, model-card.json
 ├── frontend/                        React + Vite
 ├── ml/                              모델 학습 파이프라인 (Python 표준 라이브러리)
@@ -182,13 +183,13 @@ FinMATE/
 │   ├── data/                        조각 라이브러리, 개발·보류·주제 무관 문장, 검색 질문
 │   └── reports/                     evaluation.json, 생성 문장 예시
 ├── docs/                            기획·설계 문서 (00~18, ADR, 변경 이력)
-├── deliverables/                    OAS(API 2.0.0, 50 paths), DBML(최종 36 tables)
+├── deliverables/                    OAS(API 2.1.0, 56 paths), DBML(최종 40 tables)
 └── presentation/                    발표 자료·와이어프레임
 ```
 
 ## API와 데이터 모델
 
-- API 명세: [deliverables/FinMATE-API.yml](deliverables/FinMATE-API.yml) (OpenAPI 3.0.3, 50 paths) · 요약 [docs/04](docs/04-api-design.md)
+- API 명세: [deliverables/FinMATE-API.yml](deliverables/FinMATE-API.yml) (OpenAPI 3.0.3, 56 paths) · 요약 [docs/04](docs/04-api-design.md)
 - 데이터 모델: [deliverables/FinMATE-DataModel-Final.dbml](deliverables/FinMATE-DataModel-Final.dbml) (dbdiagram.io에 붙여 넣으면 ERD) · 요약 [docs/03](docs/03-data-model.md)
 
 ## 문서 지도
