@@ -30,11 +30,17 @@ class GlossaryIntegrationTest {
     @Autowired private GlossaryCategoryRepository categories;
     @Autowired private GlossarySeeder seeder;
     @Autowired private GlossaryService glossary;
+    @Autowired private GlossarySeedData source;
+
+    /** 테스트 클래스끼리 DB를 공유하므로 전체 행 수 대신 시드 slug가 모두 들어왔는지 센다. */
+    private long seededTermCount() {
+        return terms.findAllById(source.terms().stream().map(GlossaryTerm::getSlug).toList()).size();
+    }
 
     @Test
     void importsAllAuthoredTermsAndExposesSearchAndDetail() throws Exception {
         assertThat(categories.count()).isEqualTo(14);
-        assertThat(terms.count()).isEqualTo(247);
+        assertThat(seededTermCount()).isEqualTo(247);
 
         mvc.perform(get("/api/glossary/categories").contextPath("/api"))
                 .andExpect(status().isOk())
@@ -68,9 +74,11 @@ class GlossaryIntegrationTest {
         term.setStatus(GlossaryStatus.DRAFT);
         terms.saveAndFlush(term);
 
+        long before = terms.count();
         seeder.run(null);
 
-        assertThat(terms.count()).isEqualTo(247);
+        assertThat(terms.count()).isEqualTo(before);
+        assertThat(seededTermCount()).isEqualTo(247);
         assertThat(terms.findById("krx").orElseThrow().getTerm()).isEqualTo("관리자가 수정한 이름");
         assertThat(glossary.contentVersion()).isNotEqualTo(oldVersion);
         mvc.perform(get("/api/glossary/terms/krx").contextPath("/api"))

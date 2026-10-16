@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
+import org.springframework.transaction.event.TransactionalEventListener;
 import org.springframework.stereotype.Service;
 
 /**
@@ -43,7 +43,8 @@ public class TermRetrievalService {
         this.publishedTerms = publishedTerms;
     }
 
-    @EventListener
+    /** 커밋 뒤에 인덱스를 버린다. 커밋 전에 버리면 다른 요청이 옛 내용으로 인덱스를 다시 만들 수 있다. */
+    @TransactionalEventListener(fallbackExecution = true)
     public void onGlossaryChanged(GlossaryContentChangedEvent event) {
         index = null;
     }
