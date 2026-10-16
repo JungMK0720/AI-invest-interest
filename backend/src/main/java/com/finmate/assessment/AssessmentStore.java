@@ -9,6 +9,8 @@ import com.finmate.diagnosis.Question;
 import com.finmate.diagnosis.QuestionChoice;
 import com.finmate.diagnosis.QuestionChoiceRepository;
 import com.finmate.diagnosis.QuestionRepository;
+import com.finmate.analysis.InvestorProfileType;
+import com.finmate.ml.StyleInferenceService;
 import com.finmate.product.ProductCategoryRepository;
 import com.finmate.user.User;
 import com.finmate.user.UserRepository;
@@ -46,6 +48,7 @@ public class AssessmentStore {
     private final com.finmate.analysis.AnswerReviewPolicy reviewPolicy;
     private final ProfileClassifier classifier;
     private final SuitabilityMatcher suitabilityMatcher;
+    private final StyleInferenceService styleInference;
 
     public AssessmentStore(UserRepository userRepository,
                            QuestionRepository questionRepository,
@@ -59,8 +62,10 @@ public class AssessmentStore {
                            SuitabilityMatcher suitabilityMatcher,
                            AssessmentPeriodPolicy periodPolicy,
                            SnapshotCodec snapshotCodec,
-                           com.finmate.analysis.AnswerReviewPolicy reviewPolicy) {
+                           com.finmate.analysis.AnswerReviewPolicy reviewPolicy,
+                           StyleInferenceService styleInference) {
         this.periodPolicy = periodPolicy;
+        this.styleInference = styleInference;
         this.snapshotCodec = snapshotCodec;
         this.reviewPolicy = reviewPolicy;
         this.userRepository = userRepository;
@@ -145,12 +150,20 @@ public class AssessmentStore {
                     "안내 가능한 상품 카테고리가 없습니다. 잠시 후 다시 시도해 주세요.");
         }
 
+        List<DecisionSnapshot.ReviewFlag> reviewFlags = new ArrayList<>(reviewPolicy.review(scoredAnswers));
+        DecisionSnapshot.NarrativeSignal narrative = narrativeSignal(request.narrative(), classification.profileType());
+        if (narrative != null && narrative.mismatch()) {
+            reviewFlags.add(new DecisionSnapshot.ReviewFlag("NARRATIVE_MISMATCH",
+                    "직접 쓴 생각은 '" + InvestorProfileType.valueOf(narrative.profileType()).label()
+                            + "'에 가까운 신호를 보였습니다. 설문 답변과 2단계 이상 차이가 있으니 손실을 실제로 얼마나 견딜 수 있는지 다시 확인해 보세요. 성향 등급은 설문 답변으로만 정해집니다."));
+        }
+
         assessment.captureDecision(snapshotCodec.encode(new DecisionSnapshot(
                 DecisionSnapshot.RULE_VERSION, snapshotCodec.questionnaireVersion(activeQuestions),
                 evidence, ranked.stream().map(r -> new AssessmentDtos.CategoryRecommendationResponse(
                         r.category().getId(), r.category().getName(), r.category().getRiskGrade(),
                         r.category().riskGrade().label(), r.rankNo(), r.reason())).toList(),
-                reviewPolicy.review(scoredAnswers))));
+                List.copyOf(reviewFlags), narrative)));
 
         return new AssessmentDtos.PreparedAnalysis(
                 assessment.getId(),
@@ -158,6 +171,23 @@ public class AssessmentStore {
                 classification.totalScore(),
                 scoredAnswers,
                 ranked);
+    }
+
+    /**
+     * 자유 서술을 모델로 추정해 스냅샷에 남길 값으로 바꾼다. 원문은 여기서 버려지고 어디에도 저장되지 않는다.
+     * 규칙 엔진이 이미 등급을 확정한 뒤에 호출하므로 추정 결과는 등급·카테고리에 영향을 주지 않는다.
+     */
+    private DecisionSnapshot.NarrativeSignal narrativeSignal(String narrative, InvestorProfileType decided) {
+        if (narrative == null || narrative.isBlank()) {
+            return null;
+        }
+        StyleInferenceService.Estimate estimate = styleInference.estimate(narrative);
+        return new DecisionSnapshot.NarrativeSignal(estimate.status(), estimate.profileType(),
+                Math.round(estimate.confidence() * 10000) / 10000.0,
+                styleInference.mismatches(estimate, decided.grade()),
+                estimate.tags().stream().map(tag -> new DecisionSnapshot.NarrativeTag(
+                        tag.code(), tag.label(), Math.round(tag.score() * 10000) / 10000.0)).toList(),
+                estimate.modelVersion());
     }
 
     @Transactional
@@ -259,10 +289,16 @@ public class AssessmentStore {
     private AssessmentDtos.EvidenceResponse toEvidence(Assessment assessment) {
         DecisionSnapshot snapshot = snapshotCodec.decode(assessment.getDecisionSnapshot());
         if (snapshot == null) return null;
+        DecisionSnapshot.NarrativeSignal narrative = snapshot.narrative();
+        AssessmentDtos.NarrativeResponse narrativeResponse = narrative == null ? null
+                : new AssessmentDtos.NarrativeResponse(narrative.status(), narrative.profileType(),
+                        narrative.profileType() == null ? null : InvestorProfileType.valueOf(narrative.profileType()).label(),
+                        narrative.profileType() == null ? null : InvestorProfileType.valueOf(narrative.profileType()).grade(),
+                        narrative.confidence(), narrative.mismatch(), narrative.tags(), narrative.modelVersion());
         return new AssessmentDtos.EvidenceResponse(snapshot.ruleVersion(), snapshot.questionnaireVersion(),
                 snapshot.answers().stream().map(a -> new AssessmentDtos.EvidenceAnswer(
                         a.questionId(), a.value().questionContent(), a.value().choiceLabel())).toList(),
-                snapshot.reviewFlags());
+                snapshot.reviewFlags(), narrativeResponse);
     }
 
     private AssessmentDtos.AssessmentResultResponse toResult(Assessment assessment, InvestmentProfile profile) {
