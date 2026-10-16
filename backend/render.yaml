@@ -7,6 +7,8 @@
 #   SPRING_DATASOURCE_USERNAME 예: postgres
 #   SPRING_DATASOURCE_PASSWORD Supabase 프로젝트 생성 시 발급된 DB 비밀번호
 #   ANTHROPIC_API_KEY          (선택) 없으면 자동으로 템플릿 설명으로 동작
+#   FINMATE_ADMIN_EMAIL        (선택) 운영 콘솔 관리자 계정 이메일
+#   FINMATE_ADMIN_PASSWORD     (선택) 12자 이상. 두 값이 모두 있을 때만 관리자 계정을 만든다
 
 services:
   - type: web
@@ -28,4 +30,8 @@ services:
       - key: ANTHROPIC_API_KEY
         sync: false
       - key: FRONTEND_ORIGIN
+        sync: false
+      - key: FINMATE_ADMIN_EMAIL
+        sync: false
+      - key: FINMATE_ADMIN_PASSWORD
         sync: false

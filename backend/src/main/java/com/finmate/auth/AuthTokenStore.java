@@ -84,7 +84,7 @@ public class AuthTokenStore {
                     .digest(token.getBytes(StandardCharsets.UTF_8));
             return HexFormat.of().formatHex(digest);
         } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException("SHA-256 is unavailable", e);
+            throw new IllegalStateException("SHA-256을 사용할 수 없습니다.", e);
         }
     }
 }

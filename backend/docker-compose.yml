@@ -38,6 +38,9 @@ services:
       # 매 재시작마다 자동 시드가 필요하면 아래 줄의 주석을 해제한다 (재시작 시 PK 충돌 위험 있음).
       # SPRING_SQL_INIT_MODE: always
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      # 비워 두면 관리자 계정을 만들지 않는다. 비밀번호는 12자 이상.
+      FINMATE_ADMIN_EMAIL: ${FINMATE_ADMIN_EMAIL:-}
+      FINMATE_ADMIN_PASSWORD: ${FINMATE_ADMIN_PASSWORD:-}
     ports:
       - "8080:8080"
 

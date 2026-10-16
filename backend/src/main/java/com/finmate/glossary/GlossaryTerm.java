@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.List;
 
-/** Persisted glossary content. Admin edits survive a restart because the seed inserts missing slugs only. */
+/** DB에 저장된 용어. 시드는 없는 slug만 넣으므로 관리자 수정본은 재시작 후에도 유지된다. */
 @Entity
 @Table(name = "glossary_terms", indexes = {
         @Index(name = "idx_glossary_terms_category_status", columnList = "category_id,status")

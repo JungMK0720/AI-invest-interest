@@ -7,7 +7,7 @@ import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import java.util.List;
 
-/** Keeps the authored order of aliases and related slugs in one database column. */
+/** 별칭·관련 용어 목록을 작성 순서 그대로 JSON 배열 하나의 컬럼에 저장한다. */
 @Converter
 public class StringListConverter implements AttributeConverter<List<String>, String> {
     private static final ObjectMapper MAPPER = new ObjectMapper();

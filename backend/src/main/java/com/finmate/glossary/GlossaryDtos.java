@@ -2,7 +2,7 @@ package com.finmate.glossary;
 
 import java.util.List;
 
-/** Public DTOs keep admin-only draft status and internal rows out of the user API. */
+/** 공개 API 응답. 관리자 전용 초안 상태와 내부 행 정보는 내보내지 않는다. */
 public final class GlossaryDtos {
     public static final String EDUCATION_NOTICE =
             "교육용 용어 설명입니다. 특정 상품의 매매를 권유하지 않으며, 제도·세율·한도는 출처의 최신 자료를 확인하세요.";

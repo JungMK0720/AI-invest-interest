@@ -29,7 +29,7 @@ public class GlossaryService {
         this.source = source;
     }
 
-    /** Changes when an editor publishes a revision or changes the published set. */
+    /** 시드 버전 + 공개 용어 집합의 해시. 관리자가 게시하거나 공개를 내리면 바뀌어 퀴즈 버전 충돌을 잡는다. */
     @Transactional(readOnly = true)
     public String contentVersion() {
         try {

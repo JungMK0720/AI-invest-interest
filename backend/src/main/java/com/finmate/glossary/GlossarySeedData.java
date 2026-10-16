@@ -13,7 +13,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Component;
 
-/** Reads and validates the authored JSON before any rows are imported. */
+/** 작성된 용어 JSON을 읽고 검증한다. 분류·필수 필드·중복 slug·관련 용어 링크가 어긋나면 기동을 멈춘다. */
 @Component
 public class GlossarySeedData {
     private final String version;

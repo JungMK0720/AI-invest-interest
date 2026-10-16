@@ -15,7 +15,10 @@ import java.util.Random;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 
-/** Stateless educational quiz built from published definitions; answers never appear in question responses. */
+/**
+ * 공개 용어의 정의로 만드는 4지선다 퀴즈. 서버에 상태를 두지 않고 seed와 콘텐츠 버전으로 같은 문제를 다시 만든다.
+ * 문항 응답에는 정답이 들어가지 않고, 채점 때만 정답·해설을 돌려준다.
+ */
 @Service
 public class GlossaryQuizService {
     private final GlossaryService glossary;
