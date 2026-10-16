@@ -1,0 +1,3171 @@
+{
+  "styleVersion": "2.0.0",
+  "termVersion": "2.0.0",
+  "style": [
+    {
+      "text": "원금의 반을 잃는 위험까지 감수하고 레버리지로 큰 수익을 추구합니다",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.67049568,
+      "tags": []
+    },
+    {
+      "text": "고위험 파생상품을 써서 수익을 극대화하고 싶어요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.77759645,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "손실이 매우 커져도 공격적으로 투자하고 싶습니다",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.59444223,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "손실을 어느 정도 감당할 수 있어 성장주 투자로 수익을 원합니다",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.92202749,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "주식 비중을 높이고 위험을 감수해 자산을 키우고 싶습니다",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.96445994,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "예금보다 변동성이 있어도 주식형 상품에 적극 투자하겠습니다",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.39978282,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "안전한 채권과 주식을 반씩 담아 위험과 수익을 균형 있게 가져가겠습니다",
+      "status": "ESTIMATED",
+      "label": "NEUTRAL",
+      "confidence": 0.65098669,
+      "tags": []
+    },
+    {
+      "text": "큰 손실은 피하지만 적당한 위험으로 중간 정도 수익을 원해요",
+      "status": "ESTIMATED",
+      "label": "NEUTRAL",
+      "confidence": 0.48286747,
+      "tags": []
+    },
+    {
+      "text": "수익과 안정성을 둘 다 챙기는 혼합 투자가 좋아요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.52414455,
+      "tags": []
+    },
+    {
+      "text": "채권을 중심으로 소폭 수익만 추구하고 큰 손실은 피하고 싶습니다",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.58472333,
+      "tags": []
+    },
+    {
+      "text": "위험이 낮은 상품에서 천천히 자산을 늘리고 싶어요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.93716313,
+      "tags": []
+    },
+    {
+      "text": "주식은 조금만 사고 안정적인 운용을 우선하겠습니다",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.94177496,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "원금 보장이 안 되면 투자를 하지 않겠습니다",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.77543909,
+      "tags": []
+    },
+    {
+      "text": "예금처럼 안전해야 하고 원금을 잃는 일은 싫어요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.96787325,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "이자는 적어도 좋으니 손실 없는 안전 자산만 고릅니다",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.36370114,
+      "tags": []
+    },
+    {
+      "text": "부모님이 주신 결혼 자금이라 한 푼도 줄어들면 안 돼요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.36590337,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "파킹통장 이자 정도면 충분하고 원금이 흔들리는 건 못 견뎌요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.6547772,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "투자는 처음인데 잃을까 봐 무서워서 예금 말고는 손이 안 가요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.50447582,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "다음 달 월세 보증금으로 나갈 돈이라 그냥 안전하게 두고 싶어요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.61082875,
+      "tags": []
+    },
+    {
+      "text": "마이너스 수익률이 찍히는 걸 보면 밥도 못 먹을 것 같습니다",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.69066189,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "작년에 펀드로 손해 본 뒤로는 원금 보장되는 것만 찾고 있어요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.58886148,
+      "tags": [
+        "LOSS_EXPERIENCE",
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "이자가 쥐꼬리만 해도 상관없으니 원금 손실 가능성이 0이었으면 해요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.54509016,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "은퇴해서 생활비로 써야 하는 돈이라 위험한 건 일절 안 할 생각입니다",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.86165659,
+      "tags": [
+        "PRINCIPAL_FOCUS",
+        "SHORT_TERM_NEED"
+      ]
+    },
+    {
+      "text": "주식 차트만 봐도 어지러워서 정기적금이 제일 마음 편해요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.5344378,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "몇 달 안에 병원비로 써야 해서 언제든 바로 찾을 수 있어야 해요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.69824741,
+      "tags": [
+        "SHORT_TERM_NEED"
+      ]
+    },
+    {
+      "text": "1원이라도 잃으면 너무 속상해서 확정 금리 상품만 할 거예요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.6849712,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "예금자보호 되는 곳에만 넣어 두고 싶어요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.33689064,
+      "tags": []
+    },
+    {
+      "text": "등락이 있는 상품은 싫고 이자가 딱 정해진 게 좋습니다",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.69090291,
+      "tags": [
+        "INCOME_FOCUS"
+      ]
+    },
+    {
+      "text": "생활비 통장이라 손실이 나면 바로 생활이 어려워져요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.95590914,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "원금을 지키는 것 말고는 바라는 게 없어요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.75970451,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "가격이 오르락내리락하면 불안해서 매일 확인할 것 같아 투자 자체가 부담돼요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.35533843,
+      "tags": []
+    },
+    {
+      "text": "적금 만기된 돈인데 그대로 다시 예금에 넣으려고 합니다",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.40454255,
+      "tags": []
+    },
+    {
+      "text": "손실 가능성이 조금이라도 있으면 가입하지 않겠습니다",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.86023497,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "투자 경험이 전혀 없고 원금이 줄어드는 상황은 생각하고 싶지 않아요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.8404848,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "안전이 최우선이라 수익률은 전혀 중요하지 않아요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.49399752,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "예금 금리보다 1~2%만 더 나와도 만족하고 큰 변동은 피하고 싶어요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.60308097,
+      "tags": []
+    },
+    {
+      "text": "국채나 우량 회사채처럼 이자가 꾸준한 쪽이 좋아요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.49998319,
+      "tags": [
+        "INCOME_FOCUS"
+      ]
+    },
+    {
+      "text": "5% 정도 손실은 참을 수 있지만 그 이상은 힘들 것 같습니다",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.56971667,
+      "tags": []
+    },
+    {
+      "text": "대부분은 예금에 두고 일부만 채권형 펀드에 넣어 보려고요",
+      "status": "INSUFFICIENT",
+      "label": null,
+      "confidence": 0.0,
+      "tags": []
+    },
+    {
+      "text": "적금보다 조금 나은 수익을 원하지만 주식은 아직 무서워요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.82033184,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "배당이 꾸준한 안정적인 상품을 조금씩 모으고 싶어요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.90366669,
+      "tags": []
+    },
+    {
+      "text": "1년 정도 굴릴 돈이라 크게 떨어지지 않는 상품이었으면 좋겠어요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.73518103,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "손실이 나도 소폭이었으면 하고 원금 회복이 오래 걸리는 건 싫어요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.48891802,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "물가 상승만큼은 따라가고 싶은데 위험은 최소화하고 싶습니다",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.5294097,
+      "tags": []
+    },
+    {
+      "text": "펀드를 해 봤는데 마이너스 10%가 되니 많이 불안했어요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.62387241,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "주식 비중은 20% 이하로 두고 나머지는 채권에 두는 게 맞을 것 같아요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.45794514,
+      "tags": []
+    },
+    {
+      "text": "변동성이 낮은 단기채 펀드 정도면 해 볼 만할 것 같아요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.63275513,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "높은 수익보다는 잃지 않는 게 더 중요하지만 약간의 위험은 괜찮아요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.39418165,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "매달 이자처럼 들어오는 현금이 있으면 좋겠고 원금은 크게 안 흔들렸으면 해요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.72651118,
+      "tags": [
+        "INCOME_FOCUS",
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "MMF나 채권형 ETF처럼 안정적인 것부터 시작하고 싶어요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.77595743,
+      "tags": []
+    },
+    {
+      "text": "조금 떨어지는 건 괜찮지만 반 토막 같은 건 절대 감당 못 해요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.54953194,
+      "tags": []
+    },
+    {
+      "text": "투자는 해 보고 싶은데 대부분은 안전 자산으로 두려고 합니다",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.36076375,
+      "tags": []
+    },
+    {
+      "text": "2년 뒤 이사 자금이라 수익보다 안정성을 우선하고 싶어요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.85595618,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "원금 손실 가능성이 낮은 상품 위주로 천천히 불리고 싶어요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.4517219,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "공격적인 투자는 부담스럽고 예금보다 살짝 높은 수익이면 충분합니다",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.73873393,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "주식이랑 채권을 반반 정도 섞어서 중간 정도 수익을 노리고 싶어요",
+      "status": "ESTIMATED",
+      "label": "NEUTRAL",
+      "confidence": 0.36959101,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "10~15% 하락은 감수할 수 있고 시장 평균만큼 벌면 좋겠어요",
+      "status": "ESTIMATED",
+      "label": "NEUTRAL",
+      "confidence": 0.44785112,
+      "tags": []
+    },
+    {
+      "text": "지수 ETF를 꾸준히 사면서 적당한 수익을 기대하고 있어요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.45487759,
+      "tags": []
+    },
+    {
+      "text": "너무 위험한 건 싫지만 예금만 하기에는 아쉬워요",
+      "status": "INSUFFICIENT",
+      "label": null,
+      "confidence": 0.0,
+      "tags": []
+    },
+    {
+      "text": "3년 정도 보고 있고 중간에 오르내림이 있어도 어느 정도는 기다릴 수 있어요",
+      "status": "ESTIMATED",
+      "label": "NEUTRAL",
+      "confidence": 0.37894331,
+      "tags": []
+    },
+    {
+      "text": "수익과 위험을 적당히 균형 있게 가져가는 포트폴리오를 만들고 싶습니다",
+      "status": "ESTIMATED",
+      "label": "NEUTRAL",
+      "confidence": 0.8345485,
+      "tags": []
+    },
+    {
+      "text": "ETF와 펀드를 몇 년 해 봤고 손실도 경험해 봐서 웬만한 하락은 견딜 수 있어요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.37516961,
+      "tags": []
+    },
+    {
+      "text": "자산배분을 해서 한쪽이 떨어져도 다른 쪽이 받쳐 주면 좋겠어요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.33402044,
+      "tags": []
+    },
+    {
+      "text": "매달 일정 금액을 적립식으로 넣으면서 중간 정도 위험을 감수하려고요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.33063927,
+      "tags": []
+    },
+    {
+      "text": "큰 손실도 큰 수익도 원하지 않고 평균적인 결과면 만족해요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.59851626,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "혼합형 펀드처럼 주식과 채권이 섞인 상품이 저한테 맞을 것 같아요",
+      "status": "ESTIMATED",
+      "label": "NEUTRAL",
+      "confidence": 0.41513121,
+      "tags": []
+    },
+    {
+      "text": "20% 가까이 떨어지면 힘들겠지만 그 정도까지는 버텨 볼게요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.56313413,
+      "tags": []
+    },
+    {
+      "text": "노후 준비용으로 연금계좌에서 TDF 같은 걸 생각하고 있어요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.55667747,
+      "tags": []
+    },
+    {
+      "text": "배당주와 채권을 섞어서 꾸준한 수익을 만들고 싶어요",
+      "status": "ESTIMATED",
+      "label": "NEUTRAL",
+      "confidence": 0.52418177,
+      "tags": []
+    },
+    {
+      "text": "원금이 조금 줄어드는 시기가 있어도 장기적으로 물가보다 높으면 돼요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.57626056,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "시장 수익률 정도면 충분하고 종목을 고를 자신은 없어요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.56248845,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "어느 정도 손실은 받아들이지만 전체 자산의 일부만 투자할 거예요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.73785013,
+      "tags": []
+    },
+    {
+      "text": "안정성과 성장성을 둘 다 챙기고 싶어서 비중을 나눠 보려 합니다",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.41176634,
+      "tags": []
+    },
+    {
+      "text": "가끔 하락장이 와도 리밸런싱하면서 버티는 방식이 좋아요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.69025378,
+      "tags": []
+    },
+    {
+      "text": "위험 수준은 중간 정도로 하고 싶고 레버리지는 쓰지 않을 거예요",
+      "status": "ESTIMATED",
+      "label": "NEUTRAL",
+      "confidence": 0.33708224,
+      "tags": []
+    },
+    {
+      "text": "20~30% 정도 손실은 감수하더라도 시장보다 높은 수익을 내고 싶어요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.9520629,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "성장주 위주로 포트폴리오를 짜서 5년 이상 가져갈 생각입니다",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.61141869,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "국내외 주식을 직접 사고판 지 꽤 됐고 하락장도 몇 번 겪어 봤어요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.37248615,
+      "tags": []
+    },
+    {
+      "text": "떨어지면 오히려 더 살 기회라고 보고 분할매수할 거예요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.50620878,
+      "tags": []
+    },
+    {
+      "text": "예금은 너무 답답해서 주식 비중을 70% 이상으로 가져가려고요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.79968925,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "변동성이 커도 괜찮으니 기술주 ETF에 오래 묻어 두고 싶어요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.30874454,
+      "tags": []
+    },
+    {
+      "text": "일부 손실은 감당할 자신이 있고 수익을 적극적으로 키우고 싶어요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.68466509,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "여유 자금이라 당분간 쓸 일이 없고 공격적으로 운용해도 괜찮아요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.44684411,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "해외 주식 위주로 투자하면서 환율 변동도 감수할 생각입니다",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.41471392,
+      "tags": []
+    },
+    {
+      "text": "수익률을 높이려고 소형주나 테마도 조금은 섞어 보고 싶어요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.69718143,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "하락장에서 30% 가까이 빠져 본 적이 있는데 그때도 팔지 않았어요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.3571043,
+      "tags": []
+    },
+    {
+      "text": "안정성보다는 성장성을 더 중요하게 보고 있습니다",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.38876701,
+      "tags": []
+    },
+    {
+      "text": "레버리지까지는 아니지만 주식형 상품 위주로 공격적으로 가고 싶어요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.50856155,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "10년 뒤를 보고 있어서 중간의 큰 하락도 견딜 수 있어요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.61074865,
+      "tags": []
+    },
+    {
+      "text": "원금이 일시적으로 꽤 줄어도 장기 수익을 위해 버티겠습니다",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.46737551,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "직장이 안정적이라 손실이 나도 생활에는 지장이 없어요",
+      "status": "ESTIMATED",
+      "label": "STABLE",
+      "confidence": 0.63410139,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "고위험 고수익 상품도 일부는 담아 보고 싶어요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.42081436,
+      "tags": []
+    },
+    {
+      "text": "시장 평균보다는 높은 수익을 노리고 종목도 직접 골라 볼래요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.6565828,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "배당보다 주가 상승으로 수익을 내는 쪽을 선호해요",
+      "status": "ESTIMATED",
+      "label": "CONSERVATIVE",
+      "confidence": 0.30166732,
+      "tags": [
+        "PRINCIPAL_FOCUS"
+      ]
+    },
+    {
+      "text": "몇 번 손해를 봤지만 그래도 주식 비중을 높게 가져가려고 합니다",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.96871078,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "반 토막이 나도 상관없으니 몇 배 오를 종목에 몰빵하고 싶어요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.77518298,
+      "tags": []
+    },
+    {
+      "text": "레버리지 ETF나 선물로 단기간에 크게 벌어 보고 싶습니다",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.96155385,
+      "tags": [
+        "HIGH_RETURN",
+        "LEVERAGE_INTEREST"
+      ]
+    },
+    {
+      "text": "신용까지 써서 상승장에 최대한 크게 베팅하려고요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.33358324,
+      "tags": []
+    },
+    {
+      "text": "원금을 다 잃을 수도 있다는 걸 알지만 그래도 고수익을 노리겠습니다",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.90981777,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "코인이랑 급등주로 인생 역전을 해 보고 싶어요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.45173383,
+      "tags": []
+    },
+    {
+      "text": "옵션 매수로 한 방에 수익을 내는 전략에 관심이 많아요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.43851483,
+      "tags": [
+        "LEVERAGE_INTEREST"
+      ]
+    },
+    {
+      "text": "남들 다 버는데 저만 못 버는 것 같아서 빨리 크게 들어가고 싶어요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.4737023,
+      "tags": [
+        "FOMO_HERDING"
+      ]
+    },
+    {
+      "text": "50% 손실이 나도 물타기하면서 끝까지 버틸 자신 있어요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.38006798,
+      "tags": []
+    },
+    {
+      "text": "대출을 받아서라도 지금 주식을 더 사고 싶어요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.5881479,
+      "tags": [
+        "LEVERAGE_INTEREST"
+      ]
+    },
+    {
+      "text": "변동성이 클수록 기회가 많다고 생각해서 고위험 상품을 선호합니다",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.41674126,
+      "tags": []
+    },
+    {
+      "text": "몇 달 안에 두세 배 수익을 목표로 하고 있어요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.72016465,
+      "tags": [
+        "HIGH_RETURN"
+      ]
+    },
+    {
+      "text": "파생상품 경험이 많고 큰 손실도 여러 번 감당해 봤습니다",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.36875694,
+      "tags": [
+        "LEVERAGE_INTEREST"
+      ]
+    },
+    {
+      "text": "안전한 건 재미없고 크게 벌 수 있다면 큰 위험도 감수하겠습니다",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.46132104,
+      "tags": []
+    },
+    {
+      "text": "유튜브에서 추천한 급등주를 놓치기 싫어서 바로 사려고 해요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.41959941,
+      "tags": [
+        "FOMO_HERDING"
+      ]
+    },
+    {
+      "text": "3배 레버리지 상품을 장기로 들고 가 볼 생각이에요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.49619044,
+      "tags": [
+        "LEVERAGE_INTEREST"
+      ]
+    },
+    {
+      "text": "손실 한도는 따로 정하지 않고 수익 극대화에만 집중할 거예요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.82959934,
+      "tags": []
+    },
+    {
+      "text": "전 재산을 넣어서라도 이번 기회를 잡고 싶어요",
+      "status": "ESTIMATED",
+      "label": "ACTIVE",
+      "confidence": 0.36028669,
+      "tags": []
+    },
+    {
+      "text": "하한가를 맞아도 다시 오를 거라 믿고 더 담을 거예요",
+      "status": "INSUFFICIENT",
+      "label": null,
+      "confidence": 0.0,
+      "tags": []
+    },
+    {
+      "text": "마진콜이 와도 추가 증거금 넣고 버틸 각오가 돼 있어요",
+      "status": "ESTIMATED",
+      "label": "AGGRESSIVE",
+      "confidence": 0.44089437,
+      "tags": []
+    },
+    {
+      "text": "최대 수익이 목표라 원금 보전은 전혀 고려하지 않습니다",
+      "status": "INSUFFICIENT",
+      "label": null,
+      "confidence": 0.26475305,
+      "tags": []
+    }
+  ],
+  "terms": [
+    {
+      "question": "코스피 지수는 무엇을 뜻하나요?",
+      "expected": "kospi",
+      "top": [
+        {
+          "slug": "kospi",
+          "score": 0.5724663305
+        },
+        {
+          "slug": "stock-index",
+          "score": 0.149507969
+        },
+        {
+          "slug": "vkospi",
+          "score": 0.1365719257
+        },
+        {
+          "slug": "kospi200",
+          "score": 0.0998998277
+        },
+        {
+          "slug": "kosdaq",
+          "score": 0.0888284627
+        }
+      ]
+    },
+    {
+      "question": "코스닥 시장에는 어떤 기업이 있나요?",
+      "expected": "kosdaq",
+      "top": [
+        {
+          "slug": "kosdaq",
+          "score": 0.556937157
+        },
+        {
+          "slug": "sidecar",
+          "score": 0.0813930251
+        },
+        {
+          "slug": "krx",
+          "score": 0.0804094643
+        },
+        {
+          "slug": "konex",
+          "score": 0.067811498
+        },
+        {
+          "slug": "kospi",
+          "score": 0.0633114528
+        }
+      ]
+    },
+    {
+      "question": "주식을 빌려 먼저 팔고 나중에 갚는 공매도는 어떻게 작동하나요?",
+      "expected": "short-selling",
+      "top": [
+        {
+          "slug": "short-selling",
+          "score": 0.5194174776
+        },
+        {
+          "slug": "stock-lending",
+          "score": 0.1761378671
+        },
+        {
+          "slug": "margin-loan",
+          "score": 0.0848815674
+        },
+        {
+          "slug": "share-buyback",
+          "score": 0.0455588895
+        },
+        {
+          "slug": "merger",
+          "score": 0.0292465512
+        }
+      ]
+    },
+    {
+      "question": "원하는 가격을 지정해서 내는 주문은 무엇인가요?",
+      "expected": "limit-order",
+      "top": [
+        {
+          "slug": "limit-order",
+          "score": 0.4977005383
+        },
+        {
+          "slug": "conditional-limit-order",
+          "score": 0.1622902357
+        },
+        {
+          "slug": "liquidity-risk",
+          "score": 0.1411631874
+        },
+        {
+          "slug": "best-limit-order",
+          "score": 0.1199207374
+        },
+        {
+          "slug": "market-order",
+          "score": 0.0867683068
+        }
+      ]
+    },
+    {
+      "question": "매수 호가와 매도 호가의 차이를 뭐라고 하나요?",
+      "expected": "bid-ask-spread",
+      "top": [
+        {
+          "slug": "bid-ask-spread",
+          "score": 0.5710900852
+        },
+        {
+          "slug": "order-book",
+          "score": 0.4131446195
+        },
+        {
+          "slug": "liquidity-provider",
+          "score": 0.1426002438
+        },
+        {
+          "slug": "basis",
+          "score": 0.1032109136
+        },
+        {
+          "slug": "best-limit-order",
+          "score": 0.0873559806
+        }
+      ]
+    },
+    {
+      "question": "미수금을 못 갚으면 증권사가 주식을 강제로 파는 반대매매를 설명해 주세요",
+      "expected": "forced-liquidation",
+      "top": [
+        {
+          "slug": "forced-liquidation",
+          "score": 0.5295960076
+        },
+        {
+          "slug": "unsettled-trading",
+          "score": 0.3272979578
+        },
+        {
+          "slug": "brokerage-commission",
+          "score": 0.1005694564
+        },
+        {
+          "slug": "investor-deposit-segregation",
+          "score": 0.0904627499
+        },
+        {
+          "slug": "duty-to-explain",
+          "score": 0.0894769038
+        }
+      ]
+    },
+    {
+      "question": "PBR이 1보다 낮으면 무슨 의미인가요?",
+      "expected": "pbr",
+      "top": [
+        {
+          "slug": "pbr",
+          "score": 0.294753476
+        },
+        {
+          "slug": "backwardation",
+          "score": 0.0513013263
+        },
+        {
+          "slug": "korea-discount",
+          "score": 0.0434080917
+        },
+        {
+          "slug": "roe",
+          "score": 0.0387727879
+        },
+        {
+          "slug": "growth-vs-value",
+          "score": 0.037353424
+        }
+      ]
+    },
+    {
+      "question": "자기자본으로 얼마나 이익을 냈는지 보는 ROE 지표가 뭐죠?",
+      "expected": "roe",
+      "top": [
+        {
+          "slug": "roe",
+          "score": 0.8567092991
+        },
+        {
+          "slug": "roa",
+          "score": 0.3819911357
+        },
+        {
+          "slug": "debt-ratio",
+          "score": 0.1752995289
+        },
+        {
+          "slug": "balance-sheet",
+          "score": 0.1381117753
+        },
+        {
+          "slug": "current-ratio",
+          "score": 0.1373151831
+        }
+      ]
+    },
+    {
+      "question": "현금이 들어오고 나간 내역을 보여 주는 재무제표는 무엇인가요?",
+      "expected": "cash-flow-statement",
+      "top": [
+        {
+          "slug": "financial-statements",
+          "score": 0.4194210568
+        },
+        {
+          "slug": "operating-cash-flow",
+          "score": 0.2975200891
+        },
+        {
+          "slug": "consolidated-statements",
+          "score": 0.2877975624
+        },
+        {
+          "slug": "cash-flow-statement",
+          "score": 0.2559243581
+        },
+        {
+          "slug": "kosdaq",
+          "score": 0.1196097569
+        }
+      ]
+    },
+    {
+      "question": "영업이익과 순이익은 어떻게 다른가요?",
+      "expected": "operating-income",
+      "top": [
+        {
+          "slug": "operating-income",
+          "score": 0.3421989782
+        },
+        {
+          "slug": "net-income",
+          "score": 0.2730524483
+        },
+        {
+          "slug": "eps",
+          "score": 0.1790667735
+        },
+        {
+          "slug": "operating-margin",
+          "score": 0.1788580768
+        },
+        {
+          "slug": "ebitda",
+          "score": 0.155662349
+        }
+      ]
+    },
+    {
+      "question": "감사의견 거절이면 상장폐지될 수 있나요?",
+      "expected": "audit-opinion",
+      "top": [
+        {
+          "slug": "audit-opinion",
+          "score": 0.6249732666
+        },
+        {
+          "slug": "delisting",
+          "score": 0.4674299233
+        },
+        {
+          "slug": "administrative-issue",
+          "score": 0.1884101904
+        },
+        {
+          "slug": "ipo",
+          "score": 0.1352733544
+        },
+        {
+          "slug": "capital-impairment",
+          "score": 0.0560227651
+        }
+      ]
+    },
+    {
+      "question": "기업 공시를 찾아보는 DART 사이트는 무엇인가요?",
+      "expected": "dart",
+      "top": [
+        {
+          "slug": "dart",
+          "score": 0.4813220018
+        },
+        {
+          "slug": "disclosure",
+          "score": 0.3048477606
+        },
+        {
+          "slug": "value-up-program",
+          "score": 0.0534966918
+        },
+        {
+          "slug": "business-report",
+          "score": 0.0481117337
+        },
+        {
+          "slug": "tdf",
+          "score": 0.042146038
+        }
+      ]
+    },
+    {
+      "question": "주식 1주를 여러 주로 쪼개는 액면분할은 어떤 효과가 있나요?",
+      "expected": "stock-split",
+      "top": [
+        {
+          "slug": "stock-split",
+          "score": 0.5029916663
+        },
+        {
+          "slug": "reverse-split",
+          "score": 0.1408060792
+        },
+        {
+          "slug": "eps",
+          "score": 0.0990409053
+        },
+        {
+          "slug": "physical-split",
+          "score": 0.064689794
+        },
+        {
+          "slug": "exchangeable-bond",
+          "score": 0.0536365422
+        }
+      ]
+    },
+    {
+      "question": "회사가 시장에서 자기 주식을 다시 사들이는 이유는 뭔가요?",
+      "expected": "share-buyback",
+      "top": [
+        {
+          "slug": "share-buyback",
+          "score": 0.499088132
+        },
+        {
+          "slug": "share-cancellation",
+          "score": 0.1887065343
+        },
+        {
+          "slug": "market-order",
+          "score": 0.0899022816
+        },
+        {
+          "slug": "ipo",
+          "score": 0.0599659405
+        },
+        {
+          "slug": "exchangeable-bond",
+          "score": 0.056265459
+        }
+      ]
+    },
+    {
+      "question": "주가 대비 배당금 비율인 배당수익률을 계산하고 싶어요",
+      "expected": "dividend-yield",
+      "top": [
+        {
+          "slug": "dividend-yield",
+          "score": 0.6970507711
+        },
+        {
+          "slug": "dividend",
+          "score": 0.3099338053
+        },
+        {
+          "slug": "high-dividend-stock",
+          "score": 0.2391859955
+        },
+        {
+          "slug": "total-return",
+          "score": 0.1872402641
+        },
+        {
+          "slug": "quarterly-dividend",
+          "score": 0.0988339405
+        }
+      ]
+    },
+    {
+      "question": "배당락일에 주가가 떨어지는 이유가 무엇인가요?",
+      "expected": "ex-dividend",
+      "top": [
+        {
+          "slug": "ex-dividend",
+          "score": 0.7134535326
+        },
+        {
+          "slug": "dividend",
+          "score": 0.3397599016
+        },
+        {
+          "slug": "refixing",
+          "score": 0.2184839042
+        },
+        {
+          "slug": "dividend-yield",
+          "score": 0.1527519488
+        },
+        {
+          "slug": "dcf",
+          "score": 0.0674249274
+        }
+      ]
+    },
+    {
+      "question": "펀드가 가진 자산에서 부채를 뺀 순자산가치는 무엇인가요?",
+      "expected": "nav",
+      "top": [
+        {
+          "slug": "nav",
+          "score": 0.4668161331
+        },
+        {
+          "slug": "balance-sheet",
+          "score": 0.2551728752
+        },
+        {
+          "slug": "bps",
+          "score": 0.235629872
+        },
+        {
+          "slug": "inav",
+          "score": 0.232884524
+        },
+        {
+          "slug": "fund",
+          "score": 0.2239275406
+        }
+      ]
+    },
+    {
+      "question": "ETF 수익률이 추종 지수와 달라지는 추적오차를 설명해 주세요",
+      "expected": "tracking-error",
+      "top": [
+        {
+          "slug": "tracking-error",
+          "score": 0.5917375334
+        },
+        {
+          "slug": "etf",
+          "score": 0.3098176725
+        },
+        {
+          "slug": "total-return",
+          "score": 0.1632317453
+        },
+        {
+          "slug": "stock-index",
+          "score": 0.1377823111
+        },
+        {
+          "slug": "leveraged-etf",
+          "score": 0.1297247297
+        }
+      ]
+    },
+    {
+      "question": "미래의 정해진 날짜에 특정 가격으로 사고파는 선물 계약은 뭔가요?",
+      "expected": "futures",
+      "top": [
+        {
+          "slug": "futures",
+          "score": 0.6431300829
+        },
+        {
+          "slug": "options",
+          "score": 0.1698181615
+        },
+        {
+          "slug": "program-trading",
+          "score": 0.1385503631
+        },
+        {
+          "slug": "market-order",
+          "score": 0.1331009755
+        },
+        {
+          "slug": "fractional-share",
+          "score": 0.1223641668
+        }
+      ]
+    },
+    {
+      "question": "정해진 가격에 살 수 있는 권리인 콜옵션이 궁금해요",
+      "expected": "call-option",
+      "top": [
+        {
+          "slug": "call-option",
+          "score": 0.8695335432
+        },
+        {
+          "slug": "options",
+          "score": 0.5047004867
+        },
+        {
+          "slug": "bond-with-warrant",
+          "score": 0.3767828211
+        },
+        {
+          "slug": "put-option",
+          "score": 0.2369375456
+        },
+        {
+          "slug": "stock-option",
+          "score": 0.2353289736
+        }
+      ]
+    },
+    {
+      "question": "증거금이 부족할 때 추가 납입을 요구하는 마진콜은 무엇인가요?",
+      "expected": "margin-call",
+      "top": [
+        {
+          "slug": "margin-call",
+          "score": 0.5603696695
+        },
+        {
+          "slug": "margin-requirement",
+          "score": 0.2107685402
+        },
+        {
+          "slug": "maintenance-margin",
+          "score": 0.1571223585
+        },
+        {
+          "slug": "operating-margin",
+          "score": 0.1321327054
+        },
+        {
+          "slug": "initial-margin",
+          "score": 0.123328457
+        }
+      ]
+    },
+    {
+      "question": "최근 주가 평균을 이어 그린 이동평균선은 어떻게 쓰나요?",
+      "expected": "moving-average",
+      "top": [
+        {
+          "slug": "moving-average",
+          "score": 0.6231257899
+        },
+        {
+          "slug": "golden-cross",
+          "score": 0.2066581325
+        },
+        {
+          "slug": "macd",
+          "score": 0.2031031532
+        },
+        {
+          "slug": "bollinger-bands",
+          "score": 0.1153416648
+        },
+        {
+          "slug": "yield-curve",
+          "score": 0.099445165
+        }
+      ]
+    },
+    {
+      "question": "한국은행이 정하는 기준금리가 오르면 어떤 일이 생기나요?",
+      "expected": "base-rate",
+      "top": [
+        {
+          "slug": "base-rate",
+          "score": 0.6463024678
+        },
+        {
+          "slug": "monetary-policy-committee",
+          "score": 0.2673688267
+        },
+        {
+          "slug": "fomc",
+          "score": 0.2009969503
+        },
+        {
+          "slug": "treasury-yield",
+          "score": 0.0744172643
+        },
+        {
+          "slug": "gap",
+          "score": 0.0712373109
+        }
+      ]
+    },
+    {
+      "question": "소비자물가지수 CPI가 높아졌다는 뜻은 무엇인가요?",
+      "expected": "cpi",
+      "top": [
+        {
+          "slug": "cpi",
+          "score": 0.7854651505
+        },
+        {
+          "slug": "stock-index",
+          "score": 0.1473428643
+        },
+        {
+          "slug": "inflation",
+          "score": 0.1470589519
+        },
+        {
+          "slug": "financial-consumer-protection-act",
+          "score": 0.1101144337
+        },
+        {
+          "slug": "vkospi",
+          "score": 0.0842562448
+        }
+      ]
+    },
+    {
+      "question": "채권 금리 변화에 대한 가격 민감도인 듀레이션을 설명해 주세요",
+      "expected": "duration",
+      "top": [
+        {
+          "slug": "duration",
+          "score": 0.7452733351
+        },
+        {
+          "slug": "treasury-yield",
+          "score": 0.2885229362
+        },
+        {
+          "slug": "beta",
+          "score": 0.151378658
+        },
+        {
+          "slug": "base-rate",
+          "score": 0.1382838082
+        },
+        {
+          "slug": "duty-to-explain",
+          "score": 0.091479611
+        }
+      ]
+    },
+    {
+      "question": "여러 자산에 나누어 투자하는 분산투자는 왜 필요한가요?",
+      "expected": "diversification",
+      "top": [
+        {
+          "slug": "diversification",
+          "score": 0.5261348731
+        },
+        {
+          "slug": "balance-sheet",
+          "score": 0.1131626946
+        },
+        {
+          "slug": "fund",
+          "score": 0.1024766745
+        },
+        {
+          "slug": "reits",
+          "score": 0.0969723983
+        },
+        {
+          "slug": "systematic-risk",
+          "score": 0.0935965554
+        }
+      ]
+    },
+    {
+      "question": "고점에서 저점까지 최대로 떨어진 비율인 MDD가 뭔가요?",
+      "expected": "mdd",
+      "top": [
+        {
+          "slug": "mdd",
+          "score": 0.3639313874
+        },
+        {
+          "slug": "index-fund",
+          "score": 0.0602456605
+        },
+        {
+          "slug": "collateral-ratio",
+          "score": 0.0362191796
+        },
+        {
+          "slug": "forced-liquidation",
+          "score": 0.0345905979
+        },
+        {
+          "slug": "disposition-effect",
+          "score": 0.0338300829
+        }
+      ]
+    },
+    {
+      "question": "위험 한 단위에 대한 초과 수익을 보는 샤프지수가 뭔가요?",
+      "expected": "sharpe-ratio",
+      "top": [
+        {
+          "slug": "sharpe-ratio",
+          "score": 0.4666027861
+        },
+        {
+          "slug": "alpha",
+          "score": 0.4651900546
+        },
+        {
+          "slug": "stock-index",
+          "score": 0.1205333152
+        },
+        {
+          "slug": "valuation",
+          "score": 0.0503158619
+        },
+        {
+          "slug": "peg",
+          "score": 0.0418390625
+        }
+      ]
+    },
+    {
+      "question": "고객 성향에 맞는 상품만 권해야 하는 적합성 원칙이 궁금해요",
+      "expected": "suitability-principle",
+      "top": [
+        {
+          "slug": "suitability-principle",
+          "score": 0.4842257272
+        },
+        {
+          "slug": "appropriateness-principle",
+          "score": 0.1522970693
+        },
+        {
+          "slug": "synthetic-etf",
+          "score": 0.139349849
+        },
+        {
+          "slug": "mis-selling",
+          "score": 0.1154078589
+        },
+        {
+          "slug": "duty-to-explain",
+          "score": 0.0866982952
+        }
+      ]
+    },
+    {
+      "question": "은행이 망하면 예금자보호제도가 내 돈을 지켜 주나요?",
+      "expected": "deposit-insurance",
+      "top": [
+        {
+          "slug": "deposit-insurance",
+          "score": 0.5918819872
+        },
+        {
+          "slug": "base-rate",
+          "score": 0.0854001998
+        },
+        {
+          "slug": "mmf",
+          "score": 0.0761839859
+        },
+        {
+          "slug": "financial-consumer-protection-act",
+          "score": 0.0565974896
+        },
+        {
+          "slug": "lockup",
+          "score": 0.0554861184
+        }
+      ]
+    },
+    {
+      "question": "절세할 수 있는 ISA 계좌는 어떤 계좌인가요?",
+      "expected": "isa",
+      "top": [
+        {
+          "slug": "isa",
+          "score": 0.355846086
+        },
+        {
+          "slug": "brokerage-account",
+          "score": 0.076030771
+        },
+        {
+          "slug": "current-ratio",
+          "score": 0.0751965806
+        },
+        {
+          "slug": "pension-savings",
+          "score": 0.0647684762
+        },
+        {
+          "slug": "exchangeable-bond",
+          "score": 0.0543979747
+        }
+      ]
+    },
+    {
+      "question": "회사 순이익을 주식 수로 나누면 나오는 값",
+      "expected": "eps",
+      "top": [
+        {
+          "slug": "eps",
+          "score": 0.3488561036
+        },
+        {
+          "slug": "bps",
+          "score": 0.235302091
+        },
+        {
+          "slug": "net-income",
+          "score": 0.2247866878
+        },
+        {
+          "slug": "spin-off",
+          "score": 0.1461923258
+        },
+        {
+          "slug": "roa",
+          "score": 0.1358493046
+        }
+      ]
+    },
+    {
+      "question": "순자산을 주식 수로 나눈 1주당 장부가치",
+      "expected": "bps",
+      "top": [
+        {
+          "slug": "bps",
+          "score": 0.53324274
+        },
+        {
+          "slug": "eps",
+          "score": 0.2898879358
+        },
+        {
+          "slug": "pbr",
+          "score": 0.2749695671
+        },
+        {
+          "slug": "balance-sheet",
+          "score": 0.1637128801
+        },
+        {
+          "slug": "nav",
+          "score": 0.1592957327
+        }
+      ]
+    },
+    {
+      "question": "부채까지 포함한 기업 인수 가격을 현금 창출력과 비교하는 배수",
+      "expected": "ev-ebitda",
+      "top": [
+        {
+          "slug": "ev-ebitda",
+          "score": 0.2275885764
+        },
+        {
+          "slug": "total-return",
+          "score": 0.1824240361
+        },
+        {
+          "slug": "ebitda",
+          "score": 0.1522510283
+        },
+        {
+          "slug": "balance-sheet",
+          "score": 0.1349165641
+        },
+        {
+          "slug": "dividend-yield",
+          "score": 0.0544166641
+        }
+      ]
+    },
+    {
+      "question": "앞으로 벌 현금을 지금 가치로 깎아서 더하는 평가 방법",
+      "expected": "dcf",
+      "top": [
+        {
+          "slug": "dcf",
+          "score": 0.2566200426
+        },
+        {
+          "slug": "intrinsic-value",
+          "score": 0.1544067991
+        },
+        {
+          "slug": "korea-discount",
+          "score": 0.0628333661
+        },
+        {
+          "slug": "treasury-yield",
+          "score": 0.0560615904
+        },
+        {
+          "slug": "duration",
+          "score": 0.0524465024
+        }
+      ]
+    },
+    {
+      "question": "증권사 애널리스트들 실적 예상치의 평균",
+      "expected": "consensus",
+      "top": [
+        {
+          "slug": "consensus",
+          "score": 0.8650417518
+        },
+        {
+          "slug": "target-price",
+          "score": 0.1920659193
+        },
+        {
+          "slug": "earnings-surprise",
+          "score": 0.0812567676
+        },
+        {
+          "slug": "brokerage-commission",
+          "score": 0.0799758535
+        },
+        {
+          "slug": "per",
+          "score": 0.0623686353
+        }
+      ]
+    },
+    {
+      "question": "실적이 시장 예상보다 훨씬 잘 나왔을 때 쓰는 말",
+      "expected": "earnings-surprise",
+      "top": [
+        {
+          "slug": "earnings-surprise",
+          "score": 0.2812023982
+        },
+        {
+          "slug": "consensus",
+          "score": 0.1272151038
+        },
+        {
+          "slug": "market-order",
+          "score": 0.1043031786
+        },
+        {
+          "slug": "gap",
+          "score": 0.0534959082
+        },
+        {
+          "slug": "basis",
+          "score": 0.0487858512
+        }
+      ]
+    },
+    {
+      "question": "100원 팔았을 때 본업에서 몇 원 남겼는지",
+      "expected": "operating-margin",
+      "top": [
+        {
+          "slug": "operating-margin",
+          "score": 0.6288121418
+        },
+        {
+          "slug": "operating-income",
+          "score": 0.1539653737
+        },
+        {
+          "slug": "tick-size",
+          "score": 0.0534557001
+        },
+        {
+          "slug": "roe",
+          "score": 0.042843819
+        },
+        {
+          "slug": "kospi200",
+          "score": 0.0384556434
+        }
+      ]
+    },
+    {
+      "question": "벌어들인 현금에서 설비 투자를 빼고 남은 돈",
+      "expected": "free-cash-flow",
+      "top": [
+        {
+          "slug": "free-cash-flow",
+          "score": 0.5340332461
+        },
+        {
+          "slug": "revenue",
+          "score": 0.1390930808
+        },
+        {
+          "slug": "eps",
+          "score": 0.1222144906
+        },
+        {
+          "slug": "dcf",
+          "score": 0.1181524718
+        },
+        {
+          "slug": "cash-flow-statement",
+          "score": 0.0723866443
+        }
+      ]
+    },
+    {
+      "question": "적자가 쌓여서 자본금보다 자본총계가 작아진 상태",
+      "expected": "capital-impairment",
+      "top": [
+        {
+          "slug": "capital-impairment",
+          "score": 0.7610075438
+        },
+        {
+          "slug": "balance-sheet",
+          "score": 0.265330404
+        },
+        {
+          "slug": "capital-reduction",
+          "score": 0.1047884375
+        },
+        {
+          "slug": "roe",
+          "score": 0.0760205697
+        },
+        {
+          "slug": "ex-dividend",
+          "score": 0.0544756584
+        }
+      ]
+    },
+    {
+      "question": "회계법인이 재무제표가 제대로 됐는지 내리는 판단",
+      "expected": "audit-opinion",
+      "top": [
+        {
+          "slug": "audit-opinion",
+          "score": 0.5214202025
+        },
+        {
+          "slug": "financial-statements",
+          "score": 0.3923831732
+        },
+        {
+          "slug": "consolidated-statements",
+          "score": 0.3356178573
+        },
+        {
+          "slug": "business-report",
+          "score": 0.0912725937
+        },
+        {
+          "slug": "shareholders-meeting",
+          "score": 0.0771209834
+        }
+      ]
+    },
+    {
+      "question": "영업이익으로 이자를 몇 번 낼 수 있는지",
+      "expected": "interest-coverage",
+      "top": [
+        {
+          "slug": "interest-coverage",
+          "score": 0.6934943233
+        },
+        {
+          "slug": "operating-income",
+          "score": 0.3425984852
+        },
+        {
+          "slug": "operating-margin",
+          "score": 0.1808292542
+        },
+        {
+          "slug": "tick-size",
+          "score": 0.1741820463
+        },
+        {
+          "slug": "ebitda",
+          "score": 0.1632099187
+        }
+      ]
+    },
+    {
+      "question": "1년 안에 갚을 빚을 1년 안에 현금화할 자산으로 감당할 수 있는지",
+      "expected": "current-ratio",
+      "top": [
+        {
+          "slug": "current-ratio",
+          "score": 0.7673448846
+        },
+        {
+          "slug": "balance-sheet",
+          "score": 0.2589605932
+        },
+        {
+          "slug": "contract-termination-right",
+          "score": 0.099865776
+        },
+        {
+          "slug": "interest-coverage",
+          "score": 0.0973051096
+        },
+        {
+          "slug": "withdrawal-right",
+          "score": 0.0649628564
+        }
+      ]
+    },
+    {
+      "question": "나중에 주식으로 바꿀 수 있는 회사 채권",
+      "expected": "convertible-bond",
+      "top": [
+        {
+          "slug": "convertible-bond",
+          "score": 0.5625736723
+        },
+        {
+          "slug": "exchange-rate",
+          "score": 0.1516215815
+        },
+        {
+          "slug": "holding-company",
+          "score": 0.0922994792
+        },
+        {
+          "slug": "exchangeable-bond",
+          "score": 0.0906118775
+        },
+        {
+          "slug": "conditional-limit-order",
+          "score": 0.0792159348
+        }
+      ]
+    },
+    {
+      "question": "사업부를 떼어 100퍼센트 자회사로 만드는 분할",
+      "expected": "physical-split",
+      "top": [
+        {
+          "slug": "physical-split",
+          "score": 0.896208241
+        },
+        {
+          "slug": "spin-off",
+          "score": 0.110701983
+        },
+        {
+          "slug": "ebitda",
+          "score": 0.0932056657
+        },
+        {
+          "slug": "holding-company",
+          "score": 0.0693220943
+        },
+        {
+          "slug": "consolidated-statements",
+          "score": 0.0675035932
+        }
+      ]
+    },
+    {
+      "question": "상장 예정 회사 주식을 사겠다고 증거금 넣고 신청하는 것",
+      "expected": "ipo-subscription",
+      "top": [
+        {
+          "slug": "ipo-subscription",
+          "score": 0.8281929834
+        },
+        {
+          "slug": "tender-offer",
+          "score": 0.2903664044
+        },
+        {
+          "slug": "margin-requirement",
+          "score": 0.2340977346
+        },
+        {
+          "slug": "ipo",
+          "score": 0.1666709529
+        },
+        {
+          "slug": "share-buyback",
+          "score": 0.1622216892
+        }
+      ]
+    },
+    {
+      "question": "상장 후 일정 기간 대주주가 주식을 못 팔게 묶어 두는 것",
+      "expected": "lockup",
+      "top": [
+        {
+          "slug": "lockup",
+          "score": 0.4668818582
+        },
+        {
+          "slug": "major-shareholder",
+          "score": 0.192014198
+        },
+        {
+          "slug": "ipo",
+          "score": 0.1647114343
+        },
+        {
+          "slug": "stock-lending",
+          "score": 0.1601209318
+        },
+        {
+          "slug": "capital-gains-tax",
+          "score": 0.1372708505
+        }
+      ]
+    },
+    {
+      "question": "언제든 쏟아질 수 있는 대기 매도 물량",
+      "expected": "overhang",
+      "top": [
+        {
+          "slug": "overhang",
+          "score": 0.3511249191
+        },
+        {
+          "slug": "lockup",
+          "score": 0.0842258381
+        },
+        {
+          "slug": "put-option",
+          "score": 0.0802331333
+        },
+        {
+          "slug": "stock-option",
+          "score": 0.0683203393
+        },
+        {
+          "slug": "inflation",
+          "score": 0.0506650766
+        }
+      ]
+    },
+    {
+      "question": "장 끝나고 큰 지분을 할인해서 한꺼번에 넘기는 거래",
+      "expected": "block-deal",
+      "top": [
+        {
+          "slug": "block-deal",
+          "score": 0.3026014732
+        },
+        {
+          "slug": "program-trading",
+          "score": 0.1178583781
+        },
+        {
+          "slug": "quadruple-witching",
+          "score": 0.1081960602
+        },
+        {
+          "slug": "dcf",
+          "score": 0.0890946073
+        },
+        {
+          "slug": "call-auction",
+          "score": 0.0883033942
+        }
+      ]
+    },
+    {
+      "question": "기간과 가격을 정해 놓고 공개적으로 주식을 사겠다고 제안하는 것",
+      "expected": "tender-offer",
+      "top": [
+        {
+          "slug": "tender-offer",
+          "score": 0.537205905
+        },
+        {
+          "slug": "ipo-subscription",
+          "score": 0.3070915811
+        },
+        {
+          "slug": "ipo",
+          "score": 0.1394490439
+        },
+        {
+          "slug": "after-hours-trading",
+          "score": 0.1393650573
+        },
+        {
+          "slug": "market-order",
+          "score": 0.0952096462
+        }
+      ]
+    },
+    {
+      "question": "정부가 빌린 돈에 붙는 시장 금리",
+      "expected": "treasury-yield",
+      "top": [
+        {
+          "slug": "base-rate",
+          "score": 0.1515603085
+        },
+        {
+          "slug": "treasury-yield",
+          "score": 0.1181803707
+        },
+        {
+          "slug": "roa",
+          "score": 0.0672035854
+        },
+        {
+          "slug": "dividend-income-tax",
+          "score": 0.0633631558
+        },
+        {
+          "slug": "collateral-ratio",
+          "score": 0.0625925871
+        }
+      ]
+    },
+    {
+      "question": "단기 금리가 장기 금리보다 높아지는 역전 현상",
+      "expected": "yield-curve",
+      "top": [
+        {
+          "slug": "yield-curve",
+          "score": 0.9543626792
+        },
+        {
+          "slug": "base-rate",
+          "score": 0.1844073684
+        },
+        {
+          "slug": "mmf",
+          "score": 0.1266521413
+        },
+        {
+          "slug": "stock-option",
+          "score": 0.0608274164
+        },
+        {
+          "slug": "cma",
+          "score": 0.0514799895
+        }
+      ]
+    },
+    {
+      "question": "경제 성장이 마이너스로 돌아서는 불황",
+      "expected": "recession",
+      "top": [
+        {
+          "slug": "gdp",
+          "score": 0.1892974142
+        },
+        {
+          "slug": "recession",
+          "score": 0.1547993645
+        },
+        {
+          "slug": "cash-flow-statement",
+          "score": 0.0767220022
+        },
+        {
+          "slug": "growth-vs-value",
+          "score": 0.0611609863
+        },
+        {
+          "slug": "free-cash-flow",
+          "score": 0.0596464336
+        }
+      ]
+    },
+    {
+      "question": "경기는 나쁜데 물가는 오르는 최악의 상황",
+      "expected": "stagflation",
+      "top": [
+        {
+          "slug": "inflation",
+          "score": 0.1702966481
+        },
+        {
+          "slug": "cpi",
+          "score": 0.0654441451
+        },
+        {
+          "slug": "recession",
+          "score": 0.0605448243
+        },
+        {
+          "slug": "basis",
+          "score": 0.0429402417
+        },
+        {
+          "slug": "stagflation",
+          "score": 0.0415659966
+        }
+      ]
+    },
+    {
+      "question": "중앙은행이 채권을 사들여 시중에 돈을 푸는 정책",
+      "expected": "quantitative-easing",
+      "top": [
+        {
+          "slug": "quantitative-easing",
+          "score": 0.6841017275
+        },
+        {
+          "slug": "base-rate",
+          "score": 0.2524537095
+        },
+        {
+          "slug": "fomc",
+          "score": 0.131400142
+        },
+        {
+          "slug": "treasury-yield",
+          "score": 0.0710317228
+        },
+        {
+          "slug": "inflation",
+          "score": 0.0466883303
+        }
+      ]
+    },
+    {
+      "question": "회사가 빚을 갚을 능력을 AAA 같은 등급으로 매기는 것",
+      "expected": "credit-rating",
+      "top": [
+        {
+          "slug": "credit-rating",
+          "score": 0.4655552863
+        },
+        {
+          "slug": "fund-risk-grade",
+          "score": 0.0937644782
+        },
+        {
+          "slug": "overconfidence",
+          "score": 0.0587541259
+        },
+        {
+          "slug": "market-cap",
+          "score": 0.0579968802
+        },
+        {
+          "slug": "forced-liquidation",
+          "score": 0.0462125111
+        }
+      ]
+    },
+    {
+      "question": "가격이 얼마나 크게 출렁이는지",
+      "expected": "volatility",
+      "top": [
+        {
+          "slug": "volatility",
+          "score": 0.2715811867
+        },
+        {
+          "slug": "income-statement",
+          "score": 0.0891603565
+        },
+        {
+          "slug": "premium-discount",
+          "score": 0.0733474634
+        },
+        {
+          "slug": "duration",
+          "score": 0.070938108
+        },
+        {
+          "slug": "debt-ratio",
+          "score": 0.0598333032
+        }
+      ]
+    },
+    {
+      "question": "시장이 1퍼센트 움직일 때 종목이 몇 퍼센트 움직이는지",
+      "expected": "beta",
+      "top": [
+        {
+          "slug": "beta",
+          "score": 0.2719251294
+        },
+        {
+          "slug": "correlation",
+          "score": 0.083211382
+        },
+        {
+          "slug": "diversification",
+          "score": 0.0728622211
+        },
+        {
+          "slug": "theme-stock",
+          "score": 0.0715512069
+        },
+        {
+          "slug": "position-sizing",
+          "score": 0.062957315
+        }
+      ]
+    },
+    {
+      "question": "위험 대비 수익이 얼마나 좋은지 비교하는 지표",
+      "expected": "sharpe-ratio",
+      "top": [
+        {
+          "slug": "debt-ratio",
+          "score": 0.0860227918
+        },
+        {
+          "slug": "pbr",
+          "score": 0.0816759364
+        },
+        {
+          "slug": "sharpe-ratio",
+          "score": 0.0806255908
+        },
+        {
+          "slug": "income-statement",
+          "score": 0.0780794335
+        },
+        {
+          "slug": "dividend-yield",
+          "score": 0.0663527487
+        }
+      ]
+    },
+    {
+      "question": "두 자산이 같이 움직이는지 반대로 움직이는지",
+      "expected": "correlation",
+      "top": [
+        {
+          "slug": "beta",
+          "score": 0.2885151635
+        },
+        {
+          "slug": "correlation",
+          "score": 0.2301783242
+        },
+        {
+          "slug": "diversification",
+          "score": 0.1427568668
+        },
+        {
+          "slug": "inverse-etf",
+          "score": 0.1379859967
+        },
+        {
+          "slug": "theme-stock",
+          "score": 0.1243431596
+        }
+      ]
+    },
+    {
+      "question": "오른 자산을 팔고 내린 자산을 사서 원래 비중으로 돌리는 것",
+      "expected": "rebalancing",
+      "top": [
+        {
+          "slug": "rebalancing",
+          "score": 0.4119487968
+        },
+        {
+          "slug": "balance-sheet",
+          "score": 0.1557790341
+        },
+        {
+          "slug": "put-option",
+          "score": 0.0947359604
+        },
+        {
+          "slug": "options",
+          "score": 0.094320843
+        },
+        {
+          "slug": "strike-price",
+          "score": 0.093822821
+        }
+      ]
+    },
+    {
+      "question": "매달 같은 금액을 꾸준히 사는 방법",
+      "expected": "dollar-cost-averaging",
+      "top": [
+        {
+          "slug": "dollar-cost-averaging",
+          "score": 0.4317711471
+        },
+        {
+          "slug": "high-dividend-stock",
+          "score": 0.1432400777
+        },
+        {
+          "slug": "dividend-income-tax",
+          "score": 0.0629014733
+        },
+        {
+          "slug": "fractional-share",
+          "score": 0.0309431554
+        },
+        {
+          "slug": "compound-interest",
+          "score": 0.0301082787
+        }
+      ]
+    },
+    {
+      "question": "떨어진 주식을 더 사서 평균 단가를 낮추는 것",
+      "expected": "averaging-down",
+      "top": [
+        {
+          "slug": "averaging-down",
+          "score": 0.6583381226
+        },
+        {
+          "slug": "disposition-effect",
+          "score": 0.1849717373
+        },
+        {
+          "slug": "capital-reduction",
+          "score": 0.0765764329
+        },
+        {
+          "slug": "standard-deviation",
+          "score": 0.0739796974
+        },
+        {
+          "slug": "ex-rights",
+          "score": 0.0612279063
+        }
+      ]
+    },
+    {
+      "question": "돈이 두 배가 되는 데 걸리는 기간을 어림하는 법칙",
+      "expected": "rule-of-72",
+      "top": [
+        {
+          "slug": "rule-of-72",
+          "score": 0.5809909677
+        },
+        {
+          "slug": "business-report",
+          "score": 0.0500430101
+        },
+        {
+          "slug": "earnings-season",
+          "score": 0.0476342082
+        },
+        {
+          "slug": "redemption",
+          "score": 0.0316957765
+        },
+        {
+          "slug": "withdrawal-right",
+          "score": 0.0289151195
+        }
+      ]
+    },
+    {
+      "question": "오른 주식은 빨리 팔고 떨어진 주식은 계속 들고 있는 습관",
+      "expected": "disposition-effect",
+      "top": [
+        {
+          "slug": "disposition-effect",
+          "score": 0.6916848791
+        },
+        {
+          "slug": "price-limit",
+          "score": 0.0508296976
+        },
+        {
+          "slug": "confirmation-bias",
+          "score": 0.0395308697
+        },
+        {
+          "slug": "settlement-t2",
+          "score": 0.0285133016
+        },
+        {
+          "slug": "deposit-cash",
+          "score": 0.0284165934
+        }
+      ]
+    },
+    {
+      "question": "내 생각에 맞는 뉴스만 골라 보는 경향",
+      "expected": "confirmation-bias",
+      "top": [
+        {
+          "slug": "confirmation-bias",
+          "score": 0.0643674477
+        },
+        {
+          "slug": "overconfidence",
+          "score": 0.0375281238
+        },
+        {
+          "slug": "recency-bias",
+          "score": 0.0356383622
+        },
+        {
+          "slug": "disposition-effect",
+          "score": 0.0332920526
+        },
+        {
+          "slug": "anchoring",
+          "score": 0.032552296
+        }
+      ]
+    },
+    {
+      "question": "처음 산 가격에 집착해서 판단하는 심리",
+      "expected": "anchoring",
+      "top": [
+        {
+          "slug": "herding",
+          "score": 0.122050974
+        },
+        {
+          "slug": "inav",
+          "score": 0.0739986107
+        },
+        {
+          "slug": "fomo",
+          "score": 0.0656802046
+        },
+        {
+          "slug": "loss-aversion",
+          "score": 0.0655265281
+        },
+        {
+          "slug": "put-option",
+          "score": 0.0630389289
+        }
+      ]
+    },
+    {
+      "question": "나만 기회를 놓칠까 봐 급하게 뛰어드는 심리",
+      "expected": "fomo",
+      "top": [
+        {
+          "slug": "fomo",
+          "score": 0.4868626495
+        },
+        {
+          "slug": "expiration-date",
+          "score": 0.1236853332
+        },
+        {
+          "slug": "loss-aversion",
+          "score": 0.0566301994
+        },
+        {
+          "slug": "recession",
+          "score": 0.0540861446
+        },
+        {
+          "slug": "inflation",
+          "score": 0.0489862387
+        }
+      ]
+    },
+    {
+      "question": "성공한 사람 이야기만 듣고 실패한 사람은 안 보이는 착각",
+      "expected": "survivorship-bias",
+      "top": [
+        {
+          "slug": "survivorship-bias",
+          "score": 0.3275253534
+        },
+        {
+          "slug": "insider-trading",
+          "score": 0.0581252338
+        },
+        {
+          "slug": "herding",
+          "score": 0.0481771834
+        },
+        {
+          "slug": "blue-chip",
+          "score": 0.0424417885
+        },
+        {
+          "slug": "unfair-trading",
+          "score": 0.0308540332
+        }
+      ]
+    },
+    {
+      "question": "금융회사가 내 성향에 맞지 않는 상품은 권하면 안 된다는 원칙",
+      "expected": "suitability-principle",
+      "top": [
+        {
+          "slug": "suitability-principle",
+          "score": 0.4773808109
+        },
+        {
+          "slug": "mis-selling",
+          "score": 0.2715920533
+        },
+        {
+          "slug": "deposit-insurance",
+          "score": 0.1338427868
+        },
+        {
+          "slug": "duty-to-explain",
+          "score": 0.1064147566
+        },
+        {
+          "slug": "contract-termination-right",
+          "score": 0.0878271071
+        }
+      ]
+    },
+    {
+      "question": "위험 설명을 제대로 안 하고 상품을 판 경우",
+      "expected": "mis-selling",
+      "top": [
+        {
+          "slug": "mis-selling",
+          "score": 0.2716358718
+        },
+        {
+          "slug": "duty-to-explain",
+          "score": 0.1256708987
+        },
+        {
+          "slug": "appropriateness-principle",
+          "score": 0.0580644303
+        },
+        {
+          "slug": "suitability-principle",
+          "score": 0.0563627126
+        },
+        {
+          "slug": "fund-risk-grade",
+          "score": 0.0424084506
+        }
+      ]
+    },
+    {
+      "question": "가입하고 며칠 안에 마음 바뀌면 취소할 수 있는 권리",
+      "expected": "withdrawal-right",
+      "top": [
+        {
+          "slug": "put-option",
+          "score": 0.1625117839
+        },
+        {
+          "slug": "call-option",
+          "score": 0.1582805248
+        },
+        {
+          "slug": "withdrawal-right",
+          "score": 0.1520392844
+        },
+        {
+          "slug": "execution",
+          "score": 0.1296144417
+        },
+        {
+          "slug": "exchangeable-bond",
+          "score": 0.1289950006
+        }
+      ]
+    },
+    {
+      "question": "짜고 사고팔아서 주가를 인위적으로 띄우는 불법 행위",
+      "expected": "market-manipulation",
+      "top": [
+        {
+          "slug": "market-manipulation",
+          "score": 0.3780797827
+        },
+        {
+          "slug": "insider-trading",
+          "score": 0.1774410213
+        },
+        {
+          "slug": "stop-loss",
+          "score": 0.0594786455
+        },
+        {
+          "slug": "bid-ask-spread",
+          "score": 0.0406766501
+        },
+        {
+          "slug": "brokerage-commission",
+          "score": 0.0394488306
+        }
+      ]
+    },
+    {
+      "question": "공시 전에 회사 내부 정보로 주식을 사고파는 것",
+      "expected": "insider-trading",
+      "top": [
+        {
+          "slug": "insider-trading",
+          "score": 0.4509132178
+        },
+        {
+          "slug": "disclosure",
+          "score": 0.257434167
+        },
+        {
+          "slug": "bonus-issue",
+          "score": 0.1614389507
+        },
+        {
+          "slug": "brokerage-commission",
+          "score": 0.1604298206
+        },
+        {
+          "slug": "split-buying",
+          "score": 0.1411211745
+        }
+      ]
+    },
+    {
+      "question": "배당금 받을 때 떼는 세금",
+      "expected": "dividend-income-tax",
+      "top": [
+        {
+          "slug": "dividend",
+          "score": 0.3389076894
+        },
+        {
+          "slug": "dividend-yield",
+          "score": 0.1519159643
+        },
+        {
+          "slug": "high-dividend-stock",
+          "score": 0.118045645
+        },
+        {
+          "slug": "ex-dividend",
+          "score": 0.1029837366
+        },
+        {
+          "slug": "dividend-income-tax",
+          "score": 0.0956152371
+        }
+      ]
+    },
+    {
+      "question": "미국 주식 팔아서 번 돈에 붙는 세금",
+      "expected": "overseas-stock-tax",
+      "top": [
+        {
+          "slug": "dividend-income-tax",
+          "score": 0.1837419079
+        },
+        {
+          "slug": "overseas-stock-tax",
+          "score": 0.0810158773
+        },
+        {
+          "slug": "securities-transaction-tax",
+          "score": 0.0750926171
+        },
+        {
+          "slug": "stop-loss",
+          "score": 0.074631035
+        },
+        {
+          "slug": "settlement-t2",
+          "score": 0.0538646254
+        }
+      ]
+    },
+    {
+      "question": "노후 대비하면서 연말정산 세액공제 받는 계좌",
+      "expected": "pension-savings",
+      "top": [
+        {
+          "slug": "pension-savings",
+          "score": 0.5445569364
+        },
+        {
+          "slug": "brokerage-account",
+          "score": 0.0882071348
+        },
+        {
+          "slug": "irp",
+          "score": 0.0852415541
+        },
+        {
+          "slug": "operating-cash-flow",
+          "score": 0.0587090736
+        },
+        {
+          "slug": "mark-to-market",
+          "score": 0.0525748355
+        }
+      ]
+    },
+    {
+      "question": "증거금이 모자라니 돈을 더 넣으라는 연락",
+      "expected": "margin-call",
+      "top": [
+        {
+          "slug": "margin-call",
+          "score": 0.527925977
+        },
+        {
+          "slug": "margin-requirement",
+          "score": 0.2280389027
+        },
+        {
+          "slug": "maintenance-margin",
+          "score": 0.2185686379
+        },
+        {
+          "slug": "initial-margin",
+          "score": 0.1562337592
+        },
+        {
+          "slug": "ipo-subscription",
+          "score": 0.0619337683
+        }
+      ]
+    },
+    {
+      "question": "만기가 먼 선물이 더 비싸서 롤오버할 때 손해 보는 상황",
+      "expected": "contango",
+      "top": [
+        {
+          "slug": "rollover",
+          "score": 0.4144075193
+        },
+        {
+          "slug": "contango",
+          "score": 0.3573696621
+        },
+        {
+          "slug": "backwardation",
+          "score": 0.345094707
+        },
+        {
+          "slug": "futures",
+          "score": 0.2314224023
+        },
+        {
+          "slug": "expiration-date",
+          "score": 0.1463379896
+        }
+      ]
+    },
+    {
+      "question": "권리를 사려고 내는 옵션의 가격",
+      "expected": "option-premium",
+      "top": [
+        {
+          "slug": "options",
+          "score": 0.427492449
+        },
+        {
+          "slug": "option-premium",
+          "score": 0.214251919
+        },
+        {
+          "slug": "quadruple-witching",
+          "score": 0.0887336351
+        },
+        {
+          "slug": "strike-price",
+          "score": 0.0793203488
+        },
+        {
+          "slug": "financial-consumer-protection-act",
+          "score": 0.0645450977
+        }
+      ]
+    },
+    {
+      "question": "옵션 가격에 담긴 시장이 예상하는 앞으로의 변동 폭",
+      "expected": "implied-volatility",
+      "top": [
+        {
+          "slug": "implied-volatility",
+          "score": 0.6109933966
+        },
+        {
+          "slug": "vkospi",
+          "score": 0.3874735602
+        },
+        {
+          "slug": "options",
+          "score": 0.2437825862
+        },
+        {
+          "slug": "option-premium",
+          "score": 0.2046800276
+        },
+        {
+          "slug": "sunk-cost-fallacy",
+          "score": 0.1079449411
+        }
+      ]
+    },
+    {
+      "question": "빨간 막대와 파란 막대로 하루 가격을 그린 차트",
+      "expected": "candlestick",
+      "top": [
+        {
+          "slug": "candlestick",
+          "score": 0.2439498245
+        },
+        {
+          "slug": "technical-analysis",
+          "score": 0.1459595224
+        },
+        {
+          "slug": "ohlc",
+          "score": 0.052001672
+        },
+        {
+          "slug": "limit-order",
+          "score": 0.0364630895
+        },
+        {
+          "slug": "index-fund",
+          "score": 0.0332941205
+        }
+      ]
+    },
+    {
+      "question": "단기 이동평균선이 장기선을 위로 뚫고 올라가는 것",
+      "expected": "golden-cross",
+      "top": [
+        {
+          "slug": "golden-cross",
+          "score": 0.6366488795
+        },
+        {
+          "slug": "moving-average",
+          "score": 0.4245009932
+        },
+        {
+          "slug": "macd",
+          "score": 0.327039149
+        },
+        {
+          "slug": "bollinger-bands",
+          "score": 0.1213010422
+        },
+        {
+          "slug": "technical-analysis",
+          "score": 0.0485896736
+        }
+      ]
+    },
+    {
+      "question": "여러 번 하락이 멈췄던 가격대",
+      "expected": "support-resistance",
+      "top": [
+        {
+          "slug": "support-resistance",
+          "score": 0.2845710581
+        },
+        {
+          "slug": "split-buying",
+          "score": 0.1290722464
+        },
+        {
+          "slug": "strike-price",
+          "score": 0.0434100108
+        },
+        {
+          "slug": "implied-volatility",
+          "score": 0.0261549913
+        },
+        {
+          "slug": "stock-index",
+          "score": 0.0242112385
+        }
+      ]
+    },
+    {
+      "question": "없는 주식을 빌려서 먼저 팔고 나중에 사서 갚는 것",
+      "expected": "short-selling",
+      "top": [
+        {
+          "slug": "short-selling",
+          "score": 0.7296684404
+        },
+        {
+          "slug": "stock-lending",
+          "score": 0.1856794549
+        },
+        {
+          "slug": "margin-loan",
+          "score": 0.0985014131
+        },
+        {
+          "slug": "share-buyback",
+          "score": 0.0605444043
+        },
+        {
+          "slug": "exchangeable-bond",
+          "score": 0.0388239209
+        }
+      ]
+    },
+    {
+      "question": "주문 가격을 올리거나 내릴 수 있는 최소 단위",
+      "expected": "tick-size",
+      "top": [
+        {
+          "slug": "tick-size",
+          "score": 0.1119579437
+        },
+        {
+          "slug": "price-limit",
+          "score": 0.0950310886
+        },
+        {
+          "slug": "deposit-cash",
+          "score": 0.0863663806
+        },
+        {
+          "slug": "margin-requirement",
+          "score": 0.0765926618
+        },
+        {
+          "slug": "limit-order",
+          "score": 0.0685610681
+        }
+      ]
+    }
+  ]
+}

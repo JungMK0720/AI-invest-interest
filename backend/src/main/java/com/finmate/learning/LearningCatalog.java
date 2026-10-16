@@ -37,7 +37,7 @@ public class LearningCatalog {
     }
 
     @PostConstruct
-    void load() {
+    public void load() {
         LearningContent.Catalog catalog = read();
         List<LearningContent.Node> sorted = new ArrayList<>(catalog.concepts());
         sorted.sort(Comparator.comparingInt(LearningContent.Node::level).thenComparingInt(LearningContent.Node::order));

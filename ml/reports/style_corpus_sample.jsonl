@@ -1,0 +1,60 @@
+{"text": "잃어도 괜찮은 돈만 넣으려고 해요 근데 최대한 공격적으로 투자해서 크게 벌고 싶어요 중간에 오르내리는 건 어느 정도 각오하고 있습니다", "label": "ACTIVE", "tags": ["HIGH_RETURN"], "score": 77.98}
+{"text": "반토막이 나도 추가로 더 살 거예요 사실 선물옵션이랑 레버리지 ETF도 해 봤어요", "label": "AGGRESSIVE", "tags": ["LEVERAGE_INTEREST"], "score": 106.64}
+{"text": "손실 한도 같은 건 정해 두지 않았어요 그리고 원금을 다 잃어도 좋으니 대박을 노려 보고 싶습니다 크게 물려 본 적이 있지만 결국 회복했어요 급하게 쓸 돈은 아니지만 여유가 많지는 않아요", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN", "LOSS_EXPERIENCE"], "score": 89.98}
+{"text": "6개월 안에 보증금으로 써야 하는 돈이에요 사실 최대한 공격적으로 투자해서 크게 벌고 싶어요 손실도 몇 번 겪어 봐서 이제는 덤덤해요 가격이 많이 출렁여도 흔들리지 않을 자신 있습니다 사실 비상금은 따로 있고 여유 자금으로만 투자해요", "label": "ACTIVE", "tags": ["HIGH_RETURN", "LOSS_EXPERIENCE", "SHORT_TERM_NEED"], "score": 75.11}
+{"text": "물가 상승률 정도만 따라가도 괜찮아요 다만 살짝 떨어지는 건 괜찮지만 크게 빠지면 무서워요", "label": "STABLE", "tags": ["PRINCIPAL_FOCUS"], "score": 22.45}
+{"text": "가격이 크게 안 움직이고 이자가 나오는 상품을 원합니다 연금 계좌에서 ETF를 사 본 정도예요 그리고 10퍼센트 넘게 빠지면 많이 힘들 것 같아요", "label": "STABLE", "tags": ["INCOME_FOCUS"], "score": 21.72}
+{"text": "주식 비중을 높게 가져가고 싶어요 근데 잃어도 괜찮은 돈만 넣으려고 해요", "label": "ACTIVE", "tags": ["HIGH_RETURN"], "score": 77.9}
+{"text": "손실도 몇 번 겪어 봐서 이제는 덤덤해요 그리고 당장 쓸 일 없는 돈이라 오래 묻어 둘 수 있어요 손실 한도 같은 건 정해 두지 않았어요 다만 수익을 위해서라면 어느 정도 손실은 감수할 수 있습니다", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN", "LONG_TERM", "LOSS_EXPERIENCE"], "score": 92.58}
+{"text": "2~3년 정도는 묻어 둘 수 있습니다 그리고 펀드로 손해를 본 뒤로 겁이 많아졌어요 다만 종목을 직접 분석해서 사 본 경험이 있어요 다만 지수만큼만 따라가도 만족할 것 같아요", "label": "NEUTRAL", "tags": ["LOSS_EXPERIENCE"], "score": 51.94}
+{"text": "아직 잘 몰라서 기초부터 배우고 싶습니다 월급이 일정하지 않아서 조금 조심스러워요 그리고 큰 하락도 몇 번 버텨 봐서 괜찮아요 그리고 적당히 위험을 지고 적당히 벌고 싶어요", "label": "NEUTRAL", "tags": ["BEGINNER"], "score": 55.53}
+{"text": "계좌가 파란색이면 바로 팔아 버릴 것 같아요 근데 적금보다 살짝 나은 정도면 충분합니다 모아 둔 돈이 이게 전부예요 몇 달 뒤에 쓸 돈이라 언제든 꺼낼 수 있어야 해요", "label": "STABLE", "tags": ["PRINCIPAL_FOCUS", "SHORT_TERM_NEED"], "score": 8.93}
+{"text": "종목을 직접 분석해서 사 본 경험이 있어요 솔직히 비상금은 따로 있고 여유 자금으로만 투자해요 폭락장이 오면 빚을 내서라도 더 담고 싶습니다", "label": "AGGRESSIVE", "tags": ["LEVERAGE_INTEREST"], "score": 93.84}
+{"text": "증거금이 부족하다는 연락이 와도 돈을 더 넣어서 버틸 것입니다 다만 벌이가 꾸준해서 투자금이 줄어도 당장 생활비 걱정은 없어요 그리고 수익 극대화가 유일한 목표예요 또 2~3년 정도는 묻어 둘 수 있어요", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN", "LEVERAGE_INTEREST"], "score": 87.78}
+{"text": "수익을 위해서라면 어느 정도 손실은 감수할 수 있습니다 사실 1년 안에 결혼 자금으로 쓸 예정입니다 연금 계좌에서 ETF를 사 본 정도예요 다만 급하게 쓸 돈은 아니지만 여유가 많지는 않아요", "label": "NEUTRAL", "tags": ["HIGH_RETURN", "SHORT_TERM_NEED"], "score": 51.23}
+{"text": "2~3년 정도는 묻어 둘 수 있어요 벌이가 꾸준해서 투자금이 줄어도 당장 생활비 걱정은 없습니다 근데 30퍼센트 정도 떨어져도 버틸 수 있어요", "label": "AGGRESSIVE", "tags": [], "score": 84.03}
+{"text": "잃어도 괜찮은 돈만 넣으려고 해요 그리고 폭락장이 오면 빚을 내서라도 더 담고 싶어요 그리고 파생상품 거래 경험이 꽤 많습니다 원금을 다 잃어도 좋으니 대박을 노려 보고 싶어요", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN", "LEVERAGE_INTEREST"], "score": 95.38}
+{"text": "조금이라도 손실이 나면 너무 불안합니다 근데 투자는 완전 처음이에요 사실 수익보다 원금을 지키는 게 먼저예요", "label": "STABLE", "tags": ["BEGINNER", "PRINCIPAL_FOCUS"], "score": 5.49}
+{"text": "월급이 일정하지 않아서 조금 조심스러워요 펀드로 손해를 본 뒤로 겁이 많아졌어요 사실 가격이 크게 안 움직이고 이자가 나오는 상품을 원해요 적립식 펀드만 몇 년 넣어 봤습니다 살짝 떨어지는 건 괜찮지만 크게 빠지면 무서워요", "label": "CONSERVATIVE", "tags": ["INCOME_FOCUS", "LOSS_EXPERIENCE"], "score": 25.85}
+{"text": "가격이 많이 출렁여도 흔들리지 않을 자신 있어요 또 수익을 위해서라면 어느 정도 손실은 감수할 수 있어요", "label": "ACTIVE", "tags": ["HIGH_RETURN"], "score": 78.93}
+{"text": "급하게 쓸 돈은 아니지만 여유가 많지는 않아요 다만 시장 평균 정도의 수익이면 충분해요 그리고 예금이랑 적금만 해 봤어요", "label": "CONSERVATIVE", "tags": ["BEGINNER"], "score": 42.9}
+{"text": "증거금이 부족하다는 연락이 와도 돈을 더 넣어서 버틸 거예요 다만 월급이 일정하지 않아서 조금 조심스러워요 종목을 직접 분석해서 사 본 경험이 있어요", "label": "AGGRESSIVE", "tags": ["LEVERAGE_INTEREST"], "score": 82.19}
+{"text": "살짝 떨어지는 건 괜찮지만 크게 빠지면 무서워요 수익보다 원금을 지키는 게 먼저입니다 근데 모아 둔 돈이 이게 전부예요 그리고 6개월 안에 보증금으로 써야 하는 돈이에요", "label": "STABLE", "tags": ["PRINCIPAL_FOCUS", "SHORT_TERM_NEED"], "score": 12.28}
+{"text": "폭락해도 끝까지 들고 갈 각오예요 그리고 단기간에 몇 배 수익을 노리고 있습니다", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN"], "score": 97.41}
+{"text": "급하게 쓸 돈은 아니지만 여유가 많지는 않아요 그리고 가격이 크게 안 움직이고 이자가 나오는 상품을 원합니다 그리고 아직 잘 몰라서 기초부터 배우고 싶어요 다만 5퍼센트 정도 손실까지는 참을 수 있을 것 같아요", "label": "STABLE", "tags": ["BEGINNER", "INCOME_FOCUS"], "score": 22.18}
+{"text": "손실도 몇 번 겪어 봐서 이제는 덤덤해요 예금보다는 확실히 높은 수익을 노리고 싶어요 증거금이 부족하다는 연락이 와도 돈을 더 넣어서 버틸 것입니다 근데 잃어도 괜찮은 돈만 넣으려고 합니다", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN", "LEVERAGE_INTEREST", "LOSS_EXPERIENCE"], "score": 80.99}
+{"text": "예전에 주식으로 크게 잃어서 트라우마가 있습니다 솔직히 손해 보는 건 상상만 해도 싫습니다 그리고 이 돈을 잃으면 생활이 바로 어려워져요", "label": "STABLE", "tags": ["LOSS_EXPERIENCE", "PRINCIPAL_FOCUS"], "score": 3.46}
+{"text": "1년 정도만 굴려 보려고 해요 돈이 줄어드는 상품은 쳐다보지도 않을 것입니다 다만 이 돈을 잃으면 생활이 바로 어려워져요", "label": "STABLE", "tags": ["PRINCIPAL_FOCUS", "SHORT_TERM_NEED"], "score": 10.78}
+{"text": "살짝 떨어지는 건 괜찮지만 크게 빠지면 무서워요 솔직히 작년에 코인으로 반토막 난 적이 있어요 연금 계좌에서 ETF를 사 본 정도예요 솔직히 꼬박꼬박 이자처럼 들어오는 수익이 좋습니다", "label": "CONSERVATIVE", "tags": ["INCOME_FOCUS", "LOSS_EXPERIENCE"], "score": 26.48}
+{"text": "해외 주식도 직접 사 봤어요 사실 예금보다는 확실히 높은 수익을 노리고 싶어요 그리고 가격이 많이 출렁여도 흔들리지 않을 자신 있습니다", "label": "ACTIVE", "tags": ["HIGH_RETURN"], "score": 72.39}
+{"text": "만 원만 빠져도 잠이 안 올 것입니다 물가 상승률 정도만 따라가도 괜찮아요", "label": "STABLE", "tags": ["PRINCIPAL_FOCUS"], "score": 6.42}
+{"text": "폭락장이 오면 빚을 내서라도 더 담고 싶어요 비상금은 따로 있고 여유 자금으로만 투자해요 근데 선물옵션이랑 레버리지 ETF도 해 봤어요 근데 손실도 몇 번 겪어 봐서 이제는 덤덤해요 수익을 위해서라면 어느 정도 손실은 감수할 수 있어요", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN", "LEVERAGE_INTEREST", "LOSS_EXPERIENCE"], "score": 84.67}
+{"text": "이 돈을 잃으면 생활이 바로 어려워져요 솔직히 가격이 크게 안 움직이고 이자가 나오는 상품을 원합니다 다만 6개월 안에 보증금으로 써야 하는 돈이에요 그리고 만 원만 빠져도 잠이 안 올 거예요", "label": "STABLE", "tags": ["INCOME_FOCUS", "PRINCIPAL_FOCUS", "SHORT_TERM_NEED"], "score": 7.91}
+{"text": "단기간에 몇 배 수익을 노리고 있어요 근데 몇 년 정도는 꺼낼 일이 없을 것 같아요 다만 하락하면 오히려 더 살 기회라고 생각해요", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN"], "score": 82.5}
+{"text": "당장 쓸 일 없는 돈이라 오래 묻어 둘 수 있어요 다만 폭락장이 오면 빚을 내서라도 더 담고 싶어요 다만 옵션으로 한 번에 크게 벌어 보고 싶습니다 비상금은 따로 있고 여유 자금으로만 투자해요 사실 수익을 위해서라면 어느 정도 손실은 감수할 수 있습니다", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN", "LEVERAGE_INTEREST", "LONG_TERM"], "score": 83.4}
+{"text": "수익을 위해서라면 어느 정도 손실은 감수할 수 있습니다 다만 종목을 직접 분석해서 사 본 경험이 있어요", "label": "ACTIVE", "tags": ["HIGH_RETURN"], "score": 69.1}
+{"text": "1년 정도만 굴려 보려고 합니다 또 예금보다는 확실히 높은 수익을 노리고 싶어요 큰 하락도 몇 번 버텨 봐서 괜찮아요", "label": "ACTIVE", "tags": ["HIGH_RETURN", "SHORT_TERM_NEED"], "score": 66.66}
+{"text": "성장주 위주로 크게 불리고 싶습니다 다만 30퍼센트 정도 떨어져도 버틸 수 있어요 또 10년 이상 노후 자금으로 둘 생각입니다", "label": "ACTIVE", "tags": ["HIGH_RETURN", "LONG_TERM"], "score": 72.76}
+{"text": "너무 공격적이지도 너무 소극적이지도 않게 하고 싶어요 5퍼센트 정도 손실까지는 참을 수 있을 것 같아요", "label": "CONSERVATIVE", "tags": [], "score": 34.48}
+{"text": "30퍼센트 정도 떨어져도 버틸 수 있어요 솔직히 원금을 다 잃어도 좋으니 대박을 노려 보고 싶습니다 다만 손실도 몇 번 겪어 봐서 이제는 덤덤해요", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN", "LOSS_EXPERIENCE"], "score": 90.28}
+{"text": "1년 안에 결혼 자금으로 쓸 예정이에요 다만 월급이 일정하지 않아서 조금 조심스러워요 솔직히 떨어져도 일단은 기다려 볼 것 같습니다 적립식 펀드만 몇 년 넣어 봤어요 근데 손실도 몇 번 겪어 봐서 이제는 덤덤해요 변동이 적은 채권 위주가 마음 편해요", "label": "CONSERVATIVE", "tags": ["LOSS_EXPERIENCE", "PRINCIPAL_FOCUS", "SHORT_TERM_NEED"], "score": 44.69}
+{"text": "아직 잘 몰라서 기초부터 배우고 싶습니다 근데 적당히 위험을 지고 적당히 벌고 싶어요 다만 10퍼센트 넘게 빠지면 많이 힘들 것 같아요", "label": "CONSERVATIVE", "tags": ["BEGINNER"], "score": 31.94}
+{"text": "30퍼센트 정도 떨어져도 버틸 수 있어요 근데 수익 극대화가 유일한 목표예요 사실 파생상품 거래 경험이 꽤 많아요", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN", "LEVERAGE_INTEREST"], "score": 88.44}
+{"text": "10퍼센트 넘게 빠지면 많이 힘들 것 같습니다 그리고 월급이 일정하지 않아서 조금 조심스러워요 솔직히 내년쯤 차를 살 때 쓸 돈이에요", "label": "CONSERVATIVE", "tags": ["SHORT_TERM_NEED"], "score": 28.81}
+{"text": "지금 안 사면 늦을 것 같아서 마음이 급해요 솔직히 비상금은 따로 있고 여유 자금으로만 투자합니다 솔직히 폭락해도 끝까지 들고 갈 각오예요 사실 예금보다는 확실히 높은 수익을 노리고 싶어요", "label": "ACTIVE", "tags": ["FOMO_HERDING", "HIGH_RETURN"], "score": 78.01}
+{"text": "이 돈을 잃으면 생활이 바로 어려워져요 솔직히 계좌가 파란색이면 바로 팔아 버릴 것 같습니다 또 주식은 한 번도 해 본 적이 없어요", "label": "STABLE", "tags": ["BEGINNER", "PRINCIPAL_FOCUS"], "score": 2.65}
+{"text": "수익 극대화가 유일한 목표입니다 또 파생상품 거래 경험이 꽤 많아요 몇 년 정도는 꺼낼 일이 없을 것 같아요 솔직히 폭락장이 오면 빚을 내서라도 더 담고 싶습니다", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN", "LEVERAGE_INTEREST"], "score": 94.13}
+{"text": "급하게 쓸 돈은 아니지만 여유가 많지는 않아요 솔직히 펀드나 ETF를 조금 해 봤어요 근데 가격이 크게 안 움직이고 이자가 나오는 상품을 원해요", "label": "CONSERVATIVE", "tags": ["INCOME_FOCUS"], "score": 28.56}
+{"text": "20퍼센트 정도 빠지는 건 감수할 수 있어요 근데 예금보다는 확실히 높은 수익을 노리고 싶습니다", "label": "NEUTRAL", "tags": ["HIGH_RETURN"], "score": 62.85}
+{"text": "큰 하락도 몇 번 버텨 봐서 괜찮아요 솔직히 몇 년 정도는 꺼낼 일이 없을 것 같습니다 그리고 주식 비중을 높게 가져가고 싶어요", "label": "ACTIVE", "tags": ["HIGH_RETURN"], "score": 78.62}
+{"text": "하락하면 오히려 더 살 기회라고 생각합니다 사실 손실도 몇 번 겪어 봐서 이제는 덤덤합니다 해외 주식도 직접 사 봤어요", "label": "AGGRESSIVE", "tags": ["LOSS_EXPERIENCE"], "score": 85.11}
+{"text": "가격이 크게 안 움직이고 이자가 나오는 상품을 원합니다 근데 모아 둔 돈이 이게 전부예요 그리고 예전에 주식으로 크게 잃어서 트라우마가 있어요 중간에 오르내리는 건 어느 정도 각오하고 있어요", "label": "CONSERVATIVE", "tags": ["INCOME_FOCUS", "LOSS_EXPERIENCE", "PRINCIPAL_FOCUS"], "score": 38.97}
+{"text": "원금이 보장되는 게 제일 중요해요 하락장이 와도 바로 팔지는 않을 거예요 그리고 1년 안에 결혼 자금으로 쓸 예정입니다", "label": "CONSERVATIVE", "tags": ["PRINCIPAL_FOCUS", "SHORT_TERM_NEED"], "score": 29.53}
+{"text": "조금이라도 손실이 나면 너무 불안합니다 솔직히 원금이 보장되는 게 제일 중요합니다", "label": "STABLE", "tags": ["PRINCIPAL_FOCUS"], "score": -6.83}
+{"text": "손해 보는 건 상상만 해도 싫어요 다만 가격이 많이 출렁여도 흔들리지 않을 자신 있습니다 사실 이 돈을 잃으면 생활이 바로 어려워져요", "label": "CONSERVATIVE", "tags": ["PRINCIPAL_FOCUS"], "score": 31.95}
+{"text": "떨어져도 일단은 기다려 볼 것 같습니다 사실 레버리지 ETF에 관심이 많습니다 솔직히 국내 주식을 직접 사고판 지 3년 정도 됐습니다 그리고 시장 평균 정도의 수익이면 충분합니다", "label": "NEUTRAL", "tags": ["LEVERAGE_INTEREST"], "score": 61.01}
+{"text": "적당히 위험을 지고 적당히 벌고 싶어요 종목을 직접 분석해서 사 본 경험이 있어요 솔직히 5퍼센트 정도 손실까지는 참을 수 있을 것 같아요 다만 1년 정도만 굴려 보려고 해요", "label": "CONSERVATIVE", "tags": ["SHORT_TERM_NEED"], "score": 42.34}
+{"text": "몇 년 정도는 꺼낼 일이 없을 것 같아요 큰돈을 벌 수 있다면 반토막도 견딜 수 있어요 그리고 월급이 일정하지 않아서 조금 조심스러워요 또 폭락장이 오면 빚을 내서라도 더 담고 싶어요 급등주를 놓치면 너무 아까울 것 같아요", "label": "AGGRESSIVE", "tags": ["FOMO_HERDING", "HIGH_RETURN", "LEVERAGE_INTEREST"], "score": 81.81}
+{"text": "하락장이 와도 바로 팔지는 않을 것입니다 또 급하게 쓸 돈은 아니지만 여유가 많지는 않아요 근데 수익을 위해서라면 어느 정도 손실은 감수할 수 있습니다 몇 년 정도는 꺼낼 일이 없을 것 같아요 솔직히 해외 주식도 직접 사 봤어요", "label": "NEUTRAL", "tags": ["HIGH_RETURN"], "score": 62.14}
+{"text": "예금보다는 확실히 높은 수익을 노리고 싶어요 사실 손실 한도 같은 건 정해 두지 않았어요 다만 국내 주식을 직접 사고판 지 3년 정도 됐어요", "label": "AGGRESSIVE", "tags": ["HIGH_RETURN"], "score": 87.86}
+{"text": "손해 보는 건 상상만 해도 싫어요 솔직히 투자는 완전 처음이에요 그리고 잃어도 괜찮은 돈만 넣으려고 합니다", "label": "STABLE", "tags": ["BEGINNER", "PRINCIPAL_FOCUS"], "score": 20.77}

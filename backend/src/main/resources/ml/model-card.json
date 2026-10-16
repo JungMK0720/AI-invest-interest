@@ -1,0 +1,64 @@
+{
+  "generatedBy": "ml/train.py",
+  "models": [
+    {
+      "id": "style-signal",
+      "name": "자유 서술 투자 성향 신호",
+      "version": "2.0.0",
+      "task": "사용자가 쓴 투자 생각에서 5단계 성향과 관심사 태그를 추정해 설문 결과와의 차이를 알린다.",
+      "algorithm": "문자 2~4그램 다항 로지스틱 회귀 + 태그별 로지스틱 회귀",
+      "trainingData": "문장 조각 라이브러리로 생성한 라벨 균형 문장 1500개 + 사람이 쓴 개발 문장 40개",
+      "evaluationData": "학습에 쓰지 않은 사람이 쓴 보류 문장 115개 + 주제와 무관한 문장 20개",
+      "metrics": {
+        "accuracy": 0.6174,
+        "macroF1": 0.6285,
+        "withinOneGrade": 0.9043,
+        "coverage": 0.9652,
+        "accuracyWhenEmitted": 0.6396,
+        "tagMicroF1": 0.5467,
+        "expectedCalibrationError": 0.0443,
+        "offTopicRejection": 1.0
+      },
+      "baselines": {
+        "majorityClass": 0.2,
+        "keywordRules": 0.4174,
+        "v1NaiveBayes40": 0.5217
+      },
+      "intendedUse": "설문과 다른 신호가 있을 때 답변을 다시 확인하도록 돕고, 관심사에 맞는 학습 개념을 추천한다.",
+      "notIntendedUse": "투자 성향 등급 판정, 금융상품 적합성·적정성 판단, 투자 권유",
+      "limitations": [
+        "학습 문장 대부분은 실제 사용자 기록이 아닌 생성 문장이다. 실제 사용자 문장에서는 정확도가 다를 수 있다.",
+        "보류 문장 115개는 한 사람이 작성해 문체가 제한적이다.",
+        "반어·부정('손실이 무섭지 않다고 하면 거짓말')처럼 문맥이 필요한 표현에 약하다.",
+        "'~하고 싶어요'처럼 흔한 어미가 많은 짧은 잡담은 일부 성향으로 분류될 수 있다(주제 무관 개발 문장 30개 중 3개).",
+        "원문 자유 서술은 저장하지 않고 추정 결과만 진단 스냅샷에 남긴다."
+      ]
+    },
+    {
+      "id": "term-retrieval",
+      "name": "질문형 주식 용어 검색",
+      "version": "2.0.0",
+      "task": "용어 이름을 몰라도 설명형 질문으로 관련 용어를 찾는다.",
+      "algorithm": "필드별 문자 2~4그램 TF-IDF 코사인 가중합 + 용어명 일치 가산점",
+      "trainingData": "승인된 용어 247개(IDF), 개발 질문 61개(가중치 탐색)",
+      "evaluationData": "평가 질문 86개(이름 포함 33, 설명형 53)",
+      "metrics": {
+        "top1": 0.8605,
+        "top5": 0.9884,
+        "mrr": 0.9118,
+        "paraphraseTop1": 0.7925,
+        "paraphraseTop5": 0.9811
+      },
+      "baselines": {
+        "v1ConcatenatedTop1": 0.6279,
+        "v1ConcatenatedParaphraseTop1": 0.4151
+      },
+      "intendedUse": "용어 사전 검색, 학습 화면에서 모르는 표현 찾기",
+      "notIntendedUse": "종목 추천, 시세·수익률 예측",
+      "limitations": [
+        "의미 임베딩이 아니라 문자 조각 일치에 기반하므로 전혀 다른 단어로 말한 질문은 놓칠 수 있다.",
+        "관리자가 새 용어를 추가하면 IDF에 없는 조각은 최댓값으로 취급하므로 재학습 전까지 가중치가 근사값이다."
+      ]
+    }
+  ]
+}

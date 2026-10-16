@@ -1,0 +1,147 @@
+{"slug": "market-cap", "question": "기업의 시가총액은 어떻게 계산하나요?", "split": "dev", "origin": "v1-named"}
+{"slug": "kospi", "question": "코스피 지수는 무엇을 뜻하나요?", "split": "test", "origin": "v1-named"}
+{"slug": "kosdaq", "question": "코스닥 시장에는 어떤 기업이 있나요?", "split": "test", "origin": "v1-named"}
+{"slug": "circuit-breaker", "question": "주가 급락하면 모든 거래를 잠시 멈추는 서킷브레이커가 뭔가요?", "split": "dev", "origin": "v1-named"}
+{"slug": "short-selling", "question": "주식을 빌려 먼저 팔고 나중에 갚는 공매도는 어떻게 작동하나요?", "split": "test", "origin": "v1-named"}
+{"slug": "limit-order", "question": "원하는 가격을 지정해서 내는 주문은 무엇인가요?", "split": "test", "origin": "v1-named"}
+{"slug": "market-order", "question": "가격을 정하지 않고 바로 체결되는 시장가 주문이 궁금해요", "split": "dev", "origin": "v1-named"}
+{"slug": "bid-ask-spread", "question": "매수 호가와 매도 호가의 차이를 뭐라고 하나요?", "split": "test", "origin": "v1-named"}
+{"slug": "forced-liquidation", "question": "미수금을 못 갚으면 증권사가 주식을 강제로 파는 반대매매를 설명해 주세요", "split": "test", "origin": "v1-named"}
+{"slug": "per", "question": "주가를 주당순이익으로 나눈 PER은 어떻게 해석하나요?", "split": "dev", "origin": "v1-named"}
+{"slug": "pbr", "question": "PBR이 1보다 낮으면 무슨 의미인가요?", "split": "test", "origin": "v1-named"}
+{"slug": "roe", "question": "자기자본으로 얼마나 이익을 냈는지 보는 ROE 지표가 뭐죠?", "split": "test", "origin": "v1-named"}
+{"slug": "dcf", "question": "미래 현금흐름을 현재 가치로 할인하는 DCF는 어떻게 하나요?", "split": "dev", "origin": "v1-named"}
+{"slug": "cash-flow-statement", "question": "현금이 들어오고 나간 내역을 보여 주는 재무제표는 무엇인가요?", "split": "test", "origin": "v1-named"}
+{"slug": "operating-income", "question": "영업이익과 순이익은 어떻게 다른가요?", "split": "test", "origin": "v1-named"}
+{"slug": "debt-ratio", "question": "부채를 자기자본으로 나눈 부채비율은 높으면 위험한가요?", "split": "dev", "origin": "v1-named"}
+{"slug": "audit-opinion", "question": "감사의견 거절이면 상장폐지될 수 있나요?", "split": "test", "origin": "v1-named"}
+{"slug": "dart", "question": "기업 공시를 찾아보는 DART 사이트는 무엇인가요?", "split": "test", "origin": "v1-named"}
+{"slug": "rights-offering", "question": "회사가 새 주식을 발행해 돈을 받는 유상증자가 뭔가요?", "split": "dev", "origin": "v1-named"}
+{"slug": "stock-split", "question": "주식 1주를 여러 주로 쪼개는 액면분할은 어떤 효과가 있나요?", "split": "test", "origin": "v1-named"}
+{"slug": "share-buyback", "question": "회사가 시장에서 자기 주식을 다시 사들이는 이유는 뭔가요?", "split": "test", "origin": "v1-named"}
+{"slug": "ipo", "question": "비상장 회사가 처음 거래소에 상장하는 IPO 절차를 알려 주세요", "split": "dev", "origin": "v1-named"}
+{"slug": "dividend-yield", "question": "주가 대비 배당금 비율인 배당수익률을 계산하고 싶어요", "split": "test", "origin": "v1-named"}
+{"slug": "ex-dividend", "question": "배당락일에 주가가 떨어지는 이유가 무엇인가요?", "split": "test", "origin": "v1-named"}
+{"slug": "etf", "question": "여러 주식을 묶어 거래소에서 사고파는 ETF가 뭔가요?", "split": "dev", "origin": "v1-named"}
+{"slug": "nav", "question": "펀드가 가진 자산에서 부채를 뺀 순자산가치는 무엇인가요?", "split": "test", "origin": "v1-named"}
+{"slug": "tracking-error", "question": "ETF 수익률이 추종 지수와 달라지는 추적오차를 설명해 주세요", "split": "test", "origin": "v1-named"}
+{"slug": "reits", "question": "빌딩 임대료를 배당하는 리츠에 대해 알려 주세요", "split": "dev", "origin": "v1-named"}
+{"slug": "futures", "question": "미래의 정해진 날짜에 특정 가격으로 사고파는 선물 계약은 뭔가요?", "split": "test", "origin": "v1-named"}
+{"slug": "call-option", "question": "정해진 가격에 살 수 있는 권리인 콜옵션이 궁금해요", "split": "test", "origin": "v1-named"}
+{"slug": "put-option", "question": "정해진 가격에 팔 수 있는 권리인 풋옵션이 뭔가요?", "split": "dev", "origin": "v1-named"}
+{"slug": "margin-call", "question": "증거금이 부족할 때 추가 납입을 요구하는 마진콜은 무엇인가요?", "split": "test", "origin": "v1-named"}
+{"slug": "moving-average", "question": "최근 주가 평균을 이어 그린 이동평균선은 어떻게 쓰나요?", "split": "test", "origin": "v1-named"}
+{"slug": "rsi", "question": "과매수와 과매도를 판단하는 RSI는 무엇인가요?", "split": "dev", "origin": "v1-named"}
+{"slug": "base-rate", "question": "한국은행이 정하는 기준금리가 오르면 어떤 일이 생기나요?", "split": "test", "origin": "v1-named"}
+{"slug": "cpi", "question": "소비자물가지수 CPI가 높아졌다는 뜻은 무엇인가요?", "split": "test", "origin": "v1-named"}
+{"slug": "exchange-rate", "question": "원 달러 환율이 오르면 해외 주식에는 어떤 영향이 있나요?", "split": "dev", "origin": "v1-named"}
+{"slug": "duration", "question": "채권 금리 변화에 대한 가격 민감도인 듀레이션을 설명해 주세요", "split": "test", "origin": "v1-named"}
+{"slug": "diversification", "question": "여러 자산에 나누어 투자하는 분산투자는 왜 필요한가요?", "split": "test", "origin": "v1-named"}
+{"slug": "rebalancing", "question": "목표 비중으로 다시 맞추는 리밸런싱은 언제 하나요?", "split": "dev", "origin": "v1-named"}
+{"slug": "mdd", "question": "고점에서 저점까지 최대로 떨어진 비율인 MDD가 뭔가요?", "split": "test", "origin": "v1-named"}
+{"slug": "sharpe-ratio", "question": "위험 한 단위에 대한 초과 수익을 보는 샤프지수가 뭔가요?", "split": "test", "origin": "v1-named"}
+{"slug": "fomo", "question": "남들만 돈 버는 것 같아 충동 매수하는 포모는 무엇인가요?", "split": "dev", "origin": "v1-named"}
+{"slug": "suitability-principle", "question": "고객 성향에 맞는 상품만 권해야 하는 적합성 원칙이 궁금해요", "split": "test", "origin": "v1-named"}
+{"slug": "deposit-insurance", "question": "은행이 망하면 예금자보호제도가 내 돈을 지켜 주나요?", "split": "test", "origin": "v1-named"}
+{"slug": "securities-transaction-tax", "question": "주식 매도할 때 내는 증권거래세는 무엇인가요?", "split": "dev", "origin": "v1-named"}
+{"slug": "isa", "question": "절세할 수 있는 ISA 계좌는 어떤 계좌인가요?", "split": "test", "origin": "v1-named"}
+{"slug": "per", "question": "회사가 버는 돈에 비해 주가가 몇 배인지 보는 숫자", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "pbr", "question": "장부상 순자산 대비 주가 수준을 보는 지표", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "roe", "question": "주주가 맡긴 돈으로 1년에 얼마를 벌었는지 비율", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "market-cap", "question": "회사 전체를 지금 주가로 사면 얼마인지", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "dividend-yield", "question": "지금 주가로 사면 배당으로 1년에 몇 퍼센트 받는지", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "payout-ratio", "question": "번 이익 중 얼마를 주주에게 나눠 주는지 비율", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "ex-dividend", "question": "배당 받을 권리가 사라진 다음 날 주가가 빠지는 현상", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "record-date", "question": "배당 받으려면 언제까지 주식을 갖고 있어야 하나요", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "stock-split", "question": "1주를 여러 주로 나눠서 주가를 낮추는 것", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "rights-offering", "question": "회사가 돈이 필요해서 새 주식을 팔아 자금을 모으는 것", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "bonus-issue", "question": "주주에게 공짜로 새 주식을 나눠 주는 것", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "share-buyback", "question": "회사가 자기 회사 주식을 사들이는 것", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "delisting", "question": "거래소에서 퇴출돼서 더 이상 사고팔 수 없게 되는 것", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "trading-halt", "question": "갑자기 주식을 사고팔 수 없게 막아 버리는 조치", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "price-limit", "question": "하루에 30퍼센트 넘게는 못 오르고 못 내리는 규칙", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "circuit-breaker", "question": "지수가 폭락하면 시장 전체 거래를 20분 멈추는 제도", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "volatility-interruption", "question": "개별 종목이 갑자기 튀면 2분간 단일가로 바꾸는 장치", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "call-auction", "question": "장 시작 전에 주문을 모아서 한 가격으로 체결하는 방식", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "settlement-t2", "question": "주식을 판 돈이 이틀 뒤에 들어오는 이유", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "deposit-cash", "question": "증권 계좌에 들어 있는 현금을 부르는 말", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "margin-loan", "question": "증권사에서 돈을 빌려서 주식을 사는 것", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "unsettled-trading", "question": "돈이 모자란 채로 주식을 사고 결제일까지 못 채운 상태", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "forced-liquidation", "question": "빌린 돈을 못 갚으면 증권사가 내 주식을 마음대로 팔아 버리는 것", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "limit-order", "question": "내가 정한 값에만 사겠다는 주문", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "bid-ask-spread", "question": "바로 사고 바로 팔면 생기는 가격 차이 비용", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "fund", "question": "여러 사람 돈을 모아 운용사가 대신 굴려 주는 상품", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "total-expense-ratio", "question": "펀드 갖고 있는 동안 매년 빠져나가는 비용 비율", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "premium-discount", "question": "ETF 시장 가격이 실제 가치보다 비싸게 거래되는 정도", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "leveraged-etf", "question": "지수 하루 수익률의 두 배를 따라가는 상품", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "inverse-etf", "question": "지수가 떨어지면 오르는 상품", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "index-fund", "question": "시장 평균을 그대로 따라가는 저비용 펀드", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "futures", "question": "미래에 정한 가격으로 사거나 팔기로 지금 약속하는 계약", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "options", "question": "정해진 가격에 사거나 팔 수 있는 권리를 거래하는 것", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "hedge", "question": "가진 자산이 떨어질 때를 대비해 반대 포지션을 잡는 것", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "inflation", "question": "물가가 올라서 같은 돈으로 살 수 있는 게 줄어드는 현상", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "base-rate", "question": "중앙은행이 정하는 기준이 되는 금리", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "exchange-rate", "question": "달러 하나를 사려면 원화가 얼마 필요한지", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "compound-interest", "question": "이자에 또 이자가 붙는 방식", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "diversification", "question": "한 바구니에 달걀을 다 담지 말라는 원칙", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "mdd", "question": "최고점에서 바닥까지 얼마나 빠졌는지 보여 주는 수치", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "stop-loss", "question": "미리 정한 손실에 도달하면 팔아서 더 큰 손해를 막는 것", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "loss-aversion", "question": "벌 때 기쁨보다 잃을 때 고통이 훨씬 크게 느껴지는 심리", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "herding", "question": "다른 사람들이 사니까 나도 따라 사는 행동", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "deposit-insurance", "question": "은행이 망해도 1억까지 돌려받을 수 있는 제도", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "unregistered-advisory", "question": "단톡방에서 종목 찍어 주고 돈 받는 곳", "split": "dev", "origin": "v2-paraphrase"}
+{"slug": "eps", "question": "회사 순이익을 주식 수로 나누면 나오는 값", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "bps", "question": "순자산을 주식 수로 나눈 1주당 장부가치", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "ev-ebitda", "question": "부채까지 포함한 기업 인수 가격을 현금 창출력과 비교하는 배수", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "dcf", "question": "앞으로 벌 현금을 지금 가치로 깎아서 더하는 평가 방법", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "consensus", "question": "증권사 애널리스트들 실적 예상치의 평균", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "earnings-surprise", "question": "실적이 시장 예상보다 훨씬 잘 나왔을 때 쓰는 말", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "operating-margin", "question": "100원 팔았을 때 본업에서 몇 원 남겼는지", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "free-cash-flow", "question": "벌어들인 현금에서 설비 투자를 빼고 남은 돈", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "capital-impairment", "question": "적자가 쌓여서 자본금보다 자본총계가 작아진 상태", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "audit-opinion", "question": "회계법인이 재무제표가 제대로 됐는지 내리는 판단", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "interest-coverage", "question": "영업이익으로 이자를 몇 번 낼 수 있는지", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "current-ratio", "question": "1년 안에 갚을 빚을 1년 안에 현금화할 자산으로 감당할 수 있는지", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "convertible-bond", "question": "나중에 주식으로 바꿀 수 있는 회사 채권", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "physical-split", "question": "사업부를 떼어 100퍼센트 자회사로 만드는 분할", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "ipo-subscription", "question": "상장 예정 회사 주식을 사겠다고 증거금 넣고 신청하는 것", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "lockup", "question": "상장 후 일정 기간 대주주가 주식을 못 팔게 묶어 두는 것", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "overhang", "question": "언제든 쏟아질 수 있는 대기 매도 물량", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "block-deal", "question": "장 끝나고 큰 지분을 할인해서 한꺼번에 넘기는 거래", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "tender-offer", "question": "기간과 가격을 정해 놓고 공개적으로 주식을 사겠다고 제안하는 것", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "treasury-yield", "question": "정부가 빌린 돈에 붙는 시장 금리", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "yield-curve", "question": "단기 금리가 장기 금리보다 높아지는 역전 현상", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "recession", "question": "경제 성장이 마이너스로 돌아서는 불황", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "stagflation", "question": "경기는 나쁜데 물가는 오르는 최악의 상황", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "quantitative-easing", "question": "중앙은행이 채권을 사들여 시중에 돈을 푸는 정책", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "credit-rating", "question": "회사가 빚을 갚을 능력을 AAA 같은 등급으로 매기는 것", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "volatility", "question": "가격이 얼마나 크게 출렁이는지", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "beta", "question": "시장이 1퍼센트 움직일 때 종목이 몇 퍼센트 움직이는지", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "sharpe-ratio", "question": "위험 대비 수익이 얼마나 좋은지 비교하는 지표", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "correlation", "question": "두 자산이 같이 움직이는지 반대로 움직이는지", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "rebalancing", "question": "오른 자산을 팔고 내린 자산을 사서 원래 비중으로 돌리는 것", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "dollar-cost-averaging", "question": "매달 같은 금액을 꾸준히 사는 방법", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "averaging-down", "question": "떨어진 주식을 더 사서 평균 단가를 낮추는 것", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "rule-of-72", "question": "돈이 두 배가 되는 데 걸리는 기간을 어림하는 법칙", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "disposition-effect", "question": "오른 주식은 빨리 팔고 떨어진 주식은 계속 들고 있는 습관", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "confirmation-bias", "question": "내 생각에 맞는 뉴스만 골라 보는 경향", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "anchoring", "question": "처음 산 가격에 집착해서 판단하는 심리", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "fomo", "question": "나만 기회를 놓칠까 봐 급하게 뛰어드는 심리", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "survivorship-bias", "question": "성공한 사람 이야기만 듣고 실패한 사람은 안 보이는 착각", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "suitability-principle", "question": "금융회사가 내 성향에 맞지 않는 상품은 권하면 안 된다는 원칙", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "mis-selling", "question": "위험 설명을 제대로 안 하고 상품을 판 경우", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "withdrawal-right", "question": "가입하고 며칠 안에 마음 바뀌면 취소할 수 있는 권리", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "market-manipulation", "question": "짜고 사고팔아서 주가를 인위적으로 띄우는 불법 행위", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "insider-trading", "question": "공시 전에 회사 내부 정보로 주식을 사고파는 것", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "dividend-income-tax", "question": "배당금 받을 때 떼는 세금", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "overseas-stock-tax", "question": "미국 주식 팔아서 번 돈에 붙는 세금", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "pension-savings", "question": "노후 대비하면서 연말정산 세액공제 받는 계좌", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "margin-call", "question": "증거금이 모자라니 돈을 더 넣으라는 연락", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "contango", "question": "만기가 먼 선물이 더 비싸서 롤오버할 때 손해 보는 상황", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "option-premium", "question": "권리를 사려고 내는 옵션의 가격", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "implied-volatility", "question": "옵션 가격에 담긴 시장이 예상하는 앞으로의 변동 폭", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "candlestick", "question": "빨간 막대와 파란 막대로 하루 가격을 그린 차트", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "golden-cross", "question": "단기 이동평균선이 장기선을 위로 뚫고 올라가는 것", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "support-resistance", "question": "여러 번 하락이 멈췄던 가격대", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "short-selling", "question": "없는 주식을 빌려서 먼저 팔고 나중에 사서 갚는 것", "split": "test", "origin": "v2-paraphrase"}
+{"slug": "tick-size", "question": "주문 가격을 올리거나 내릴 수 있는 최소 단위", "split": "test", "origin": "v2-paraphrase"}
