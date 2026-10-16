@@ -97,9 +97,11 @@ public class AssessmentStore {
         Map<String, Question> questionsById = new LinkedHashMap<>();
         activeQuestions.forEach(question -> questionsById.put(question.getId(), question));
 
-        Assessment assessment = new Assessment(UUID.randomUUID().toString(), user, periodPolicy.now());
-        assessment.reservePeriod(periodPolicy.period());
-        assessmentRepository.save(assessment);
+        Assessment draft = new Assessment(UUID.randomUUID().toString(), user, periodPolicy.now());
+        draft.reservePeriod(periodPolicy.period());
+        // 식별자를 직접 부여한 엔터티는 save가 merge로 처리되어 관리 상태의 사본을 돌려준다.
+        // 이후 스냅샷 기록이 DB에 반영되도록 반드시 반환된 인스턴스를 쓴다.
+        Assessment assessment = assessmentRepository.save(draft);
 
         Set<String> answeredQuestionIds = new HashSet<>();
         List<ScoredAnswer> scoredAnswers = new ArrayList<>();
