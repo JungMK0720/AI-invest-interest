@@ -36,6 +36,8 @@ public class LearningPathService {
 
     private static final int MAX_CONCEPTS = 6;
     private static final int MAX_TERMS = 6;
+    /** 한 신호가 목록을 독차지하지 않도록 신호마다 개념·용어를 2개까지만 가져온다. */
+    private static final int PER_SIGNAL = 2;
 
     private final AssessmentRepository assessments;
     private final InvestmentProfileRepository profiles;
@@ -113,16 +115,19 @@ public class LearningPathService {
     }
 
     private List<LearningPathDtos.Step> dueReviews(String userId, Instant now) {
+        // 개념 slug와 용어 slug가 같은 경우(예: etf)가 있어 종류까지 키에 넣는다.
         Map<String, List<QuizReviewState>> bySlug = new LinkedHashMap<>();
         for (QuizReviewState state : reviews.findByUserIdOrderByDueAtAsc(userId)) {
             if (!state.getDueAt().isAfter(now)) {
-                bySlug.computeIfAbsent(state.getSlug(), slug -> new ArrayList<>()).add(state);
+                String kind = state.getQuestionId().startsWith("glossary:") ? "TERM" : "CONCEPT";
+                bySlug.computeIfAbsent(kind + ":" + state.getSlug(), key -> new ArrayList<>()).add(state);
             }
         }
         List<LearningPathDtos.Step> steps = new ArrayList<>();
-        bySlug.forEach((slug, states) -> {
+        bySlug.forEach((key, states) -> {
+            String slug = states.getFirst().getSlug();
             long incorrect = states.stream().filter(QuizReviewState::isIncorrect).count();
-            String target = concepts.contains(slug) ? "CONCEPT" : "TERM";
+            String target = states.getFirst().getQuestionId().startsWith("glossary:") ? "TERM" : "CONCEPT";
             String reason = incorrect > 0
                     ? "오답 " + incorrect + "개를 다시 확인할 때가 되었습니다."
                     : "맞힌 문항도 간격을 두고 다시 풀면 오래 기억합니다.";
@@ -135,11 +140,14 @@ public class LearningPathService {
         List<LearningPathDtos.Step> steps = new ArrayList<>();
         Set<String> seen = new HashSet<>();
         for (Signal signal : ordered) {
+            int taken = 0;
             for (String slug : signal.path().concepts()) {
                 if (steps.size() >= MAX_CONCEPTS) return List.copyOf(steps);
+                if (taken >= PER_SIGNAL) break;
                 if (mastered.contains(slug) || !concepts.contains(slug) || !seen.add(slug)) continue;
                 steps.add(new LearningPathDtos.Step("CONCEPT", "CONCEPT", slug, concepts.node(slug).title(),
                         signal.code(), signal.reason()));
+                taken++;
             }
         }
         return List.copyOf(steps);
@@ -151,11 +159,14 @@ public class LearningPathService {
         List<LearningPathDtos.Step> steps = new ArrayList<>();
         Set<String> seen = new HashSet<>();
         for (Signal signal : ordered) {
+            int taken = 0;
             for (String slug : signal.path().terms()) {
                 if (steps.size() >= MAX_TERMS) return List.copyOf(steps);
+                if (taken >= PER_SIGNAL) break;
                 GlossaryTerm term = published.get(slug);
                 if (term == null || !seen.add(slug)) continue;
                 steps.add(new LearningPathDtos.Step("TERM", "TERM", slug, term.getTerm(), signal.code(), term.getDefinition()));
+                taken++;
             }
         }
         return List.copyOf(steps);

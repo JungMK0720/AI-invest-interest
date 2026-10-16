@@ -14,9 +14,11 @@ public final class MlDtos {
     /** 관심사 태그 하나. score는 태그별 로지스틱 회귀의 확률이다. */
     public record TagSignal(String code, String label, double score) {}
 
-    /** 태그가 안내하는 다음 학습. 개념·용어 slug만 담고 화면이 제목을 붙인다. */
+    public record LinkItem(String slug, String title) {}
+
+    /** 태그가 안내하는 다음 학습 개념과 용어. */
     public record LearningLink(String code, String label, String message,
-                               List<String> conceptSlugs, List<String> termSlugs) {}
+                               List<LinkItem> concepts, List<LinkItem> terms) {}
 
     public record StyleCheckResponse(String status, String estimatedProfileType,
                                      String estimatedProfileLabel, Integer estimatedGrade,

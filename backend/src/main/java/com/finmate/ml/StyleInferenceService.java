@@ -127,7 +127,9 @@ public class StyleInferenceService {
         List<MlDtos.LearningLink> links = new ArrayList<>();
         for (TagScore tag : tags) {
             signals.tag(tag.code()).ifPresent(path -> links.add(new MlDtos.LearningLink(
-                    tag.code(), path.label(), path.message(), path.concepts(), path.terms())));
+                    tag.code(), path.label(), path.message(),
+                    path.concepts().stream().map(slug -> new MlDtos.LinkItem(slug, signals.conceptTitle(slug))).toList(),
+                    path.terms().stream().map(slug -> new MlDtos.LinkItem(slug, signals.termTitle(slug))).toList())));
         }
         return List.copyOf(links);
     }

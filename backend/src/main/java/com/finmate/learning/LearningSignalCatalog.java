@@ -29,6 +29,8 @@ public class LearningSignalCatalog {
     private final Map<String, Path> tags;
     private final Map<String, Path> reviewFlags;
     private final Map<String, Path> profiles;
+    private final Map<String, String> conceptTitles;
+    private final Map<String, String> termTitles;
 
     public LearningSignalCatalog(ObjectMapper mapper, LearningCatalog concepts, GlossarySeedData glossary) {
         Source source;
@@ -56,7 +58,17 @@ public class LearningSignalCatalog {
         this.tags = Map.copyOf(source.tags());
         this.reviewFlags = Map.copyOf(source.reviewFlags());
         this.profiles = Map.copyOf(source.profiles());
+        this.conceptTitles = concepts.nodes().stream()
+                .collect(Collectors.toUnmodifiableMap(LearningContent.Node::slug, LearningContent.Node::title));
+        this.termTitles = glossary.terms().stream()
+                .collect(Collectors.toUnmodifiableMap(GlossaryTerm::getSlug, GlossaryTerm::getTerm));
     }
+
+    /** 화면 링크에 붙일 개념 제목. 모르면 slug를 그대로 돌려준다. */
+    public String conceptTitle(String slug) { return conceptTitles.getOrDefault(slug, slug); }
+
+    /** 시드 기준 용어 이름. 관리자가 이름을 바꿨다면 상세 화면에서 최신 이름이 보인다. */
+    public String termTitle(String slug) { return termTitles.getOrDefault(slug, slug); }
 
     public String version() { return version; }
 

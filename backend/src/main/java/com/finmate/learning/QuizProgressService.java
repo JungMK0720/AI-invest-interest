@@ -74,7 +74,8 @@ public class QuizProgressService {
     public QuizProgressDtos.WrongAnswerList wrongAnswers(String userId) {
         return new QuizProgressDtos.WrongAnswerList(reviews.findByUserIdAndIncorrectTrueOrderByDueAtAsc(userId)
                 .stream().map(state -> new QuizProgressDtos.WrongAnswer(
-                        state.getSlug(), state.getQuestionId(), state.getPrompt(), state.getSelectedChoiceId(),
+                        state.getSlug(), target(state), state.getTitle(), state.getQuestionId(), state.getPrompt(),
+                        state.getSelectedChoiceId(),
                         state.getCorrectChoiceId(), state.getSelectedRationale(), state.getCorrectRationale(),
                         state.getTakeaway(), state.getLastAttemptedAt(), state.getDueAt(), state.getStreak()))
                 .toList());
@@ -85,8 +86,8 @@ public class QuizProgressService {
         Instant now = Instant.now();
         Map<String, ScheduleAccumulator> byConcept = new LinkedHashMap<>();
         for (QuizReviewState state : reviews.findByUserIdOrderByDueAtAsc(userId)) {
-            ScheduleAccumulator summary = byConcept.computeIfAbsent(state.getSlug(),
-                    slug -> new ScheduleAccumulator(slug, state.getTitle(), state.getDueAt()));
+            ScheduleAccumulator summary = byConcept.computeIfAbsent(target(state) + ":" + state.getSlug(),
+                    key -> new ScheduleAccumulator(state.getSlug(), target(state), state.getTitle(), state.getDueAt()));
             summary.questionCount++;
             if (state.isIncorrect()) {
                 summary.incorrectCount++;
@@ -97,7 +98,7 @@ public class QuizProgressService {
         }
         List<QuizProgressDtos.ReviewScheduleItem> items = new ArrayList<>();
         byConcept.values().forEach(item -> items.add(new QuizProgressDtos.ReviewScheduleItem(
-                item.slug, item.title, item.dueAt, item.dueNow, item.questionCount, item.incorrectCount)));
+                item.slug, item.target, item.title, item.dueAt, item.dueNow, item.questionCount, item.incorrectCount)));
         return new QuizProgressDtos.ReviewSchedule(List.copyOf(items));
     }
 
@@ -107,16 +108,23 @@ public class QuizProgressService {
                 attempt.getCorrectCount(), attempt.getScorePercent());
     }
 
+    /** 용어 퀴즈 복습 키는 "glossary:" 접두사를 쓴다(GlossaryQuizProgressService). */
+    private static String target(QuizReviewState state) {
+        return state.getQuestionId().startsWith("glossary:") ? "TERM" : "CONCEPT";
+    }
+
     private static final class ScheduleAccumulator {
         private final String slug;
+        private final String target;
         private final String title;
         private final Instant dueAt;
         private boolean dueNow;
         private int questionCount;
         private int incorrectCount;
 
-        private ScheduleAccumulator(String slug, String title, Instant dueAt) {
+        private ScheduleAccumulator(String slug, String target, String title, Instant dueAt) {
             this.slug = slug;
+            this.target = target;
             this.title = title;
             this.dueAt = dueAt;
         }

@@ -33,7 +33,8 @@ class StyleInferenceServiceTest {
         assertThat(result.tags()).extracting(MlDtos.TagSignal::code).contains("PRINCIPAL_FOCUS", "SHORT_TERM_NEED");
         assertThat(result.learningLinks()).extracting(MlDtos.LearningLink::code)
                 .contains("PRINCIPAL_FOCUS", "SHORT_TERM_NEED");
-        assertThat(result.learningLinks().getFirst().conceptSlugs()).isNotEmpty();
+        assertThat(result.learningLinks().getFirst().concepts()).isNotEmpty();
+        assertThat(result.learningLinks().getFirst().concepts().getFirst().title()).isNotBlank();
     }
 
     @Test
