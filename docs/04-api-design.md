@@ -2,7 +2,7 @@
 
 > 기준 문서: [02-user-flow.md](02-user-flow.md), [03-data-model.md](03-data-model.md)
 > 제출용 명세: [FinMATE-API.yml](../deliverables/FinMATE-API.yml)
-> 상태: 1차 Agile(P0) 계약 확정
+> 상태: 1차 Agile(P0) 계약 확정 · 2차 고도화 API는 §10 (OAS 2.0.0, 50 paths)
 > 발표용 최신 명세: [FinMATE-발표용-API.yml](../presentation/FinMATE-발표용-API.yml) (25 paths / 26 operations)
 
 ## 1. API 원칙
@@ -134,3 +134,41 @@ LLM 설명 실패는 별도 오류가 아니라 템플릿 폴백으로 처리한
 | 교육용 포트폴리오 | 5 paths | 가상 상품·충격·분석·전후 비교, 실제 주문과 분리 |
 
 실데이터 수집·과거 자료·관리자 검수 API는 발표용 명세에 포함하지 않고 P1 확장으로 설명한다. 구현 시에는 출처 URL, 기준 시각, 데이터 hash, 콘텐츠 버전을 함께 저장해 현재 데이터와 과거 스냅샷을 덮어쓰지 않도록 한다.
+
+
+## 10. 2차 고도화 API (2026-10)
+
+제출용 명세 `deliverables/FinMATE-API.yml`을 2.0.0으로 올려 아래 경로를 추가했다. 인증 표기: 공개 = 토큰 불필요, 선택 = 토큰이 있으면 기록을 저장(잘못된 토큰은 401), 필요 = 로그인, 관리자 = ADMIN 역할.
+
+| 태그 | Method | Path | 인증 | 설명 |
+|---|---|---|---|---|
+| auth | GET | `/auth/me` | 필요 | 세션 확인·역할 |
+| auth | POST | `/auth/logout` | 필요 | 세션 폐기 |
+| learning | POST | `/learning/concepts/{slug}/explain` | 공개 | 승인 콘텐츠 기반 AI 설명(템플릿 폴백) |
+| learning | POST | `/learning/concepts/{slug}/quiz/attempts` | 선택 | choice ID 제출·채점, 로그인 시 이력·복습 저장 |
+| glossary | GET | `/glossary/categories` | 공개 | 14개 분류와 공개 용어 수 |
+| glossary | GET | `/glossary/terms?q=&category=&level=` | 공개 | 공개 용어 목록·글자 검색 |
+| glossary | GET | `/glossary/terms/{slug}` | 공개 | 용어 상세 |
+| glossary | GET | `/glossary/quiz?category=&count=&seed=` | 공개 | 용어 4지선다(정답 미포함) |
+| glossary | POST | `/glossary/quiz/grade` | 선택 | 채점, 로그인 시 용어 복습 저장 |
+| glossary | GET/PUT/DELETE | `/glossary/bookmarks[/{slug}]` | 필요 | 저장한 용어 |
+| ml | GET | `/ml/models` | 공개 | 모델 카드(데이터·지표·기준선·한계) |
+| ml | POST | `/ml/style-check` | 공개 | 자유 서술 성향 신호·관심사 태그·학습 링크 |
+| ml | POST | `/ml/term-search` | 공개 | 질문형 용어 검색(DB 공개 용어 인덱스) |
+| me | GET | `/me/learning-path` | 필요 | 개인화 학습 경로(사유 포함) |
+| me | GET | `/me/quiz-attempts[/{id}]` | 필요 | 시도 이력·상세 |
+| me | GET | `/me/wrong-answers` | 필요 | 오답노트 |
+| me | GET | `/me/review-schedule` | 필요 | 복습 일정 |
+| admin | GET | `/admin/overview` | 관리자 | 운영 현황 |
+| admin | GET/POST | `/admin/glossary/terms` | 관리자 | 전체 용어 / 새 용어(비공개) |
+| admin | GET/PUT | `/admin/glossary/terms/{slug}` | 관리자 | 편집용 조회 / 초안 저장 |
+| admin | POST | `/admin/glossary/terms/{slug}/publish` | 관리자 | 검증 게시(이력·인덱스 재구성) |
+| admin | POST | `/admin/glossary/terms/{slug}/unpublish` | 관리자 | 공개 내리기 |
+| admin | DELETE | `/admin/glossary/terms/{slug}/draft` | 관리자 | 초안 버리기 |
+| admin | GET | `/admin/glossary/terms/{slug}/revisions` | 관리자 | 게시 이력 |
+
+변경된 기존 계약
+
+- `POST /assessments` 요청에 선택 필드 `narrative`(1,000자 이하) 추가. 응답 `evidence.narrative`에 추정 상태·성향·확신도·불일치·태그·모델 버전(원문 없음), `evidence.reviewFlags`에 `NARRATIVE_MISMATCH` 추가.
+- `LoginResponse`에 `expiresAt`, `UserResponse`에 `role` 추가.
+- 오류 코드는 기존 `Error` 스키마를 그대로 쓴다. 관리자 API의 권한 부족은 403, 콘텐츠 버전 충돌은 409다.

@@ -15,6 +15,8 @@
 //   backend/src/main/java/com/finmate/practice/{PracticeCatalog,PracticeEngine,PracticeDtos}.java
 //   backend/src/main/java/com/finmate/integration/{MarketDataProvider,OpenDartProvider}.java
 //   backend/src/main/resources/learning/concepts.json (version: learning-content-v3-2026-09-10, 59개 개념)
+//   backend/src/main/java/com/finmate/{auth,glossary,admin,ml}/*.java (2026-10 2차 고도화)
+//   backend/src/main/resources/glossary/**/*.json (version: glossary-v1-2026-10-15, 14개 분류 247개 용어)
 // =============================================================================
 
 // -----------------------------------------------------------------------------
@@ -26,9 +28,22 @@ Table users {
   email         varchar   [not null, unique]
   password_hash varchar   [not null, note: 'BCrypt 해시. 평문 비밀번호는 저장하지 않는다']
   name          varchar
+  role          varchar   [not null, default: 'USER', note: 'USER | ADMIN. 공개 가입은 항상 USER, ADMIN은 서버 환경변수(FINMATE_ADMIN_*)로만 생성']
   created_at    timestamp [not null]
 
-  Note: '[구현됨] 일반 사용자 계정'
+  Note: '[구현됨] 사용자 계정과 역할'
+}
+
+Table auth_sessions {
+  token_hash  varchar   [pk, note: 'Bearer 토큰의 SHA-256. 토큰 원문은 저장하지 않는다']
+  user_id     varchar   [ref: > users.id, not null]
+  issued_at   timestamp [not null]
+  expires_at  timestamp [not null, note: '기본 30일(finmate.auth.session-days)']
+  revoked_at  timestamp [note: 'POST /auth/logout 시각. null이면 유효']
+
+  indexes { user_id }
+
+  Note: '[구현됨] 만료·폐기 가능한 로그인 세션. 서버 재시작·다중 인스턴스에서도 유지(ADR-017, ADR-009 대체)'
 }
 
 // -----------------------------------------------------------------------------
@@ -66,7 +81,7 @@ Table assessments {
   status             varchar   [not null, note: 'PROCESSING | COMPLETED | FAILED']
   failure_reason     varchar   [note: '사용자에게 직접 노출하지 않는 내부 실패 사유']
   submission_period  varchar   [note: 'AssessmentPeriodPolicy(monthly-kst-v1) 기준 한국 달력 월(YYYY-MM). (user_id, submission_period) unique']
-  decision_snapshot  text      [note: 'DecisionSnapshot record를 JSON으로 저장(SnapshotCodec). 완료 후 불변']
+  decision_snapshot  text      [note: 'DecisionSnapshot record를 JSON으로 저장(SnapshotCodec). 완료 후 불변. 답변 근거·규칙/문항 버전·확인 플래그·자유 서술 모델 추정(narrative: 상태·성향·확신도·태그·모델 버전, 원문 미저장)']
   created_at         timestamp [not null]
   completed_at       timestamp
 
@@ -230,26 +245,58 @@ Table quiz_options {
 Table quiz_attempts {
   id               varchar   [pk]
   user_id          varchar   [ref: > users.id, not null]
-  concept_id       varchar   [ref: > concepts.id, not null]
+  concept_slug     varchar   [not null, note: '개념 slug. 용어 확인 문제는 "glossary"']
   content_version  varchar   [not null, note: '채점 시점 콘텐츠 버전. 이후 개정돼도 기록 유지']
   total            integer   [not null]
+  answered         integer   [not null]
   correct_count    integer   [not null]
   score_percent    integer   [not null]
   attempted_at     timestamp [not null]
 
-  Note: '[설계 제안·P1] 로그인 사용자별 진도 저장. 현재는 POST /learning/concepts/{slug}/quiz/grade가 즉시 채점만 하고 저장하지 않는다'
+  indexes { (user_id, attempted_at) }
+
+  Note: '[구현됨] 로그인 사용자의 확인 문제 시도 이력(불변). POST /learning/concepts/{slug}/quiz/attempts, POST /glossary/quiz/grade'
 }
 
 Table quiz_attempt_answers {
-  id              varchar [pk]
-  attempt_id      varchar [ref: > quiz_attempts.id, not null]
-  quiz_item_id    varchar [ref: > quiz_items.id, not null]
-  selected_index  integer [not null, note: '-1은 미응답']
-  correct         boolean [not null]
+  id                  varchar [pk]
+  attempt_id          varchar [ref: > quiz_attempts.id, not null]
+  question_id         varchar [not null]
+  selected_choice_id  varchar [note: 'null이면 미응답']
+  correct_choice_id   varchar [not null]
+  correct             boolean [not null]
+  prompt              text    [not null, note: '당시 문항 문구 스냅샷']
+  selected_rationale  text
+  correct_rationale   text    [not null]
+  takeaway            text    [not null]
 
-  indexes { (attempt_id, quiz_item_id) [unique] }
+  Note: '[구현됨] 문항별 응답과 당시 해설. 콘텐츠가 개정돼도 오답 이유를 그대로 보여 준다'
+}
 
-  Note: '[설계 제안·P1] 문항별 오답노트의 근거 데이터'
+Table quiz_review_state {
+  id                  varchar   [pk]
+  user_id             varchar   [ref: > users.id, not null]
+  concept_slug        varchar   [not null, note: '개념 slug 또는 용어 slug']
+  concept_title       varchar   [not null]
+  question_id         varchar   [not null, note: '용어 퀴즈는 "glossary:{slug}"로 고정해 개정 후에도 같은 복습 키 유지']
+  content_version     varchar   [not null]
+  prompt              text      [not null]
+  selected_choice_id  varchar
+  correct_choice_id   varchar   [not null]
+  selected_rationale  text
+  correct_rationale   text      [not null]
+  takeaway            text      [not null]
+  incorrect           boolean   [not null, note: '가장 최근 응답이 오답인지(오답노트 대상)']
+  streak              integer   [not null, note: '연속 정답 수. 콘텐츠 버전이 바뀌면 0']
+  last_attempted_at   timestamp [not null]
+  due_at              timestamp [not null, note: '다음 복습일: 오답 1일, 연속 정답 1·3·7·14·30일']
+
+  indexes {
+    (user_id, question_id) [unique]
+    (user_id, due_at)
+  }
+
+  Note: '[구현됨] 사용자·문항별 최신 상태와 간격 반복 복습 일정. GET /me/wrong-answers, /me/review-schedule, /me/learning-path'
 }
 
 Table simulation_scenarios {
@@ -302,7 +349,7 @@ Table learning_progress {
 
   indexes { (user_id, content_revision_id) [unique] }
 
-  Note: '[설계 제안·P1] 로그인 사용자의 개념별 학습 진도·오답노트(FR-15)'
+  Note: '[설계 제안·P1] 개념별 열람·완료 진도. 오답노트·복습은 quiz_review_state로 구현됨(FR-15)'
 }
 
 Table concept_ai_explanations {
@@ -446,6 +493,82 @@ Table instrument_snapshots {
   Note: '[설계 제안·P1] 시점별 스냅샷. 최신값을 덮어쓰지 않아 "현재/과거 자료" 탭을 만들 수 있다'
 }
 
+// -----------------------------------------------------------------------------
+// SECTION 6. 주식 용어 사전과 콘텐츠 운영 (2026-10 구현)
+// -----------------------------------------------------------------------------
+
+Table glossary_categories {
+  id          varchar [pk, note: 'market, trading, valuation, financials, corporate, dividend, funds, derivatives, technical, macro, risk, behavior, protection, tax']
+  sort_order  integer [not null]
+  name        varchar [not null]
+  description text    [not null]
+
+  Note: '[구현됨] 14개 분류. 기동 시 glossary/categories.json에서 빠진 분류만 적재'
+}
+
+Table glossary_terms {
+  slug            varchar   [pk]
+  category_id     varchar   [ref: > glossary_categories.id, not null]
+  term            varchar   [not null]
+  full_name       varchar
+  english         varchar   [not null]
+  aliases         text      [not null, note: 'JSON 배열(StringListConverter)']
+  level           varchar   [not null, note: 'BASIC | INTERMEDIATE | ADVANCED']
+  definition      text      [not null, note: '한 줄 정의(500자 이하)']
+  explanation     text      [not null]
+  formula         text
+  example         text
+  caution         text
+  related         text      [not null, note: '관련 용어 slug JSON 배열. 존재하는 용어만 허용']
+  concept_slug    varchar   [not null, note: 'concepts.slug(학습 개념)와 연결. 존재하는 개념만 허용']
+  source_name     varchar   [not null]
+  source_url      varchar   [not null, note: 'http/https만 허용. 출처 없는 용어는 적재·게시 불가']
+  status          varchar   [not null, note: 'PUBLISHED(공개 API·검색 노출) | DRAFT(관리자 생성 또는 공개 내림)']
+  content_version varchar   [not null, note: '시드 버전 또는 admin-{epochMillis}-{uuid8}. 초안 충돌 검사 기준']
+  updated_at      timestamp [not null]
+
+  indexes { (category_id, status) }
+
+  Note: '[구현됨] 247개 시드 용어. 기동 시 없는 slug만 넣고 관리자 수정본은 덮어쓰지 않는다. 질문형 검색 인덱스는 공개 용어로 매번 구성'
+}
+
+Table glossary_term_drafts {
+  slug            varchar   [pk, ref: - glossary_terms.slug]
+  base_version    varchar   [not null, note: '초안을 시작한 공개본 content_version. 게시 시 다르면 409']
+  editor_user_id  varchar   [ref: > users.id, not null]
+  draft_json      text      [not null]
+  updated_at      timestamp [not null]
+
+  Note: '[구현됨] 공개본을 유지한 채 편집하는 용어당 1건의 초안'
+}
+
+Table glossary_term_revisions {
+  id               varchar   [pk]
+  slug             varchar   [ref: > glossary_terms.slug, not null]
+  action           varchar   [not null, note: 'CREATED | PUBLISHED | UNPUBLISHED']
+  content_version  varchar   [not null]
+  editor_user_id   varchar   [ref: > users.id, not null]
+  snapshot_json    text      [not null, note: '당시 용어 전체 내용']
+  created_at       timestamp [not null]
+
+  indexes { (slug, created_at) }
+
+  Note: '[구현됨] 공개 상태 변경의 불변 감사 기록. 추가만 하고 수정·삭제하지 않는다'
+}
+
+Table glossary_bookmarks {
+  user_id     varchar   [ref: > users.id, not null]
+  term_slug   varchar   [ref: > glossary_terms.slug, not null]
+  created_at  timestamp [not null]
+
+  indexes { (user_id, term_slug) [pk] }
+
+  Note: '[구현됨] 사용자가 저장한 용어'
+}
+
+// 보조 모델 산출물(style-model.json, term-model.json, model-card.json)은 DB가 아니라 classpath에 둔다.
+// 모델은 ml/train.py로 재현하고, 문서 벡터만 공개 용어(glossary_terms)로 서버가 만든다.
+
 // =============================================================================
 // 관계 요약
 //   users 1─N assessments 1─1 investment_profiles
@@ -453,6 +576,8 @@ Table instrument_snapshots {
 //   concepts 1─N content_revisions 1─N quiz_items 1─N quiz_options
 //   concepts N─N simulation_scenarios (concept_simulations)
 //   users 1─N quiz_attempts / simulation_runs / practice_runs / concept_ai_explanations / learning_progress
+//   users 1─N auth_sessions, quiz_review_state, glossary_bookmarks, glossary_term_revisions(편집자)
+//   glossary_categories 1─N glossary_terms 1─0..1 glossary_term_drafts, 1─N glossary_term_revisions
 //   source_registry 1─N source_documents 1─N instrument_snapshots
 //   practice_runs 1─N practice_run_comparisons (before/after 두 건씩)
 // =============================================================================
