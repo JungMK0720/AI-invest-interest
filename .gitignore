@@ -1,24 +1,29 @@
 # Java / Maven
-backend/target/
+back/target/
 *.class
 *.log
 
 # Node / Vite
-frontend/node_modules/
-frontend/dist/
-frontend/.vite/
-frontend/*.tsbuildinfo
+front/node_modules/
+front/dist/
+front/.vite/
+front/*.tsbuildinfo
 
 # Python / ML
-ml/.venv/
-ml/**/__pycache__/
-ml/.pytest_cache/
+back/ml/.venv/
+**/__pycache__/
+**/.pytest_cache/
 *.pyc
 
 # Env / secrets (실제 키가 들어갈 수 있는 파일은 커밋하지 않는다)
 .env
 .env.local
+.env.*
+!.env.example
+!**/.env.example
 *.env.local
+*.pem
+*.key
 
 # OS / IDE
 .DS_Store

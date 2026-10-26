@@ -1,0 +1,44 @@
+# Local integration only. prod currently uses Hibernate update; do not use this
+# compose file as the production Supabase deployment configuration.
+# Keep back/ and infra/ as sibling directories after repository extraction.
+# From infra/: docker compose up --build
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: finmate
+      POSTGRES_USER: finmate
+      POSTGRES_PASSWORD: finmate_local_dev_only
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - finmate_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finmate"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: ../back
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/finmate
+      SPRING_DATASOURCE_USERNAME: finmate
+      SPRING_DATASOURCE_PASSWORD: finmate_local_dev_only
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      # 비워 두면 관리자 계정을 만들지 않는다. 비밀번호는 12자 이상.
+      FINMATE_ADMIN_EMAIL: ${FINMATE_ADMIN_EMAIL:-}
+      FINMATE_ADMIN_PASSWORD: ${FINMATE_ADMIN_PASSWORD:-}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
+    ports:
+      - "127.0.0.1:${BACKEND_PORT:-8080}:8080"
+
+volumes:
+  finmate_pg_data:

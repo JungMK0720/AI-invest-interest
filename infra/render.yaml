@@ -1,0 +1,36 @@
+# Target: independent oh-my-finance/infra repository after code extraction.
+# This Blueprint builds oh-my-finance/back, not the infra repository.
+# Deployment is blocked until the finmate schema and migrations are provisioned.
+# No Render-managed database: Supabase provides PostgreSQL.
+
+services:
+  - type: web
+    name: finmate-backend
+    repo: https://github.com/oh-my-finance/back
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    autoDeployTrigger: "off"
+    healthCheckPath: /api/product-categories
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod,supabase
+      - key: FINMATE_DB_SCHEMA
+        value: finmate
+      - key: FINMATE_DB_POOL_SIZE
+        value: "5"
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: FRONTEND_ORIGIN
+        sync: false
+      - key: FINMATE_ADMIN_EMAIL
+        sync: false
+      - key: FINMATE_ADMIN_PASSWORD
+        sync: false

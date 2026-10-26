@@ -1,0 +1,15 @@
+target/
+*.class
+*.log
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.idea/
+.vscode/
+.DS_Store

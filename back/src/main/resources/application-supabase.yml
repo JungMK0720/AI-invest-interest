@@ -1,0 +1,31 @@
+# Opt in with SPRING_PROFILES_ACTIVE=prod,supabase (keep this order).
+# Requires an existing, migrated schema. This profile never creates tables.
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: ${FINMATE_DB_POOL_SIZE:5}
+      minimum-idle: 1
+      connection-timeout: 30000
+      data-source-properties:
+        sslmode: ${FINMATE_DB_SSL_MODE:require}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: ${FINMATE_DB_SCHEMA:finmate}
+    defer-datasource-initialization: false
+  sql:
+    init:
+      mode: never
+  h2:
+    console:
+      enabled: false
+
+finmate:
+  cors:
+    allowed-origins: ${FRONTEND_ORIGIN}
